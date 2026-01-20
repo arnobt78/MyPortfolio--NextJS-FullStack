@@ -110,24 +110,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Inject chatbot widget script */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.CHATBOT_BASE_URL = "https://ai-chatbot-widget.arnobt78.workers.dev";
-              window.CHATBOT_TITLE = "Arnob's Assistant";
-              window.CHATBOT_GREETING = "👋 How can I help you today?";
-              window.CHATBOT_PLACEHOLDER = "Ask about Arnob...";
-            `,
-          }}
-        />
-        <script
-          src="https://ai-chatbot-widget.arnobt78.workers.dev/widget.js"
-          async
-        ></script>
       </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
-        <div id="chatbot-widget"></div> {/* Add this container */}
         <GoogleAnalytics />
         <Analytics />
         <ScrollToTop />
