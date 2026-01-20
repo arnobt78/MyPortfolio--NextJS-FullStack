@@ -4,7 +4,7 @@ import WorkPage from "../../components/pages/WorkPage";
 export const metadata: Metadata = {
   title: "Work & Projects | Arnob Mahmud | Full-Stack Developer Portfolio",
   description:
-    "Explore 33+ full-stack web development projects by Arnob Mahmud. Featuring React, Next.js, Angular, Python, Machine Learning, AI ChatBots, E-Commerce apps, Mobile applications, and more. View live demos and GitHub repositories.",
+    "Explore 93+ full-stack web development projects by Arnob Mahmud. Featuring React, Next.js, Angular, Python, Machine Learning, AI ChatBots, E-Commerce apps, Mobile applications, and more. View live demos and GitHub repositories.",
   keywords: [
     "Web Development Projects",
     "Full-Stack Portfolio",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Work & Projects | Arnob Mahmud Portfolio",
     description:
-      "Browse through 33+ innovative web development projects including AI chatbots, e-commerce platforms, mobile apps, and automation tools.",
+      "Browse through 93+ innovative web development projects including AI chatbots, e-commerce platforms, mobile apps, and automation tools.",
     url: "https://arnob-mahmud.vercel.app/work",
   },
 };

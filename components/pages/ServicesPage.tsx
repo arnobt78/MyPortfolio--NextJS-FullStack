@@ -3,40 +3,78 @@
 import Link from "next/link";
 import { BsArrowDownRight } from "react-icons/bs";
 
+interface ServiceStack {
+  name: string;
+}
+
 interface Service {
   num: string;
   title: string;
   description: string;
+  stack: ServiceStack[];
   href: string;
 }
 
 const services: Service[] = [
   {
     num: "01",
-    title: "Web / Mobile Development",
+    title: "Web & Application Development",
     description:
-      "Experienced web developer with a focus on crafting responsive, user-friendly websites & scalable web applications. Dedicated to delivering clean code & innovative solutions that are customized to meet your business needs.",
+      "Design and build scalable, production-ready web and mobile applications with clean architecture, modern frameworks, and reliable backend APIs—focused on performance, maintainability, and business impact.",
+    stack: [
+      { name: ".NET" },
+      { name: "Node.js" },
+      { name: "Python" },
+      { name: "React" },
+      { name: "Next.js" },
+      { name: "Angular" },
+      { name: "REST APIs" },
+    ],
     href: "/contact",
   },
   {
     num: "02",
-    title: "UI / UX Design",
+    title: "UI / UX Engineering",
     description:
-      "Creative UI/UX designer dedicated to crafting intuitive & visually appealing digital experiences. I translate user insights into seamless, engaging designs that enhance interaction & satisfaction.",
+      "Create intuitive, user-centric interfaces that balance usability and visual clarity. Translate business requirements into responsive, accessible, and consistent user experiences.",
+    stack: [
+      { name: "Figma" },
+      { name: "Wireframing" },
+      { name: "Prototyping" },
+      { name: "Design Systems" },
+    ],
     href: "/contact",
   },
   {
     num: "03",
-    title: "Test Automation",
+    title: "Test Automation, DevOps & Quality Engineering",
     description:
-      "Detail-oriented Software Testing (QA) Engineer with expertise in ensuring high-quality software through rigorous testing. I specialize in identifying defects, optimizing performance, & ensuring that applications meet user requirements. I'm committed to delivering reliable, bug-free solutions that enhance user satisfaction & drive business success.",
+      "Ensure high software quality and reliable delivery through automated testing, CI/CD pipelines, and integration validation. Focused on stability, performance, and defect prevention across the full delivery lifecycle.",
+    stack: [
+  { name: "CI/CD" },
+  { name: "Docker" },
+  { name: "Kubernetes" },
+  { name: "Cypress" },
+  { name: "Jest" },
+  { name: "Selenium" },
+  { name: "VPS" },
+],
+
     href: "/contact",
   },
   {
     num: "04",
-    title: "Cyber Security",
+    title: "Cloud, Security & Reliability",
     description:
-      "Focused on safeguarding digital assets & systems from cyber threats. I excel in implementing robust security measures, monitoring vulnerabilities, & developing strategies to protect sensitive information. My commitment is to ensure the integrity, confidentiality, & availability of your data, providing peace of mind & robust protection against evolving cyber threats.",
+      "Deliver secure, reliable cloud-based systems with practical security controls, access management, and monitoring. Focused on stability, compliance, and production resilience across modern application environments.",
+    stack: [
+      { name: "AWS" },
+      { name: "Auth" },
+      { name: "Monitoring" },
+      { name: "Secure APIs" },
+      { name: "SSH" },
+      { name: "Network Security" },
+    ],
     href: "/contact",
   },
 ];
@@ -65,13 +103,27 @@ const ServicesPage = () => {
                   </Link>
                 </div>
                 {/* title */}
-                <h2 className="text-[32px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
+                <h2 className="text-xl sm:text-2xl font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
                   {service.title}
                 </h2>
                 {/* description  */}
-                <p className="text-white/60 text-justify">
+                <p className="text-white/60 text-start text-md sm:text-lg">
                   {service.description}
                 </p>
+                {/* stack */}
+                <div className="text-start">
+                  <ul className="flex flex-wrap gap-2">
+                    {service.stack.map((item, stackIndex) => {
+                      return (
+                        <li key={stackIndex} className="text-md sm:text-lg text-accent">
+                          {item.name}
+                          {/* removing the last comma  */}
+                          {stackIndex !== service.stack.length - 1 && ","}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
                 {/* border */}
                 <div className="border-b border-white/20 w-full"></div>
               </div>

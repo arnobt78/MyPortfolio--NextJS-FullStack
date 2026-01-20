@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import {
   FaHtml5,
   FaCss3,
@@ -12,9 +14,14 @@ import {
   FaJava,
   FaPhp,
   FaStripe,
+  FaPython,
+  FaAws,
+  FaDocker,
+  FaDatabase,
+  FaGithub,
 } from "react-icons/fa";
 
-import { SiTailwindcss, SiNextdotjs } from "react-icons/si";
+import { SiTailwindcss, SiNextdotjs, SiKubernetes, SiDotnet, SiJest, SiOpenai, SiTypescript } from "react-icons/si";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
@@ -78,9 +85,9 @@ interface SkillsData {
 
 // About data
 const about: AboutData = {
-  title: "About me",
+  title: "Professional Summary",
   description:
-    "Driven Full-Stack Developer with 4+ years of experience building scalable, high-performance web & mobile solutions. I've delivered user-focused applications that enhance business efficiency through clean architecture, automation, & cloud-ready deployment. Skilled in modern frontend & backend stacks, I combine technical precision with strong UI/UX & security practices to deliver maintainable, production-ready results that solve real problems.",
+    "Full-Stack Software Engineer (5+ years) delivering scalable, production-ready web and mobile applications. Experienced in .NET, Node.js, Python, React, Next.js, Angular, TypeScript, REST APIs, and cloud platforms. Skilled in clean architecture, automation, CI/CD, UI/UX, and security best practices, turning complex requirements into reliable, maintainable solutions that drive business impact.",
   info: [
     {
       fieldName: "Name",
@@ -92,10 +99,10 @@ const about: AboutData = {
     },
     {
       fieldName: "Experience",
-      fieldValue: "4+ Years",
+      fieldValue: "5+ Years",
     },
     {
-      fieldName: "skype",
+      fieldName: "Skype",
       fieldValue: "arnob_t78",
     },
     {
@@ -107,7 +114,7 @@ const about: AboutData = {
       fieldValue: "arnob_t78@yahoo.com",
     },
     {
-      fieldName: "Freelance",
+      fieldName: "Availability",
       fieldValue: "Available",
     },
     {
@@ -120,144 +127,161 @@ const about: AboutData = {
 // Experience data
 const experience: ExperienceData = {
   icon: "/assets/resume/badge.svg",
-  title: "My experience",
+  title: "Job Experience",
   description:
-    "Web & Mobile Application Developer with a strong focus on quality, performance, & reliability. I build intuitive, high-performing apps backed by clean code & rigorous testing, ensuring seamless user experiences from development to deployment.",
+    "Full-Stack Software Engineer with 5+ years of experience delivering scalable, high-performance web & mobile applications. Skilled in clean architecture, automation, testing, and cloud-ready deployment, with a focus on quality, reliability, and business impact."
+,
   items: [
     {
-      company: "Freelance/Self-Employed, Remote",
+      company: "Freelance / Remote",
       position: "Full-Stack Web Developer",
-      duration: "June 2025 - Present",
+      duration: "Jun 2025 – Present",
     },
     {
       company: "Sernitas GmbH, Bochum, Germany",
       position: "Full-Stack Web Developer",
-      duration: "March 2025 - July 2025",
+      duration: "Mar 2025 – Jul 2025",
     },
     {
-      company: "Frankfurt University of Applied Sciences, Frankfurt, Germany",
-      position: "Student Research Assistant",
-      duration: "2017 - 2023",
+      company: "Frankfurt University of Applied Sciences, Germany",
+      position: "Research Assistant",
+      duration: "2017 – 2023",
     },
     {
       company: "get it live GmbH, Nidderau, Germany",
-      position: "Mobile Application Developer",
-      duration: "November 2015 - June 2016",
+      position: "Mobile App Developer",
+      duration: "Nov 2015 – Jun 2016",
     },
     {
-      company: "LEADS Corporation Limited, Dhaka, Bangladesh",
+      company: "LEADS Corporation Ltd, Dhaka, Bangladesh",
       position: "Software Test Engineer",
-      duration: "February 2013 - November 2013",
+      duration: "Feb 2013 – Nov 2013",
     },
     {
       company: "Green Generation IT Ltd, Dhaka, Bangladesh",
       position: "Junior Software Developer",
-      duration: "June 2012 - December 2012",
+      duration: "Jun 2012 – Dec 2012",
     },
   ],
 };
+
 
 // Education data
 const education: EducationData = {
   icon: "/assets/resume/cap.svg",
-  title: "My Courses",
+  title: "Education & Certifications",
   description:
-    "Bachelor's in Computer Science & Engineering and Master's in High Integrity Systems (Informatik) from Frankfurt University of Applied Sciences. My academic foundation & practical experience together fuel my expertise in full-stack development & scalable digital solutions.",
+    "M.Sc. in High Integrity Systems and B.Sc. in Computer Science & Engineering, complemented by advanced web development certifications. Strong academic foundation supporting full-stack development, scalable applications, and modern web technologies.",
   items: [
     {
-      institution: "Udemy Online Courses",
-      degree: "Advanced NextJS/Framer-Motion Web Development Bootcamp",
-      duration: "2023 - 2025",
+      institution: "Frankfurt University of Applied Sciences, Germany",
+      degree: "M.Sc. in High Integrity Systems",
+      duration: "2014 – 2024",
     },
     {
-      institution: "Udemy Online Courses",
-      degree: "Advanced RecatJS/TailwindCSS Web Development Bootcamp",
-      duration: "2022 - 2024",
+      institution: "Military Institute of Science & Technology, Bangladesh",
+      degree: "B.Sc. in Computer Science & Engineering",
+      duration: "2008 – 2012",
     },
     {
-      institution:
-        "Frankfurt University of Applied Sciences, Frankfurt, Germany",
-      degree: "High Integrity Systems (M.Sc.)",
-      duration: "2014 - 2024",
+      institution: "Udemy",
+      degree: "Advanced Next.js & Framer Motion Web Development",
+      duration: "2023 – 2025",
     },
     {
-      institution:
-        "Military Institute of Science & Technology, Dhaka, Bangladesh",
-      degree: "Computer Science & Engineering (B.Sc.)",
-      duration: "2008 - 2012",
+      institution: "Udemy",
+      degree: "Advanced React.js & Tailwind CSS Web Development",
+      duration: "2022 – 2024",
     },
   ],
 };
+
 
 // Skill data
 const skills: SkillsData = {
-  title: "My Skills",
+  title: "Technical Skills",
   description:
-    "Versatile across modern tech stacks — React, Next.js, Angular, Node.js, .NET, C++, Python — with strong expertise in REST APIs, databases, & automated testing. Experienced in UI/UX frameworks & cloud deployment using Docker, Kubernetes, AWS, Vercel, Netlify, & more. Continuously advancing my skills through real-world, production-level projects.",
+    "Full-Stack Software Engineer proficient across frontend, backend, databases, cloud, DevOps, and testing. Experienced in building scalable, production-ready applications, integrating APIs, and delivering robust, user-centric solutions using modern frameworks and tools.",
   skillList: [
-    {
-      icon: <FaJs />,
-      name: "javaScript",
-    },
-    {
-      icon: <FaReact />,
-      name: "react.js",
-    },
-    {
-      icon: <FaVuejs />,
-      name: "Vue.js",
-    },
-    {
-      icon: <FaAngular />,
-      name: "Angular",
-    },
-    {
-      icon: <SiNextdotjs />,
-      name: "next.js",
-    },
-    {
-      icon: <FaNodeJs />,
-      name: "node.js",
-    },
-    {
-      icon: <FaJava />,
-      name: "Java",
-    },
-    {
-      icon: <FaPhp />,
-      name: "PHP",
-    },
-    {
-      icon: <FaHtml5 />,
-      name: "html 5",
-    },
-    {
-      icon: <FaCss3 />,
-      name: "css 3",
-    },
-    {
-      icon: <SiTailwindcss />,
-      name: "tailwind.css",
-    },
-    {
-      icon: <FaFigma />,
-      name: "figma",
-    },
-    {
-      icon: <FaStripe />,
-      name: "Stripe",
-    },
+    { icon: <FaReact />, name: "React.js" },
+    { icon: <SiNextdotjs />, name: "Next.js" },
+    { icon: <FaAngular />, name: "Angular" },
+    { icon: <FaNodeJs />, name: "Node.js" },
+    { icon: <SiDotnet />, name: ".NET" },
+    { icon: <FaPython />, name: "Python" },
+    { icon: <SiTypescript />, name: "TypeScript" },
+    { icon: <FaDatabase />, name: "PostgreSQL / MongoDB" },
+    { icon: <FaDocker />, name: "Docker" },
+    { icon: <SiKubernetes />, name: "Kubernetes" },
+    { icon: <FaAws />, name: "AWS" },
+    { icon: <SiJest />, name: "Testing (Jest/Cypress/Selenium)" },
+    { icon: <FaFigma />, name: "UI/UX & Figma" },
+    { icon: <FaStripe />, name: "Stripe & APIs" },
+    { icon: <SiOpenai />, name: "AI/ML Integration" },
+    { icon: <FaGithub />, name: "Git & Version Control" },
   ],
 };
 
+
 const ResumePage = () => {
+  const [mounted, setMounted] = useState(false);
+  // Default to "about" for server-side rendering (prevents hydration mismatch)
+  const [activeTab, setActiveTab] = useState("about");
+
+  // Read URL hash on client-side mount to restore tab state
+  useEffect(() => {
+    setMounted(true);
+    // Check if there's a hash in the URL (e.g., #experience, #education, #skills)
+    const hash = window.location.hash.slice(1); // Remove the # symbol
+    const validTabs = ["about", "experience", "education", "skills"];
+    
+    if (hash && validTabs.includes(hash)) {
+      setActiveTab(hash);
+    }
+  }, []);
+
+  // Update URL hash when tab changes (for refresh persistence)
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    // Update URL hash without causing page scroll
+    window.history.replaceState(null, "", `#${value}`);
+  };
+
+  // Render placeholder on server to prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out">
+        <div className="container mx-auto">
+          <div className="flex flex-col xl:flex-row gap-16 animate-ease-in-out">
+            <div className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
+              <div className="inline-flex items-center w-full bg-accent justify-center whitespace-nowrap text-primary rounded-lg p-3 text-base font-bold shadow-sm">
+                About me
+              </div>
+              <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
+                Experience
+              </div>
+              <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
+                Education
+              </div>
+              <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
+                Skills
+              </div>
+            </div>
+            <div className="min-h-[90vh] w-full"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out">
       <div className="container mx-auto">
         <Tabs
-          defaultValue="about"
+          value={activeTab}
+          onValueChange={handleTabChange}
           className="flex flex-col xl:flex-row gap-16 animate-ease-in-out"
-          style={{ animationDelay: "0s" }}
+          
         >
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
             <TabsTrigger value="about">About me</TabsTrigger>
@@ -268,6 +292,35 @@ const ResumePage = () => {
 
           {/* content */}
           <div className="min-h-[90vh] w-full ">
+            {/* About me */}
+            <TabsContent
+              value="about"
+              className="w-full text-center xl:text-left"
+            >
+              <div
+                className="flex flex-col gap-[30px] animate-ease-in-out"
+                style={{ animationDelay: "0s" }}
+              >
+                <h3 className="text-2xl sm:text-3xl font-bold">{about.title}</h3>
+                <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
+                  {about.description}
+                </p>
+                <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-4 max-w-600px] mx-auto xl:mx-0">
+                  {about.info.map((item, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="flex items-center justify-center xl:justify-start gap-4"
+                      >
+                        <span className="text-white/60 text-md sm:text-lg">{item.fieldName}</span>
+                        <span className="text-md sm:text-lg">{item.fieldValue}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </TabsContent>
+            
             {/* experience */}
             <TabsContent
               value="experience"
@@ -277,8 +330,8 @@ const ResumePage = () => {
                 className="flex flex-col gap-[30px] text-center xl:text-left animate-ease-in-out"
                 style={{ animationDelay: "0s" }}
               >
-                <h3 className="text-4xl font-bold">{experience.title}</h3>
-                <p className="max-w-[1000px] text-white/60 text-justify mx-auto xl:mx-0">
+                <h3 className="text-2xl sm:text-3xl font-bold">{experience.title}</h3>
+                <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                   {experience.description}
                 </p>
                 <ScrollArea className="h-[400px]">
@@ -312,8 +365,8 @@ const ResumePage = () => {
                 className="flex flex-col gap-[30px] text-center xl:text-left animate-ease-in-out"
                 style={{ animationDelay: "0s" }}
               >
-                <h3 className="text-4xl font-bold">{education.title}</h3>
-                <p className="max-w-[1000px] text-white/60 text-justify mx-auto xl:mx-0">
+                <h3 className="text-2xl sm:text-3xl font-bold">{education.title}</h3>
+                <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                   {education.description}
                 </p>
                 <ScrollArea className="h-[400px]">
@@ -348,8 +401,8 @@ const ResumePage = () => {
                 style={{ animationDelay: "0s" }}
               >
                 <div className="flex flex-col gap-[30px] text-center xl:text-left ">
-                  <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[1000px] text-white/60 text-justify mx-auto xl:mx-0">
+                  <h3 className="text-2xl sm:text-3xl font-bold">{skills.title}</h3>
+                  <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                     {skills.description}
                   </p>
                 </div>
@@ -376,34 +429,7 @@ const ResumePage = () => {
               </div>
             </TabsContent>
 
-            {/* About me */}
-            <TabsContent
-              value="about"
-              className="w-full text-center xl:text-left"
-            >
-              <div
-                className="flex flex-col gap-[30px] animate-ease-in-out"
-                style={{ animationDelay: "0s" }}
-              >
-                <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[1000px] text-white/60 text-justify mx-auto xl:mx-0">
-                  {about.description}
-                </p>
-                <ul className="grid grid-cols-1 xl:grid-cols-2 gap-y-4 max-w-600px] mx-auto xl:mx-0">
-                  {about.info.map((item, index) => {
-                    return (
-                      <li
-                        key={index}
-                        className="flex items-center justify-center xl:justify-start gap-4"
-                      >
-                        <span className="text-white/60">{item.fieldName}</span>
-                        <span className="text-xl">{item.fieldValue}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </TabsContent>
+            
           </div>
         </Tabs>
       </div>

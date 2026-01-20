@@ -19,15 +19,15 @@ const links = [
     path: "/",
   },
   {
-    name: "services",
+    name: "expertise",
     path: "/services",
   },
   {
-    name: "resume",
+    name: "experience",
     path: "/resume",
   },
   {
-    name: "work",
+    name: "projects",
     path: "/work",
   },
   {
@@ -74,9 +74,9 @@ const MobileNav = () => {
                     href={link.path}
                     className={` ${
                       link.path === pathname &&
-                      "text-accent border-b-2 border-accent"
+                      "text-accent"
                     }
-                  text-xl capitalize hover:text-accent transition-all`}
+                  text-md capitalize hover:text-accent transition-all`}
                     onClick={handleLinkClick}
                   >
                     {link.name}

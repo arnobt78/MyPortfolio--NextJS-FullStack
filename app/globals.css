@@ -7,10 +7,10 @@
     @apply font-primary bg-primary text-white leading-loose;
   }
   .h1 {
-    @apply text-[48px] xl:text-[74px] leading-[1.1] font-semibold;
+    @apply text-[36px] xl:text-[56px] leading-[1.1] font-semibold;
   }
   .h2 {
-    @apply text-[28px] xl:text-[36px] leading-[1.1] font-semibold;
+    @apply text-[28px] xl:text-[32px] leading-[1.1] font-semibold;
   }
   .h3 {
     @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;

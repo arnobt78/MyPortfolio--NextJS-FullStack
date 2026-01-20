@@ -3,7 +3,7 @@
 A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.
 
 - **Live-Demo:** [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/)
-- 
+
 ![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
 ![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
 ![Screenshot 2025-10-23 at 13 48 00](https://github.com/user-attachments/assets/f310f0ec-e9cb-421f-affa-8de39d180a8a)
@@ -499,7 +499,7 @@ const experience: ExperienceData = {
 };
 ```
 
-2. **Add Skills:**
+1. **Add Skills:**
 
 ```tsx
 import { FaReact } from "react-icons/fa";
@@ -1093,7 +1093,7 @@ mkdir app/blog
 touch app/blog/page.tsx
 ```
 
-2. Create page component:
+1. Create page component:
 
 ```tsx
 // app/blog/page.tsx
@@ -1107,7 +1107,7 @@ export default function BlogPage() {
 }
 ```
 
-3. Add to navigation:
+1. Add to navigation:
 
 ```tsx
 // components/Nav.tsx
@@ -1540,13 +1540,13 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
-2. **Connect to Vercel:**
+1. **Connect to Vercel:**
    - Go to [Vercel](https://vercel.com)
    - Click "Add New" > "Project"
    - Import your GitHub repository
    - Vercel auto-detects Next.js
 
-3. **Configure Environment Variables:**
+2. **Configure Environment Variables:**
    - Click "Environment Variables"
    - Add all variables from `.env.local`:
      - `EMAIL_USER`
@@ -1554,7 +1554,7 @@ git push origin main
      - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
    - Click "Deploy"
 
-4. **Auto-Deployment:**
+3. **Auto-Deployment:**
    - Every push to `main` branch triggers new deployment
    - Pull requests create preview deployments
 
@@ -1626,7 +1626,7 @@ vercel --prod
 npm run build
 ```
 
-2. **Start with PM2:**
+1. **Start with PM2:**
 
 ```bash
 # Install PM2
@@ -1642,7 +1642,7 @@ pm2 save
 pm2 startup
 ```
 
-3. **Configure Nginx:**
+1. **Configure Nginx:**
 
 ```nginx
 server {
@@ -1660,7 +1660,7 @@ server {
 }
 ```
 
-4. **Enable SSL with Certbot:**
+1. **Enable SSL with Certbot:**
 
 ```bash
 sudo certbot --nginx -d yourdomain.com
@@ -2113,7 +2113,7 @@ npm run dev:clean
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-2. **Verify in Browser Console:**
+1. **Verify in Browser Console:**
 
 ```javascript
 // Check if gtag is loaded
@@ -2121,12 +2121,12 @@ console.log(window.gtag);
 console.log(window.dataLayer);
 ```
 
-3. **Disable Ad Blocker:**
+1. **Disable Ad Blocker:**
 
 - Ad blockers prevent GA from loading
 - Test in incognito mode without extensions
 
-4. **Wait 24-48 hours:**
+1. **Wait 24-48 hours:**
 
 - GA4 data processing takes time
 - Real-time reports update faster
@@ -2243,19 +2243,19 @@ We welcome contributions! Here's how you can help:
 git clone https://github.com/yourusername/MyPortfolio--NextJS-FullStack-Website.git
 ```
 
-2. **Create a feature branch**
+1. **Create a feature branch**
 
 ```bash
 git checkout -b feature/amazing-feature
 ```
 
-3. **Make your changes**
+1. **Make your changes**
 
 - Follow existing code style
 - Add comments for complex logic
 - Update documentation if needed
 
-4. **Commit your changes**
+1. **Commit your changes**
 
 ```bash
 git add .
@@ -2272,13 +2272,13 @@ git commit -m "feat: add amazing feature"
 - `test:` - Adding tests
 - `chore:` - Maintenance tasks
 
-5. **Push to your fork**
+1. **Push to your fork**
 
 ```bash
 git push origin feature/amazing-feature
 ```
 
-6. **Open a Pull Request**
+1. **Open a Pull Request**
 
 - Go to original repository on GitHub
 - Click "New Pull Request"

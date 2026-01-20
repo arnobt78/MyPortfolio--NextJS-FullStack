@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BsArrowUpRight, BsGithub } from "react-icons/bs";
+import { PiCaretLeftBold, PiCaretRightBold } from "react-icons/pi";
 import { Grid3x3, List } from "lucide-react";
 import {
   Tooltip,
@@ -15,7 +16,6 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Swiper as SwiperType } from "swiper";
 
-import WorkSliderBtns from "../WorkSliderBtns";
 import { useTypewriter } from "../../hooks/useTypewriter";
 
 interface ProjectStack {
@@ -37,545 +37,647 @@ const projects: Project[] = [
   {
     num: "01",
     category: "Fullstack",
-    title: "eBookStore-ReactWebsite",
+    title:
+      "CodeBook E-Commerce Platform - React, AWS (Lambda, DynamoDB, S3, HTTP API Gateway) Serverless Architecture FullStack Project",
     description:
-      "eBookStore is a full-fledged React E-Commerce Web Application (Global Level State Application) where you can place an order for codebooks. Frontend (deployed on Netlify) and Backend (deployed on Render) are separately developed here. Filter Properties, Search Option, JSON-Server, JSON-Server-Auth (User Login, Logout), JSON Web Tokens (JWT), Protected Routes, React-Toastify, Session Storage, Dark Mode Option, JSON API - Auth Service and Data Service, Log in as Guest, React Core, Hooks, TailwindCSS, Responsive Screen, Context, and Reducers have been used in this project.",
+  "Production-ready full-stack e-commerce platform built with React and AWS serverless architecture. Features a complete customer storefront, Stripe payments, order management, and a role-based admin dashboard. Powered by AWS Lambda, API Gateway, and DynamoDB for scalable backend operations, with JWT authentication, responsive UI, and modern React patterns.",
+
     stack: [
       { name: "React.js" },
-      { name: "AuthJSON" },
-      { name: "JWT" },
-      { name: "API" },
-      { name: "Tailwind.css" },
+      { name: "TailwindCSS" },
       { name: "Node.js" },
-      { name: "HTML" },
+      { name: "AWS Lambda" },
+      { name: "DynamoDB" },
+      { name: "S3" },
+      { name: "HTTP API Gateway" },
     ],
     image: "/assets/work/project01.png",
-    live: "https://ebookstore-arnob.netlify.app",
-    github: "https://github.com/arnobt78/eBookStore-ReactWebsite",
+    live: "https://codebook-aws.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Complete-Ecommerce-Platform--React-Serverless-AWS-Lambda-FullStack",
   },
   {
     num: "02",
     category: "Fullstack",
-    title: "AI-Rag-ChatBot-NextJS",
+    title:
+      "Retrieval-Augmented Generation (RAG) AI Chat Bot - Next.js,Vercel AI SDK, Upstash Vector, Redis Database FullStack Project",
     description:
-      "AI-Rag-ChatBot is a complete project example with RAGChat and Next.js 14, using Upstash Vector Database, Upstash Qstash, Upstash Redis, Dynamic Webpage Folder, Middleware, Typescript, Vercel AI SDK for the Client side Hook, Lucide-React for Icon, Shadcn-UI, Next-UI Library Plugin to modify TailwindCSS and deploy on Vercel. It is not just an AI, but also a pattern convension and provides reply super fast and it also can memorize all previous chat history from the Vector Storage so it does not have to reload the page again once its already indexed.",
+  "Context-aware AI chatbot built with Next.js using Retrieval-Augmented Generation (RAG). Combines vector search and memory via Upstash Vector & Redis to deliver accurate, stateful responses powered by modern AI and cloud-native architecture.",
+
     stack: [
       { name: "Next.js" },
-      { name: "React.js" },
-      { name: "Tailwind.css" },
+      { name: "TailwindCSS" },
       { name: "Upstash Vector" },
-      { name: "Shadcn-UI" },
+      { name: "Upstash Redis" },
     ],
     image: "/assets/work/project02.png",
     live: "https://ai-rag-chatbot-arnob.vercel.app/https:/www.wikipedia.org",
-    github: "https://github.com/arnobt78/AI-Rag-ChatBot-NextJS",
+    github:
+      "https://github.com/arnobt78/RAG-AI-ChatBot--Redis-Vector-QStash-NextJS-FullStack",
   },
   {
     num: "03",
     category: "Fullstack",
-    title: "DataCenter-Manager-AngularApp",
+    title:
+      "HealthCare Doctor Appointment Management System - Next.js FullStack Project (Featuring Admin Dashboard Approve/Decline SMS Notifications)",
     description:
-      "Designed the DataCenter as remote access like creating server, storage, taking snapshots or retrieve the snapshots of HDD, connect/ disconnect to server or datacenter, turn on/off the server. Implemented the front-end and back-end mobile app using their RESTful API by using Ionic Cordova AngularJS, HTML, CSS, SQLCipher, JavaScript, Push Notification Server, and OTP generator. Created a secured line Proxy Secured Server Connection.",
+  "Full-stack healthcare appointment management system built with Next.js. Includes patient booking, admin approval workflows, secure data handling, and automated SMS notifications via Twilio.",
+
     stack: [
-      { name: "Angular.js" },
-      { name: "SQLCipher" },
-      { name: "RESTfulAPI" },
-      { name: "HTML" },
-      { name: "CSS" },
-      { name: "OTP" },
-      { name: "Encryption" },
+      { name: "Next.js" },
+      { name: "Typescript" },
+      { name: "TailwindCSS" },
+      { name: "Appwrite" },
     ],
     image: "/assets/work/project03.png",
-    live: "https://gil.gmbh/en/projects/project_02/",
-    github: "https://github.com/arnobt78/DataCenter-Manager-AngularApp",
+    live: "https://healthcare-arnob.vercel.app/",
+    github:
+      "https://github.com/arnobt78/HealthCare-Doctor-Appointment-Management-System--NextJS-FullStack",
   },
   {
     num: "04",
     category: "Fullstack",
-    title: "Transaction-Payment-AngularApp",
+    title:
+      "IoT Embedded Motor Sync Intelligence - Real-time Industrial IoT Dashboard, Motor Physics Engine, Business Intelligence Platform (C++, .NET, PostgreSQL, SignalR, Docker, React)",
     description:
-      "xTan is a commercial mobile app that fetches the Credit Card details from the server and showed the expenses, graphs, reports, push notifications, transactions and used the OTP system to keep the app more secure for the client, with encryption and biometric feature. From real-time reports about their spending behavior to the visibility of a single transaction. They can use self-service features to manage address and bank details. The app is based on our unique security architecture and allows biometric authentication, strong encryption, certificate pinning, and many other security features.",
+  "Production-ready industrial IoT platform for real-time motor monitoring and analytics. Combines a C++ motor physics engine with a .NET backend (SignalR) and a React dashboard to deliver live telemetry, synchronization insights, and business intelligence.",
+
     stack: [
-      { name: "Angular.js" },
-      { name: "SQLCipher" },
-      { name: "HTML" },
-      { name: "CSS" },
-      { name: "OTP" },
-      { name: "Encryption" },
-      { name: "RESTfulAPI" },
+      { name: "React" },
+      { name: ".NET Core" },
+      { name: "C++" },
+      { name: "PostgreSQL" },
+      { name: "SignalR" },
+      { name: "Docker" },
     ],
     image: "/assets/work/project04.png",
-    live: "https://gil.gmbh/en/projects/project_06/",
-    github: "https://github.com/arnobt78/Transaction-Payment-AngularApp",
+    live: "https://motor-speed-temperature.netlify.app/",
+    github:
+      "https://github.com/arnobt78/IoT-Embedded-MotorSync-Intelligence-Platform--CPP-DotNet-React-FullStack",
   },
   {
     num: "05",
-    category: "Frontend",
-    title: "Cinemate-ReactWebsite",
+    category: "Fullstack",
+    title:
+      "Stock Inventory Management System - Next.js, Prisma, MongoDB FullStack Project (including Business-Insights Dashboard)",
     description:
-      "Cinemate is a full-fledged React Movie Information Web Application (Component Level State Application), using TailwindCSS and the help of Flowbite TailwindCSS framework. React Core, Hooks, APIs (TMDB), Routing, HTML, TailwindCSS, Responsive Screen, Dark/Light Mode, and Search functionalities have been used in this project and deployed on Netlify.",
+      "A Next.js based inventory management application designed to help you manage your product stock efficiently. This application includes features such as product listing, adding new products, editing existing products, and filtering products based on various criteria using JWT, Prisma, MongoDB, Session, Cookies and authMiddleware.",
     stack: [
-      { name: "React.js" },
-      { name: "Tailwind.css" },
-      { name: "Node.js" },
-      { name: "API" },
-      { name: "HTML 5" },
+      { name: "Next.js" },
+      { name: "MongoDB" },
+      { name: "JWT" },
+      { name: "TailwindCSS" },
     ],
     image: "/assets/work/project05.png",
-    live: "https://cinemate-arnob.netlify.app",
-    github: "https://github.com/arnobt78/Cinemate-ReactWebsite",
+    live: "https://stockly-inventory.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Stock-Inventory-Management-System--NextJS-FullStack",
   },
   {
     num: "06",
     category: "Fullstack",
-    title: "Woozzlle-Game-AndriodApp",
+    title:
+      "Hotel Booking Management System - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)",
     description:
-      "Woozzelle is an educational android game that helps kids improve their memory and observation skills by having them solve puzzles made of randomly placed photo parts. Available in the App Store.",
+      "A comprehensive, production-ready hotel booking platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring advanced search, booking management, analytics dashboard, and payment integration.",
     stack: [
-      { name: "Java" },
-      { name: "Andriod SDK" },
-      { name: "XML" },
-      { name: "Adobe Photoshop" },
+      { name: "React" },
+      { name: "Express.js" },
+      { name: "MongoDB" },
+      { name: "Node.js" },
     ],
     image: "/assets/work/project06.png",
-    live: "https://github.com/arnobt78/Woozzle-Wood-Puzzle-Game-AndriodApp",
-    github: "https://github.com/arnobt78/Woozzle-Wood-Puzzle-Game-AndriodApp",
+    live: "https://mern-booking-hotel.netlify.app/",
+    github:
+      "https://github.com/arnobt78/Hotel-Booking-Management-System--React-MERN-FullStack",
   },
+
   {
     num: "07",
     category: "Fullstack",
-    title: "Facebook-StatusTapper-AndriodApp",
+    title:
+      "Smart AI Collaborative URL Bookmark Manager - Next.js, TanStack React Query, Prisma, PostgreSQL, Upstash, QStash, Cloudinary, Google Gemini, Groq, OpenRouter, Hugging Face FullStack Project",
     description:
-      "StatusTapper is an R&D mobile app for a client, where one can update their status on Facebook by uploading a photo in character mode that includes editable text.",
+      "A production-ready, full-stack URL bookmarking and sharing platform built with Next.js, TypeScript, and PostgreSQL. Features AI-powered enhancements, real-time collaboration, vector search, and intelligent URL organization.",
     stack: [
-      { name: "Java" },
-      { name: "Andriod SDK" },
-      { name: "XML" },
-      { name: "Adobe Photoshop" },
+      { name: "Next.js" },
+      { name: "TypeScript" },
+      { name: "PostgreSQL" },
+      { name: "Redis" },
     ],
     image: "/assets/work/project07.png",
-    live: "https://github.com/arnobt78/Facebook-StatusTapper-AndriodApp",
-    github: "https://github.com/arnobt78/Facebook-StatusTapper-AndriodApp",
+    live: "https://daily-urlist.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Smart-AI-Collaborative-URL-Manager--NextJS-FullStack",
   },
+
   {
     num: "08",
     category: "Fullstack",
-    title: "FreeScribe-ML-ReactVite-WebApp",
+    title:
+      "Employee & Project Management Platform - Angular 18, TypeScript, MongoDB Full-Stack Serverless Application (Including Real-time Dashboard, Calendar, Gantt Chart, Business Insights, API Monitoring)",
     description:
-      "FreeScribe is a Machine Learning (ML) React Vite TailwindCSS Web Based Transcription and Translation App that uses Web Workers to run ML models in the browser. This app allows you to record your voice or upload an audio file (mp3/wav), transcribe it to text, translate it into any language, and download or copy the freshly converted text that has been transcribed and deployed on Vercel. This kind of app is essential and expensive in the IT manufacturing field, but it is integrated here smoothly, shared, and at no cost.",
-    stack: [
-      { name: "React.js Vite" },
-      { name: "Tailwind.css" },
-      { name: "Machine Learning" },
-    ],
+      "A comprehensive, full-stack Employee Project Management System built with Angular 18, featuring real-time dashboards, project tracking, calendar views, Gantt charts, business insights, and API monitoring. This is a production-ready CRUD application demonstrating modern web development practices with serverless architecture.",
+    stack: [{ name: "Angular" }, { name: "TypeScript" }, { name: "MongoDB" }],
     image: "/assets/work/project08.png",
-    live: "https://free-scribe-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/FreeScribe-ML-ReactVite-WebApp",
+    live: "https://employee-project-management.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Employee-Project-Management-Platform--Angular-FullStack",
   },
+
   {
     num: "09",
     category: "Fullstack",
-    title: "VRPTW-Solver-Comparison-pyApp",
+    title:
+      "Library Management System - Next.js, PostgreSQL, Redis, Upstash, Brevo, Resend, ImageKit FullStack Project",
     description:
-      "Solving Vehicle Routing Problems with Time Windows (VRPTW) using multiple Classic Heuristic and metaheuristic algorithms (Hybrid Genetic Search (HGS), Guided Local Search (GLS), Ant Colony Optimization (ACO), Simulated Annealing (SA)), then comparing results with each one results and present it in the graph.",
+      "A Next.js, TypeScript, Postgres, the University Library Management System is a production-grade platform featuring a public-facing app and admin interface. It offers advanced functionalities like seamless book borrowing with reminders and receipts, robust user management, automated workflows, optimized tech stack for real-world scalability.",
     stack: [
-      { name: "Python" },
-      { name: "Jupiter Notebook" },
-      { name: "pyGraph" },
-      { name: "NP" },
-      { name: "Big Data" },
+      { name: "Next.js" },
+      { name: "TypeScript" },
+      { name: "PostgreSQL" },
+      { name: "Redis" },
     ],
     image: "/assets/work/project09.png",
-    live: "https://github.com/arnobt78/VRPTW-Solver-Comparison-pyApp",
-    github: "https://github.com/arnobt78/VRPTW-Solver-Comparison-pyApp",
+    live: "https://university-library-managment.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Library-Management-System--NextJS-FullStack",
   },
+
   {
     num: "10",
     category: "Fullstack",
-    title: "SwoleNormous-GymFit-ReactVite-WebApp",
+    title:
+      "Food Recipe Spoonacular Guide - Next.js, PostgreSQL FullStack Project",
     description:
-      "SwoleNormous is an ultimate gym training app built with React Vite, Web Worker, TailwindCSS and deployed on Netfily.",
+      "A modern next.js full-stack recipe management guide/helper application. This UI lets users search for recipes, view details, and manage favourites, with a beautiful, responsive design and seamless backend integration.",
     stack: [
-      { name: "React.js Vite" },
-      { name: "Tailwind.css" },
-      { name: "Web Worker" },
-      { name: "Shadcn-UI" },
+      { name: "Next.js" },
+      { name: "PostgreSQL" },
+      { name: "TailwindCSS" },
+      { name: "Spoonacular API" },
     ],
     image: "/assets/work/project10.png",
-    live: "https://swolenormous-arnob.netlify.app",
-    github: "https://github.com/arnobt78/SwoleNormous-GymFit-ReactVite-WebApp",
+    live: "https://recipe-smart.vercel.app/",
+    github: "https://github.com/arnobt78/Food-Recipe-Guide--React-FullStack",
   },
+
   {
     num: "11",
     category: "Fullstack",
-    title: "Gesture-Recognition-Control-Powerpoint-Presentation",
+    title:
+      "MultiView Calendar Health Care Appointment Management System – Next.js, Postgresql FullStack Project (Admin Control Panel Permission Dashboard)",
     description:
-      "Gesture Recognition is an R&D project to control Microsoft Powerpoint while presenting on a large screen, using the Microsoft Kinect Sensor, C# and Kinect SDK. Using their right or left hand, the presenter can slide to the next or previous page. They can also zoom in or out by fisting their hand, and they can play or pause the presentation by displaying all or none of their fingers.",
+      "A modern, full-featured calendar and appointment management web application built with Next.js & PostgreSQL. Perfect for healthcare, clinics, and organizations needing robust scheduling, filtering, and client management with multiple calendar views, instant search, advanced filtering, and a clean, responsive UI.",
     stack: [
-      { name: "C#" },
-      { name: "Microsoft Kinect Sensor" },
-      { name: "Kinect SDK" },
+      { name: "Next.js" },
+      { name: "PostgreSQL" },
+      { name: "TailwindCSS" },
     ],
     image: "/assets/work/project11.png",
-    live: "https://github.com/arnobt78/Gesture-Recognition-Control-Powerpoint-Presentation",
+    live: "https://doctor-patient-calendar-appointment.vercel.app/",
     github:
-      "https://github.com/arnobt78/Gesture-Recognition-Control-Powerpoint-Presentation",
+      "https://github.com/arnobt78/MultiView-Calender-HealthCare-Appointment-System--NextJS-FullStack",
   },
+
   {
     num: "12",
     category: "Fullstack",
-    title: "BlogWriting-Firebase-ReactWebpage",
+    title:
+      "Universal Multi-Provider Assistant - React, TypeScript, Vite FullStack Project (Multi-Model AI Chatbot including Business Insights & Performance Dashboard)",
     description:
-      "BlogWriting is a simple Firebase React Web Application that mainly focuses on Firebase Setup, Configuration, Authentication, Provider, and Firestore Database to retrieve the data from the database and then display, create, and delete the data, using React-Loading-Skeleton, TailwindCSS, JavaScript, HTML and deploy on Netfily.",
+      "A modern, responsive AI chat bot application supporting multiple AI providers including Google Gemini, Groq, OpenRouter, Hugging Face, and OpenAI and enable to store the chat history. Built with React, TypeScript, and Vite including business-insights analytics and performance dashboard, typewriter effect, and animated icons for the best user experience.",
     stack: [
-      { name: "React.js" },
-      { name: "Firebase" },
-      { name: "Auth" },
-      { name: "React-Loading-Skeleton" },
+      { name: "React" },
+      { name: "TypeScript" },
+      { name: "Vite" },
+      { name: "TailwindCSS" },
     ],
     image: "/assets/work/project12.png",
-    live: "https://blogwriting-arnob.netlify.app",
-    github: "https://github.com/arnobt78/BlogWriting-Firebase-ReactWebpage",
+    live: "https://multi-ai-chat-hub.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Multi-Model-AI-Chat-Bot--React-FullStack",
   },
+
   {
     num: "13",
-    category: "Frontend",
-    title: "Javascript-HTML-CSS-Web-Template",
+    category: "Fullstack",
+    title: "Modern E-Commerce Platform - Next.js, Postgresql FullStack Project",
     description:
-      "Created a simple website template with navbar header, body, user sign-up, sign-in, footer, responsive screen for any device using HTML, CSS and Javascript.",
-    stack: [{ name: "Javascript" }, { name: "HTML" }, { name: "CSS" }],
+      "A feature-rich reusable e-commerce platform including monthly subscription system, language support, iframe, OTP authentication and more, designed for maintainability, scalability, and a delightful user experience. It demonstrates best practices in modular React/Next.js development, robust type safety, and real-world UI/UX polish.",
+    stack: [
+      { name: "Next.js" },
+      { name: "PostgreSQL" },
+      { name: "TailwindCSS" },
+    ],
     image: "/assets/work/project13.png",
-    live: "https://github.com/arnobt78/Javascript-HTML-CSS-Web-Template",
-    github: "https://github.com/arnobt78/Javascript-HTML-CSS-Web-Template",
+    live: "https://snuzz-pro.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Ecommerce-Platform-SnuzzPro--NextJS-FullStack",
   },
+
   {
     num: "14",
-    category: "Frontend",
-    title: "Shopmate-React-Redux-Webpage",
+    category: "Fullstack",
+    title:
+      "Developer's Blog Platform – Next.js, MongoDB, TanStack React Query FullStack Project (Blog for Coding Errors & Solutions)",
     description:
-      "Shopmate is a demo React Redux E-Commerce Web Application (Global Level State Application), using Redux and Redux-Toolkit features. React Core, Hooks, Routing, HTML, CSS, Responsive Screen, Redux, and Redux-Toolkit functionalities have been used in this project and deployed on Netlify. Note: Redux and Redux-Toolkit have been employed in this React project; useContext and useReducers have not been used here.",
+      "A modern, full-stack developer blog platform focused on sharing real-world coding errors and their solutions. Dev-Bug-Coder-Blog empowers developers to post, discuss, and resolve bugs, fostering a collaborative learning environment.",
     stack: [
-      { name: "React.js" },
-      { name: "Redux" },
-      { name: "Redux-Toolkit" },
-      { name: "HTML" },
-      { name: "CSS" },
+      { name: "Next.js" },
+      { name: "MongoDB" },
+      { name: "TanStack React Query" },
     ],
     image: "/assets/work/project14.png",
-    live: "https://shopmate-redux-arnob.netlify.app",
-    github: "https://github.com/arnobt78/Shopmate-React-Redux-Webpage",
+    live: "https://dev-bug-coder-blog.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Developer-Blog-Platform--NextJS-FullStack",
   },
+
   {
     num: "15",
     category: "Frontend",
-    title: "Taskmate-ReactPage",
+    title:
+      "Travel & Camping Landing Page - Next.js, TailwindCSS Frontend Project",
     description:
-      "Taskmate is a simple React project where you can add a todo list, edit it, delete it, and also change the theme of the page using a local database.",
-    stack: [
-      { name: "React.js" },
-      { name: "Local-Storage" },
-      { name: "HTML" },
-      { name: "CSS" },
-    ],
+      "A modern, responsive, and feature-rich travel and camping web application built with Next.js, React, and Tailwind CSS. This project provides a beautiful UI/UX for exploring camping destinations, viewing features, and guiding users through an engaging journey experience.",
+    stack: [{ name: "Next.js" }, { name: "TailwindCSS" }],
     image: "/assets/work/project15.png",
-    live: "https://taskmate-arnob.netlify.app/",
-    github: "https://github.com/arnobt78/Taskmate-ReactPage",
+    live: "https://travel-camping-ui.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Travel-Camping-Landing--NextJS-Frontend",
   },
+
   {
     num: "16",
     category: "Fullstack",
-    title: "MyPortfolio-NextJS-Webpage",
+    title:
+      "Embedded Feedback Collection System - Next.js, MongoDB FullStack Project",
     description:
-      "My Portfolio Webpage is a Mordern NextJS-v14 Framer-Motion React TailwindCSS Portfolio Webpage. Every component of this project uses the most recent Shadcn UI, Framer-Motion, Animation, Nodemailer capabilities, and deployed on Vercel.",
+      "A modern, production-ready feedback collection widget system built with Next.js, React, TypeScript, Prisma, and MongoDB. This project provides an embeddable web component that can be integrated into any website, along with a comprehensive dashboard for managing projects, viewing feedback, and analyzing insights.",
     stack: [
       { name: "Next.js" },
-      { name: "React.js" },
+      { name: "MongoDB" },
+      { name: "TypeScript" },
       { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
-      { name: "Shadcn-UI" },
     ],
     image: "/assets/work/project16.png",
-    live: "https://arnob-mahmud.vercel.app/",
-    github: "https://github.com/arnobt78/MyPortfolio-NextJS-Webpage",
+    live: "https://embedded-feedback.vercel.app/dashboard",
+    github:
+      "https://github.com/arnobt78/Embedded-Feedback-Collection-Widget--NextJS-FullStack",
   },
+
   {
     num: "17",
     category: "Fullstack",
-    title: "Blog-PyFlaskWebApp",
+    title:
+      "Professional Home Nursing Services Platform - React, Express.js, MongoDB FullStack Project",
     description:
-      "The website is a basic blog application where users may authenticate, log in, and post content. Other users can then like and comment on the article, or the user can delete the post and comments. (this application is still on going project to extend my knowledge)",
-    stack: [
-      { name: "Python" },
-      { name: "Flask" },
-      { name: "Auth" },
-      { name: "HTML" },
-      { name: "CSS" },
-    ],
+      "A full-stack web application for managing home nursing care services, built with React and Express.js. This platform provides comprehensive functionality for service management, job applications, contact forms, and an admin dashboard for managing applications.",
+    stack: [{ name: "React" }, { name: "Express.js" }, { name: "MongoDB" }],
     image: "/assets/work/project17.png",
-    live: "https://github.com/arnobt78/Blog-PyFlaskWebApp",
-    github: "https://github.com/arnobt78/Blog-PyFlaskWebApp",
+    live: "https://develop-testing-1.netlify.app/",
+    github:
+      "https://github.com/arnobt78/Professional-Home-Nursing-Services-Platform--React-FullStack",
   },
+
   {
     num: "18",
     category: "Frontend",
-    title: "Shopmate-React-Context-Reducer-Webpage",
+    title:
+      "Embedded Marketing - Modern React Landing Page with Feedback Widget",
     description:
-      "Shopmate is a demo React E-Commerce Web Application (Global Level State Application), using React useContext and useReducer features. React Core, Hooks, Routing, HTML, CSS, Responsive Screen, Context, and Reducers functionalities have been used in this project and deployed on Netlify. Note: useContext and useReducer have been employed in this React project; Redux and Redux-Toolkit have not been used here.",
+      "A modern, production-ready, static React landing page template built with Vite, TailwindCSS, and Framer Motion. Features a fully integrated feedback widget powered by Next.js, Prisma, and Vercel. This project demonstrates best practices for building, styling, and extending React apps with real-world features.",
     stack: [
-      { name: "React.js" },
-      { name: "React-Context" },
-      { name: "React-Reducers" },
-      { name: "Routing" },
+      { name: "React" },
+      { name: "Vite" },
+      { name: "TailwindCSS" },
+      { name: "Framer Motion" },
     ],
     image: "/assets/work/project18.png",
-    live: "https://shopmate-cr-arnob.netlify.app",
+    live: "https://embedded-marketing.netlify.app/",
     github:
-      "https://github.com/arnobt78/Shopmate-React-Context-Reducer-Webpage",
+      "https://github.com/arnobt78/Embedded-Widget-Marketing-Interactive-Landing--React-Frontend",
   },
+
   {
     num: "19",
     category: "Frontend",
-    title: "SoundMate-TailwindCSS-Templet",
+    title:
+      "Restaurant TS Landing Page - Next.js, TailwindCSS, Framer Motion Frontend Project",
     description:
-      "TailwindCSS-SoundMate-WebPage is a demo single webpage with header logo, navbar, body with info, button, cards, footer and responsive screen for any device where using only TailwindCSS, Tailwind class extension JS and HTML.",
-    stack: [{ name: "React.js" }, { name: "TailwindCSS" }],
+      "A beautiful, fully responsive restaurant landing page built with Next.js, TypeScript, TailwindCSS, and Framer Motion. This project demonstrates modern web development practices including server-side rendering, component composition, animation patterns, and responsive design.",
+    stack: [
+      { name: "Next.js" },
+      { name: "TypeScript" },
+      { name: "TailwindCSS" },
+      { name: "Framer Motion" },
+    ],
     image: "/assets/work/project19.png",
-    live: "https://github.com/arnobt78/SoundMate-TailwindCSS-Templet",
-    github: "https://github.com/arnobt78/SoundMate-TailwindCSS-Templet",
+    live: "https://restaurant-js-arnob.vercel.app/",
+    github: "https://github.com/arnobt78/Restaurant-Landing-1--NextJS-Frontend",
   },
+
   {
     num: "20",
     category: "Frontend",
-    title: "HotelBooking-ReactVite-Website",
+    title:
+      "Restaurant Gericht Landing Page - React.js, TailwindCSS Frontend Project",
     description:
-      "Hotel-Booking is a Static React-Vite Frontend Website, using React.js, React-Compotents, React-context API, Hooks, TailwindCSS, React Date Picker, Responsive Mobile Menu, Swiper Slider, Data Loading Spinner Effect, Scroll To Top Component, when page or location changes and deploy on Netlify.",
-    stack: [
-      { name: "React.js" },
-      { name: "TailwindCSS" },
-      { name: "Swiper Slider" },
-    ],
+      "A modern, fully responsive restaurant website built using React, TailwindCSS. It showcases a premium restaurant experience with a clean design, interactive gallery, menu, chef's word, awards, and contact sections. The project is ideal for learning React component architecture, CSS styling, and building scalable web applications.",
+    stack: [{ name: "React" }, { name: "TailwindCSS" }],
     image: "/assets/work/project20.png",
-    live: "https://hotel-booking-arnob.netlify.app",
-    github: "https://github.com/arnobt78/HotelBooking-ReactVite-Website",
+    live: "https://restaurant-3-gericht.netlify.app/",
+    github: "https://github.com/arnobt78/Restaurant-Landing-3--React-Frontend",
   },
+
   {
     num: "21",
-    category: "Frontend",
-    title: "CoffeeShop-NextJS-Webpage",
+    category: "Fullstack",
+    title:
+      "Restaurant Food Ordering Management System - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)",
     description:
-      "Coffee-Shop is a NextJS 14 Static Frontend Webpage, using React.js, Typescript, TailwindCSS, Framer-Motion, Locomotive-Scroll, Gsap, React-Icons, Split-Type, Swiper, Mobile NavBar features and deploy on Vercel.",
+      "A comprehensive, modern food ordering platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time order management, payment processing, analytics dashboard, and advanced search capabilities.",
     stack: [
-      { name: "Next.js" },
-      { name: "React.js" },
-      { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
+      { name: "MongoDB" },
+      { name: "Express.js" },
+      { name: "React" },
+      { name: "Node.js" },
     ],
     image: "/assets/work/project21.png",
-    live: "https://coffeeshop-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/CoffeeShop-NextJS-Webpage",
+    live: "https://mern-food-ordering.netlify.app/",
+    github:
+      "https://github.com/arnobt78/Restaurant-Food-Ordering-Management-System--React-MERN-FullStack",
   },
+
   {
     num: "22",
     category: "Frontend",
-    title: "SkinCare-Salon-NextJS-Website",
+    title:
+      "Coffee Shop 1 Landing Page - Next.js, TailwindCSS, Framer Motion Frontend Project",
     description:
-      "SkinCare-Salon is a NextJS 14 Static Frontend Website, using React.js, Typescript, TailwindCSS, Framer-Motion, Shadcn-UI, tailwindCSS-Animate, Lucide-React, React-Icons, React-Player, React-Reponsive, React-Countup features and deploy on Vercel.",
+      "A modern, fully responsive coffee shop landing page built with Next, React, TypeScript, and TailwindCSS. This project showcases advanced animations, smooth scrolling effects, and a beautiful user interface perfect for learning modern frontend development.",
     stack: [
       { name: "Next.js" },
-      { name: "React.js" },
-      { name: "Typescript" },
+      { name: "TypeScript" },
       { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
+      { name: "Framer Motion" },
     ],
     image: "/assets/work/project22.png",
-    live: "https://skincare-salon-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/SkinCare-Salon-NextJS-Website",
+    live: "https://coffeeshop-arnob.vercel.app/",
+    github: "https://github.com/arnobt78/CoffeeShop-Landing-1--NextJS-Frontend",
   },
+
   {
     num: "23",
     category: "Frontend",
-    title: "RestaurantJS-NextJS-Website",
+    title:
+      "Coffee Shop 2 Landing Page - React, Vite, TailwindCSS Frontend Project",
     description:
-      "RestaurantJS App is a NextJS 14 Static Frontend Website, using React.js, Javascript, TailwindCSS, Framer-Motion, TailwindCSS-Animate, Date-fns, React-Leaflet, Lucide-React, React-Day-Picker, React-Scroll, React-Icons, React-Responsive features and deploy on Vercel. Note: This static website is built using Javascript, I have developed the same static website using Typescript.",
-    stack: [
-      { name: "Next.js" },
-      { name: "React.js" },
-      { name: "Javascript" },
-      { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
-    ],
+      "A modern, responsive coffee shop landing page built with React, Vite, and Tailwind CSS. This project demonstrates best practices in React component structure, animation, and UI/UX, making it a great template for learning, customization, and real-world use.",
+    stack: [{ name: "React" }, { name: "Vite" }, { name: "TailwindCSS" }],
     image: "/assets/work/project23.png",
-    live: "https://restaurant-js-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/RestaurantJS-NextJS-Website",
+    live: "https://coffeelover-cafe.netlify.app/",
+    github: "https://github.com/arnobt78/CoffeeShop-Landing-2--React-Frontend",
   },
+
   {
     num: "24",
-    category: "Frontend",
-    title: "RestaurantTS-NextJS-Website",
+    category: "Fullstack",
+    title:
+      "Job Tracking Application - Next.js, TypeScript, Clerk, Prisma, React Query, PostgreSQL FullStack Project",
     description:
-      "RestaurantTS App is a NextJS 14 Static Restaurant Landing Page, using React.js, Typescript, Webpack, TailwindCSS, Framer-Motion, TailwindCSS-Animate, Radix-UI, Date-fns, React-Leaflet, Lucide-React, React-Day-Picker, React-Scroll, React-Icons, React-Responsive features and deploy on Vercel. Note: This static webpage is built using Typescript, I have developed the same static webpage using Javascript.",
+      "A full-featured, production-ready job tracking application built with Next.js, TypeScript, Clerk, Prisma, React Query, PostgreSQL, and modern web technologies. Jobify helps job seekers efficiently organize, track, and analyze their job search journey with a beautiful, responsive dashboard.",
     stack: [
       { name: "Next.js" },
-      { name: "React.js" },
-      { name: "Typescript" },
-      { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
+      { name: "TypeScript" },
+      { name: "React Query" },
+      { name: "PostgreSQL" },
     ],
     image: "/assets/work/project24.png",
-    live: "https://restaurant-ts-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/RestaurantTS-NextJS-Website",
+    live: "https://jobify-tracker.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Job-Application-Tracker--NextJS-FullStack",
   },
+
   {
     num: "25",
-    category: "Frontend",
-    title: "AnimeVault-NextJS-Webpage",
+    category: "Fullstack",
+    title:
+      "Next Store | E-Commerce Platform - Next.js, PostgreSQL, Vercel Blob, Stripe Fullstack Project",
     description:
-      "Anime-Vault is a NextJS 14 Server Side App with Server Actions, Infinite Scroll, and Framer-Motion Animations, which displays the lists of all anime from Server Side API. This project aims to define, understand, separate, and implement Server Side Actions and Clint Side Actions in NextJS and deploy on Vercel.",
+      "A beautifully designed, high-performance e-commerce platform built with Next.js 14, TypeScript, Prisma, PostgreSQL, Vercel Blob Storage, Clerk authentication, Stripe payments, and shadcn/ui. Next Store offers a seamless online shopping experience with fast checkout, secure payments, and a curated selection of products.",
     stack: [
       { name: "Next.js" },
-      { name: "React.js" },
-      { name: "Typescript" },
-      { name: "TailwindCSS" },
-      { name: "Framer-Motion" },
+      { name: "PostgreSQL" },
+      { name: "Vercel Blob" },
+      { name: "Stripe" },
     ],
     image: "/assets/work/project25.png",
-    live: "https://anime-vault-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/AnimeVault-NextJS-Webpage",
+    live: "https://store-next-beta.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Ecommerce-Platform--NextJS-Serverless-FullStack",
   },
+
   {
     num: "26",
     category: "Fullstack",
-    title: "AI-Chat-Bot-ReactVite-Webpage",
+    title:
+      "Comfy Store | E-Commerce Platform - React, Vite, Redux Toolkit, Node.js, Express.js FullStack Project",
     description:
-      "AI-Chat-Bot is a complete project example with OpenAI ChatGPT and React-Vite, using OpenAI API, Emoji-Mart, UUID, and having a Chat History and New Chat Creation features, and deployed on Vercel.",
+      "An advanced, modern eCommerce web application built with React, Vite, Redux Toolkit, TailwindCSS, DaisyUI, and more. This project demonstrates a real-world online shop with a rich set of features, clean project structure, and best practices for state management, UI, and API integration.",
     stack: [
-      { name: "React-Vite" },
-      { name: "OpenAI API" },
-      { name: "Javascript" },
+      { name: "React" },
+      { name: "Vite" },
+      { name: "Redux Toolkit" },
+      { name: "Express.js" },
     ],
     image: "/assets/work/project26.png",
-    live: "https://ai-chat-bot-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/AI-Chat-Bot-ReactVite-Webpage",
+    live: "https://ecommerce-comfy-arnob.netlify.app/",
+    github:
+      "https://github.com/arnobt78/Ecommerce-Platform--React-Express-NodeJS-FullStack",
   },
+
   {
     num: "27",
-    category: "Fullstack",
-    title: "Weather-ReactVite-Webpage",
+    category: "Frontend",
+    title:
+      "Premium Skincare Salon - Next.js, TailwindCSS, Framer-Motion Frontend Project",
     description:
-      "Weather App is a React-Vite Weather Project, using OpenWeather API, displays the Weather Status, Temperature, Humidity, Wind of any city in the world, and deployed on Vercel.",
+      "A modern, responsive, and animated frontend website built with Next.js, React, TypeScript, and TailwindCSS. This project demonstrates how to build a professional skincare salon website with smooth animations, custom cursor interactions, and a modular component structure.",
     stack: [
-      { name: "React-Vite" },
-      { name: "OpenWeather API" },
-      { name: "Javascript" },
+      { name: "Next.js" },
+      { name: "TailwindCSS" },
+      { name: "Framer-Motion" },
     ],
     image: "/assets/work/project27.png",
-    live: "https://weather-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/Weather-ReactVite-Webpage",
+    live: "https://skincare-salon.vercel.app/",
+    github:
+      "https://github.com/arnobt78/Skin-Care-Salon-Landing--NextJS-Frontend",
   },
+
   {
     num: "28",
-    category: "Fullstack",
-    title: "Quotes-ReactVite-Webpage",
+    category: "Frontend",
+    title:
+      "Hotel Booking 2 Landing Page - React, Vite, TailwindCSS Fundamental Frontend Project",
     description:
-      "Quotes App is a React-Vite Random Quotes Generator Project, using TheQuote API, displays the random quotes by famous Authors, Philosphers, Artists, or Movies, and saves them in a list as Favorites with delete options and deployed on Vercel.",
-    stack: [
-      { name: "React-Vite" },
-      { name: "TheQuote API" },
-      { name: "Javascript" },
-    ],
+      "A modern, responsive hotel booking frontend website built with React, Vite, TailwindCSS. This project demonstrates core React concepts (components, context API, hooks), advanced UI/UX with custom components, a mobile-friendly layout, and integration with third-party React libraries. It is designed both as a learning resource and a practical template for static hotel or accommodation websites.",
+    stack: [{ name: "React" }, { name: "Vite" }, { name: "TailwindCSS" }],
     image: "/assets/work/project28.png",
-    live: "https://quotes-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/Quotes-ReactVite-Webpage",
+    live: "https://hotel-booking-arnob.netlify.app/",
+    github:
+      "https://github.com/arnobt78/Hotel-Booking-Interactive-Landing--React-Frontend",
   },
+
   {
     num: "29",
     category: "Fullstack",
-    title: "Calendar-ReactVite-Webpage",
+    title: "Modern Portfolio Website - Next.js FullStack Project",
     description:
-      "Calendar App is a React-Vite Calendar To-Do Event Project, using Calendar, select any day of the month of the year and set the clock hour for the day to remember the event. Also, events can be changed and edited with delete options and deployed on Vercel.",
-    stack: [
-      { name: "React-Vite" },
-      { name: "Calendar To-Do Clock Event" },
-      { name: "Javascript" },
-    ],
-    image: "/assets/work/project29.png",
-    live: "https://calendar-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/Calendar-ReactVite-Webpage",
-  },
-  {
-    num: "30",
-    category: "Fullstack",
-    title: "News-ReactVite-Webpage",
-    description:
-      "News App is a React-Vite Random Current World Related Live News Project, using GNews API, Axios for the HTTP Client Request, to display the news in different categories in Navbar, display the details in a popup page, read more as a source link, and deploy on Vercel.",
-    stack: [
-      { name: "React-Vite" },
-      { name: "GNews API" },
-      { name: "Javascript" },
-    ],
-    image: "/assets/work/project30.png",
-    live: "https://news-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/News-ReactVite-Webpage",
-  },
-  {
-    num: "31",
-    category: "Fullstack",
-    title: "Translator-ReactVite-Webpage",
-    description:
-      "Translator App is a React-Vite Language Translator Project, using TailwindCSS, MyMemory API. Select various languages to translate from one another and in reverse order and deploy on Vercel.",
-    stack: [
-      { name: "React-Vite" },
-      { name: "MyMemory API" },
-      { name: "Javascript" },
-      { name: "TailwindCSS" },
-    ],
-    image: "/assets/work/project31.png",
-    live: "https://translator-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/Translator-ReactVite-Webpage",
-  },
-  {
-    num: "32",
-    category: "Frontend",
-    title: "Marketing-TailwindCSS-Template",
-    description:
-      "Marketing-TailwindCSS-Template is a Static React-Vite Frontend Landing Page, using React-Vite, TailwindCSS, Framer-Motion, React-Animate, React-Icons, and deployed on Netlify.",
-    stack: [
-      { name: "React-Vite" },
-      { name: "Framer-Motion" },
-      { name: "Javascript" },
-      { name: "TailwindCSS" },
-    ],
-    image: "/assets/work/project32.png",
-    live: "https://marketing-arnob.netlify.app",
-    github: "https://github.com/arnobt78/Marketing-TailwindCSS-Templet",
-  },
-  {
-    num: "33",
-    category: "Fullstack",
-    title: "HealthCare-NextJS-Website",
-    description:
-      "HealthCare is a healthcare patient management application using Next.js, Twilio (for SMS notification), TypeScript, TailwindCSS, Shadcn-UI, Zod (for From Validation), Sentry (to monitor performance and error), CLSX that allows patients to easily register, book, and manage their appointments with doctors, featuring administrative tools for scheduling, confirming, and canceling appointments, along with SMS notifications, and deployed on Vercel.",
+      "A cutting-edge, production-ready portfolio website built with Next.js, TypeScript, TailwindCSS, and Framer Motion. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.",
     stack: [
       { name: "Next.js" },
-      { name: "Framer-Motion" },
-      { name: "Typescript" },
-      { name: "Shadcn-UI" },
-      { name: "Zod" },
+      { name: "TypeScript" },
+      { name: "TailwindCSS" },
+      { name: "Framer Motion" },
     ],
-    image: "/assets/work/project33.png",
-    live: "https://healthcare-arnob.vercel.app/",
-    github: "https://github.com/arnobt78/HealthCare-NextJS-Website",
+    image: "/assets/work/project29.png",
+    live: "https://arnob-mahmud.vercel.app/",
+    github: "https://github.com/arnobt78/MyPortfolio--NextJS-FullStack",
   },
+
+  // {
+  //   num: "30",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project30.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "31",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project31.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "32",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project32.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "33",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project33.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "34",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project34.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "35",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project35.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "36",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project36.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "37",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project37.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "38",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project38.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "39",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project39.png",
+  //   live: "",
+  //   github: "",
+  // },
+
+  // {
+  //   num: "40",
+  //   category: "Fullstack",
+  //   title: "",
+  //   description: "",
+  //   stack: [{ name: "" }],
+  //   image: "/assets/work/project40.png",
+  //   live: "",
+  //   github: "",
+  // },
 ];
 
 const WorkPage = () => {
   const [project, setPorject] = useState<Project>(projects[0]);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const swiperRef = useRef<SwiperType | null>(null);
 
   const { displayText, isComplete } = useTypewriter({
     text: `Projects (${projects.length})`,
     speed: 200,
-    delay: 2500,
+    delay: 2000,
   });
 
   const handleSlidechange = (swiper: SwiperType) => {
@@ -589,15 +691,17 @@ const WorkPage = () => {
     <div className="min-h-[90vh] flex flex-col justify-center pb-4 animate-ease-in-out">
       <div className="container mx-auto">
         {/* View Mode Toggle */}
-        <div className="flex justify-between items-center mb-6 gap-0">
-          {/* Typewriter Title */}
-          <h2 className="text-3xl font-bold text-accent whitespace-nowrap">
-            {displayText}
-            {!isComplete && <span className="typewriter-cursor"></span>}
-          </h2>
+        <div className="flex flex-col gap-4 mb-6">
+          {/* Row 1: Typewriter Title and View Mode Buttons */}
+          <div className="flex justify-between items-center gap-0">
+            {/* Typewriter Title */}
+            <h2 className="text-xl xl:text-2xl font-bold text-accent whitespace-nowrap">
+              {displayText}
+              {!isComplete && <span className="typewriter-cursor"></span>}
+            </h2>
 
-          {/* View Mode Buttons */}
-          <div className="flex gap-2">
+            {/* View Mode Buttons */}
+            <div className="flex gap-2">
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger
@@ -634,11 +738,27 @@ const WorkPage = () => {
               </Tooltip>
             </TooltipProvider>
           </div>
+          </div>
+
+          {/* Row 2: GitHub Link */}
+          <div className="flex flex-col gap-2">
+            <span className="text-sm sm:text-base text-white/80">
+              Here it&apos;s showcase 40+ projects, to check 90+ open-source production ready Project, visit my Github repo:{" "}
+              <Link
+                href="https://github.com/arnobt78"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent/70 transition-colors duration-300 hover:underline hover:underline-offset-4"
+              >
+                arnobt78
+              </Link>
+            </span>
+          </div>
         </div>
 
         {/* Grid View (Original Swiper) */}
         {viewMode === "grid" && (
-          <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-8">
+          <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-8 xl:items-start">
             {/* Number and Buttons - order 1 on mobile, grid position [row 1, col 1] on desktop */}
             <div className="flex justify-between order-1 xl:row-start-1 xl:col-start-1 mb-2 xl:mb-0">
               {/* outline num */}
@@ -679,57 +799,109 @@ const WorkPage = () => {
             </div>
 
             {/* Title - order 2 on mobile, grid position [row 2, col 1] on desktop */}
-            <h2 className="text-[28px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
+            <h2 className="text-md lg:text-lg xl:text-xl font-semibold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
               {project.title}
             </h2>
 
-            {/* Image/Swiper - order 3 on mobile, grid position [row 1-6, col 2] (spans all rows, right column) on desktop */}
-            <div className="order-3 xl:row-start-1 xl:row-end-7 xl:col-start-2 mb-2 xl:mb-0">
-              <Swiper
-                spaceBetween={30}
-                slidesPerView={1}
-                className="xl:h-[520px] mb-12"
-                onSlideChange={handleSlidechange}
-              >
-                {projects.map((project, index) => {
-                  return (
-                    <SwiperSlide key={index} className="w-full">
-                      <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
-                        {/* overlay */}
-                        <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
+            {/* Image/Swiper - order 3 on mobile, grid position [row 1, col 2] with row-span to span all rows on desktop */}
+            <div className="order-3 xl:row-start-1 xl:row-span-6 xl:col-start-2 mb-2 xl:mb-0 relative xl:self-stretch">
+              <div className="relative">
+                <Swiper
+                  spaceBetween={30}
+                  slidesPerView={1}
+                  className="xl:h-[520px] mb-12"
+                  onSlideChange={handleSlidechange}
+                  onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                  }}
+                  speed={600}
+                  effect="slide"
+                  allowTouchMove={true}
+                  allowSlideNext={true}
+                  allowSlidePrev={true}
+                  simulateTouch={true}
+                  touchEventsTarget="container"
+                  touchRatio={1}
+                  threshold={10}
+                >
+                  {projects.map((project, index) => {
+                    return (
+                      <SwiperSlide key={index} className="w-full">
+                        <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
+                          {/* overlay - pointer-events-none to allow clicks through */}
+                          <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10 pointer-events-none"></div>
 
-                        {/* image */}
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
-                            className="object-cover absolute inset-0"
-                          />
+                          {/* image */}
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                              className="object-cover absolute inset-0"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+                
+                {/* Left Arrow - positioned at the edge of image area, only navigation method */}
+                <button
+                  type="button"
+                  className="flex items-center justify-center absolute left-2 md:left-3 xl:left-4 top-1/2 -translate-y-1/2 z-[100] w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm cursor-pointer transition-all duration-300 hover:scale-110 group active:scale-95"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (swiperRef.current) {
+                      swiperRef.current.slidePrev();
+                    }
+                  }}
+                  onTouchEnd={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (swiperRef.current) {
+                      swiperRef.current.slidePrev();
+                    }
+                  }}
+                  aria-label="Previous project"
+                >
+                  <PiCaretLeftBold className="text-white text-xl md:text-2xl xl:text-3xl transition-all duration-300 group-hover:text-accent pointer-events-none" />
+                </button>
 
-                {/* slider button */}
-                <WorkSliderBtns
-                  containerStyles="flex gap-2 absolute right-0 
-              bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
-                  btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all"
-                  iconStyles="text-xl"
-                />
-              </Swiper>
+                {/* Right Arrow - positioned at the edge of image area, only navigation method */}
+                <button
+                  type="button"
+                  className="flex items-center justify-center absolute right-2 md:right-3 xl:right-4 top-1/2 -translate-y-1/2 z-[100] w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm cursor-pointer transition-all duration-300 hover:scale-110 group active:scale-95"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (swiperRef.current) {
+                      swiperRef.current.slideNext();
+                    }
+                  }}
+                  onTouchEnd={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (swiperRef.current) {
+                      swiperRef.current.slideNext();
+                    }
+                  }}
+                  aria-label="Next project"
+                >
+                  <PiCaretRightBold className="text-white text-xl md:text-2xl xl:text-3xl transition-all duration-300 group-hover:text-accent pointer-events-none" />
+                </button>
+              </div>
             </div>
 
             {/* Description - order 4 on mobile, grid position [row 3, col 1] on desktop */}
-            <p className="text-white/60 text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
+            <p className=" text-white/60 text-start sm:text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
               {project.description}
             </p>
 
             {/* Stack - order 5 on mobile, grid position [row 4, col 1] on desktop */}
-            <div className="text-justify order-5 xl:row-start-4 xl:col-start-1 mb-6 xl:mb-0">
+            <div className="text-start sm:text-justify order-5 xl:row-start-4 xl:col-start-1 mb-6 xl:mb-0">
               <ul className="flex flex-wrap gap-2">
                 {project.stack.map((item, index) => {
                   return (
@@ -794,7 +966,7 @@ const WorkPage = () => {
                   </div>
 
                   {/* Title - order 2 on mobile, grid position [row 2, col 1] on desktop */}
-                  <h2 className="text-[28px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
+                  <h2 className="text-md lg:text-lg xl:text-xl font-semibold  leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
                     {proj.title}
                   </h2>
 
@@ -817,12 +989,12 @@ const WorkPage = () => {
                   </div>
 
                   {/* Description - order 4 on mobile, grid position [row 3, col 1] on desktop */}
-                  <p className="text-white/60 text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
+                  <p className="text-white/60 text-start sm:text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
                     {proj.description}
                   </p>
 
                   {/* Stack - order 5 on mobile, grid position [row 4, col 1] on desktop */}
-                  <div className="text-justify order-5 xl:row-start-4 xl:col-start-1">
+                  <div className="text-start sm:text-justify order-5 xl:row-start-4 xl:col-start-1">
                     <ul className="flex flex-wrap gap-2">
                       {proj.stack.map((item, stackIndex) => {
                         return (

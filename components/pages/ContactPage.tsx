@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import axios, { AxiosError } from "axios";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,7 +13,10 @@ import {
   FaMapMarkerAlt,
   FaCheckCircle,
   FaExclamationCircle,
+  FaLinkedin,
+  FaGithub,
 } from "react-icons/fa";
+import { Copy, Check } from "lucide-react";
 import { useTypewriter } from "../../hooks/useTypewriter";
 
 // TypeScript interfaces
@@ -20,6 +24,7 @@ interface InfoItem {
   icon: React.ReactElement;
   title: string;
   description: string;
+  href?: string;
 }
 
 interface FormData {
@@ -55,7 +60,19 @@ const info: InfoItem[] = [
   {
     icon: <FaMapMarkerAlt />,
     title: "Address",
-    description: "60388 Frankfurt am Main, Germany",
+    description: "Frankfurt am Main, Germany",
+  },
+  {
+    icon: <FaLinkedin />,
+    title: "Linkedin",
+    description: "arnob-mahmud-05839655",
+    href: "https://www.linkedin.com/in/arnob-mahmud-05839655/",
+  },
+  {
+    icon: <FaGithub />,
+    title: "Github",
+    description: "arnobt78",
+    href: "https://github.com/arnobt78",
   },
 ];
 
@@ -67,12 +84,13 @@ const ContactPage = () => {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<AlertMessage | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
 
   const { displayText, isComplete } = useTypewriter({
-    text: "Let's work together",
+    text: "Let’s build something great!",
     speed: 200,
-    delay: 2500,
+    delay: 2000,
   });
 
   const handleChange = (
@@ -197,6 +215,19 @@ const ContactPage = () => {
     }
   };
 
+  const handleCopy = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIndex(index);
+      // Reset to clipboard icon after 2 seconds
+      setTimeout(() => {
+        setCopiedIndex(null);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy text:", err);
+    }
+  };
+
   return (
     <section className="py-6 animate-ease-in-out">
       <div className="container mx-auto">
@@ -204,10 +235,10 @@ const ContactPage = () => {
           <div className="xl:w-[54%] order-2 xl:order-none">
             <form
               ref={formRef}
-              className="flex flex-col gap-4 p-10 bg-[#27272c] rounded-xl"
+              className="flex flex-col gap-4 p-4 sm:p-10 bg-[#27272c] rounded-xl"
               onSubmit={handleSubmit}
             >
-              <h3 className="text-4xl text-accent">
+              <h3 className="text-2xl sm:text-3xl text-accent">
                 {displayText}
                 {!isComplete && <span className="typewriter-cursor"></span>}
               </h3>
@@ -228,12 +259,8 @@ const ContactPage = () => {
                   <AlertDescription>{alertMessage.message}</AlertDescription>
                 </Alert>
               )}
-              <p className="text-white/60 text-justify">
-                Open to freelance, part-time, or full-time roles — eager to
-                learn, grow, & make a meaningful impact within a dynamic team.
-                I'm driven to deliver high-value solutions that bring measurable
-                results & profit to your company, while continuously advancing
-                my skills through real-world experience.
+              <p className="text-white/60 text-start sm:text-justify text-md sm:text-lg">
+                Available for freelance, contract, or full-time roles. I help businesses and teams design, build, and scale reliable digital products — from idea to production.
               </p>
               <div className="grid gap-4">
                 <Input
@@ -280,8 +307,49 @@ const ContactPage = () => {
                     <div className="text-[28px]">{item.icon}</div>
                   </div>
                   <div className="flex-1">
-                    <p className="text-white/60">{item.title}</p>
-                    <h3 className="text-xl">{item.description}</h3>
+                    <p className="text-white/60 text-md">{item.title}</p>
+                    <div>
+                      {item.href ? (
+                        <>
+                          <Link
+                            href={item.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white text-lg sm:text-xl hover:text-accent transition-colors duration-300 inline"
+                          >
+                            {item.description}
+                          </Link>
+                          <button
+                            onClick={() => handleCopy(item.href || item.description, index)}
+                            className="text-white/60 hover:text-accent transition-colors duration-300 p-1 inline-flex items-center ml-2 align-middle"
+                            aria-label={`Copy ${item.title}`}
+                            type="button"
+                          >
+                            {copiedIndex === index ? (
+                              <Check className="text-accent text-base size-4" />
+                            ) : (
+                              <Copy className="text-base size-4" />
+                            )}
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <h3 className="text-white text-lg sm:text-xl inline">{item.description}</h3>
+                          <button
+                            onClick={() => handleCopy(item.href || item.description, index)}
+                            className="text-white/60 hover:text-accent transition-colors duration-300 p-1 inline-flex items-center ml-2 align-middle"
+                            aria-label={`Copy ${item.title}`}
+                            type="button"
+                          >
+                            {copiedIndex === index ? (
+                              <Check className="text-accent text-base size-4" />
+                            ) : (
+                              <Copy className="text-base size-4" />
+                            )}
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </li>
               ))}

@@ -5,9 +5,9 @@ import { Card } from "./ui/card";
 
 const stats = [
   { num: 5, text: "Years of Experience", startFrom: 0 },
-  { num: 93, text: "Projects Completed", startFrom: 73 },
+  { num: 93, text: "Projects Completed", startFrom: 63 },
   { num: 14, text: "Technologies Mastered", startFrom: 0 },
-  { num: 849, text: "Code Commits", startFrom: 819 },
+  { num: 1676, text: "Code Commits", startFrom: 1636 },
 ];
 
 interface AnimatedCounterProps {

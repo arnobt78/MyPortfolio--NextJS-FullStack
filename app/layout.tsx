@@ -14,61 +14,49 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrainsMono",
 });
 
+// SEO-optimized main description for metadata
+const mainDescription =
+  "Full-Stack Software Engineer with 5+ years of experience delivering enterprise-grade web and API solutions. Specialized in React, Next.js, Angular, Node.js, .NET, Python, and cloud platforms (AWS, Docker, Kubernetes). Proven expertise in scalable architecture, automation, security, CI/CD, and production-ready systems for businesses and startups in Germany and Europe.";
+
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://arnob-mahmud.vercel.app"),
+
   title:
-    "Arnob Mahmud | Full-Stack Developer, Automation & Digital Solutions Engineer | Frankfurt, Germany",
-  description:
-    "Dynamic Full-Stack Developer based in Frankfurt, Germany, with 4+ years of experience building fast, scalable web and mobile apps. Specialized in React, Next.js, Angular, Node.js, Python, DotNET, PostgreSQL, NoSQL and cloud deployments (AWS, Vercel, Docker, Kubernetes). Proven expertise in UI/UX, test automation, SEO, and Google Ads. Explore my portfolio, certifications, and projects in web, mobile, automation, and digital marketing.",
+    "Arnob Mahmud | Full-Stack Software Engineer | Web, Cloud & Automation | Germany",
+
+  description: mainDescription,
+
   keywords: [
-    "Arnob Mahmud",
-    "Full-Stack Developer",
-    "Web Developer",
-    "Mobile App Developer",
-    "Automation Engineer",
-    "Digital Solutions Engineer",
+    "Full-Stack Software Engineer",
+    "Software Engineer Germany",
+    "Software Engineer Frankfurt",
+    "Web Application Development",
+    "Enterprise Software",
     "React",
     "Next.js",
     "Angular",
     "Node.js",
+    ".NET",
     "Python",
-    "DotNET",
+    "REST APIs",
     "PostgreSQL",
-    "NoSQL",
-    "Cloud",
+    "MongoDB",
     "AWS",
-    "Vercel",
     "Docker",
     "Kubernetes",
-    "UI/UX",
-    "Test Automation",
-    "Selenium",
-    "Cypress",
-    "SEO",
-    "Google Ads",
-    "Portfolio",
-    "Frankfurt",
-    "Germany",
-    "GitHub",
-    "LinkedIn",
-    "OpenAI",
-    "Machine Learning",
-    "Figma",
-    "Stripe",
-    "Odoo ERP",
-    "CakePHP",
-    "Jira",
+    "CI/CD",
     "DevOps",
-    "Digital Marketing",
-    "English",
-    "German",
-    "Bengali",
-    "Hindi",
-    "Urdu",
+    "Automation",
+    "Cloud Solutions",
+    "IT Security",
+    "Freelance Software Engineer",
   ],
+
   authors: [{ name: "Arnob Mahmud" }],
   creator: "Arnob Mahmud",
   publisher: "Arnob Mahmud",
+
   robots: {
     index: true,
     follow: true,
@@ -80,12 +68,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+
   applicationName: "Arnob Mahmud Portfolio",
+
   openGraph: {
     title:
-      "Arnob Mahmud | Full-Stack Web Developer & Automation Engineer | Frankfurt, Germany",
-    description:
-      "Portfolio of Arnob Mahmud, Full-Stack Web Developer and Automation Engineer in Frankfurt, Germany. Explore projects in web, mobile, automation, SEO, and cloud.",
+      "Arnob Mahmud | Full-Stack Software Engineer | Enterprise Web & Cloud Solutions",
+    description: mainDescription,
     url: "https://arnob-mahmud.vercel.app",
     siteName: "Arnob Mahmud Portfolio",
     images: [
@@ -93,22 +82,21 @@ export const metadata: Metadata = {
         url: "/assets/photo.png",
         width: 800,
         height: 800,
-        alt: "Arnob Mahmud - Full-Stack Developer in Frankfurt, Germany",
+        alt: "Arnob Mahmud – Full-Stack Software Engineer",
       },
     ],
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    site: "@arnob_t78",
-    creator: "@arnob_t78",
     title:
-      "Arnob Mahmud | Full-Stack Web Developer & Automation Engineer | Frankfurt, Germany",
-    description:
-      "Portfolio of Arnob Mahmud, Full-Stack Web Developer and Automation Engineer in Frankfurt, Germany. Explore projects in web, mobile, automation, SEO, and cloud.",
+      "Arnob Mahmud | Full-Stack Software Engineer | Web & Cloud Solutions",
+    description: mainDescription,
     images: ["/assets/photo.png"],
   },
+
   alternates: {
     canonical: "https://arnob-mahmud.vercel.app",
   },
@@ -121,7 +109,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Inject chatbot widget script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.CHATBOT_BASE_URL = "https://ai-chatbot-widget.arnobt78.workers.dev";
+              window.CHATBOT_TITLE = "Arnob's Assistant";
+              window.CHATBOT_GREETING = "👋 How can I help you today?";
+              window.CHATBOT_PLACEHOLDER = "Ask about Arnob...";
+            `,
+          }}
+        />
+        <script
+          src="https://ai-chatbot-widget.arnobt78.workers.dev/widget.js"
+          async
+        ></script>
+      </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
+        <div id="chatbot-widget"></div> {/* Add this container */}
         <GoogleAnalytics />
         <Analytics />
         <ScrollToTop />

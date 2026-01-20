@@ -12,24 +12,26 @@ const HomePage = () => {
   const { displayText, isComplete } = useTypewriter({
     text: "Arnob Mahmud",
     speed: 200,
-    delay: 2500,
+    delay: 2000,
   });
 
   return (
     <section>
-      <div className="container mx-auto  animate-ease-in-out">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pb-12">
+      <div className="container mx-auto">
+        <div className="flex flex-col xl:flex-row items-center justify-between xl:pb-12"
+        style={{ animationDelay: "0.3s" }}
+        >
           {/* text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
             <h2
-              className="h2 mb-5 animate-ease-in-out"
-              style={{ animationDelay: "1.7s" }}
+              className="text-2xl sm:text-3xl font-bold leading-none text-white group-hover:text-accent mb-5 animate-ease-in-out"
+              style={{ animationDelay: "0.7s" }}
             >
               Hello! I&apos;m <br />{" "}
             </h2>
             <h1
               className="h1 mb-5 animate-ease-in-out"
-              style={{ animationDelay: "1.8s" }}
+              style={{ animationDelay: "0.9s" }}
             >
               <span className="text-accent">
                 {displayText}
@@ -37,35 +39,25 @@ const HomePage = () => {
               </span>
             </h1>
             <span
-              className="w-full xl:max-w-[600px] text-xl text-justify animate-ease-in-out justify-center mx-auto xl:mx-0"
-              style={{ animationDelay: "2.0s" }}
+              className="w-full xl:max-w-[600px] text-lg sm:text-xl text-start animate-ease-in-out justify-center mx-auto xl:mx-0"
+              style={{ animationDelay: "1.1s" }}
             >
-              Full-Stack Web Developer | Automation & Digital Solutions Engineer
+              Full-Stack Software Engineer | Automation & Digital Solutions Engineer
             </span>
             <p
-              className="w-full xl:max-w-[600px] mt-2 mb-8 text-white/80 text-justify animate-ease-in-out justify-center mx-auto xl:mx-0"
-              style={{ animationDelay: "2.1s" }}
+              className="w-full xl:max-w-[600px] mt-5 mb-10 text-white/80 text-start sm:text-justify text-md sm:text-lg animate-ease-in-out justify-center mx-auto xl:mx-0"
+              style={{ animationDelay: "1.3s" }}
             >
-              Proactive & results-driven Full-Stack Web Developer with 4+ years
-              of experience delivering scalable, high-performance digital
-              products from concept to launch. Renowned for transforming complex
-              requirements into elegant, user-focused solutions that drive
-              measurable business impact. A collaborative problem-solver with
-              sharp analytical thinking, clear communication, & composure under
-              pressure. Committed to creating high-value, results-oriented
-              solutions that accelerate growth & profitability, while
-              continuously refining my craft through innovation, technical
-              excellence, & real-world experience in fast-paced, agile
-              environments.
+            Full-Stack Software Engineer (5+ years) delivering enterprise-grade web and API solutions using Node.js, .NET, Python, React, Next.js, Angular and cloud platforms. Experienced in client-facing projects, SaaS, and ERP environments, with a strong focus on clean architecture, code quality, testing, performance, and reliable production delivery.
             </p>
 
             {/* button and socials */}
             <div className="flex flex-col xl:flex-row items-center gap-8">
               <Link
-                href="https://drive.google.com/file/d/1gCbh5M7cZRVKovP1w2IYVQH_gxWVgsCa/view?usp=sharing"
+                href="https://drive.google.com/file/d/1MKxk5omd02OhlmdGgOYWhSdudt-aa4FS/view?usp=sharing"
                 target="_blank"
                 className="animate-ease-in-out"
-                style={{ animationDelay: "2.3s" }}
+                style={{ animationDelay: "1.5s" }}
               >
                 <Button
                   variant="outline"
@@ -78,7 +70,7 @@ const HomePage = () => {
               </Link>
               <div
                 className="mb:8 xl:mb-0 animate-ease-in-out"
-                style={{ animationDelay: "2.5s" }}
+                style={{ animationDelay: "1.7s" }}
               >
                 <Social
                   containerStyles="flex gap-6"
@@ -89,12 +81,15 @@ const HomePage = () => {
           </div>
 
           {/* photo */}
-          <div className="order-1 xl:order-none mb-8 xl:mb-0">
+          <div className="order-1 xl:order-none mb-8 xl:mb-0 animate-ease-in-out"
+          >
             <Photo />
           </div>
         </div>
       </div>
+      
       <Stats />
+ 
     </section>
   );
 };
