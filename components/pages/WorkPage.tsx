@@ -694,14 +694,14 @@ const WorkPage = () => {
         <div className="flex flex-col gap-4 mb-6">
           {/* Row 1: Typewriter Title and View Mode Buttons */}
           <div className="flex justify-between items-center gap-0">
-            {/* Typewriter Title */}
+          {/* Typewriter Title */}
             <h2 className="text-xl xl:text-2xl font-bold text-accent whitespace-nowrap">
-              {displayText}
-              {!isComplete && <span className="typewriter-cursor"></span>}
-            </h2>
+            {displayText}
+            {!isComplete && <span className="typewriter-cursor"></span>}
+          </h2>
 
-            {/* View Mode Buttons */}
-            <div className="flex gap-2">
+          {/* View Mode Buttons */}
+          <div className="flex gap-2">
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger
@@ -806,11 +806,11 @@ const WorkPage = () => {
             {/* Image/Swiper - order 3 on mobile, grid position [row 1, col 2] with row-span to span all rows on desktop */}
             <div className="order-3 xl:row-start-1 xl:row-span-6 xl:col-start-2 mb-2 xl:mb-0 relative xl:self-stretch">
               <div className="relative">
-                <Swiper
-                  spaceBetween={30}
-                  slidesPerView={1}
-                  className="xl:h-[520px] mb-12"
-                  onSlideChange={handleSlidechange}
+              <Swiper
+                spaceBetween={30}
+                slidesPerView={1}
+                className="xl:h-[520px] mb-12"
+                onSlideChange={handleSlidechange}
                   onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                   }}
@@ -823,29 +823,29 @@ const WorkPage = () => {
                   touchEventsTarget="container"
                   touchRatio={1}
                   threshold={10}
-                >
-                  {projects.map((project, index) => {
-                    return (
-                      <SwiperSlide key={index} className="w-full">
-                        <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
+              >
+                {projects.map((project, index) => {
+                  return (
+                    <SwiperSlide key={index} className="w-full">
+                      <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
                           {/* overlay - pointer-events-none to allow clicks through */}
                           <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10 pointer-events-none"></div>
 
-                          {/* image */}
-                          <div className="relative w-full h-full">
-                            <Image
-                              src={project.image}
-                              alt={project.title}
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
-                              className="object-cover absolute inset-0"
-                            />
-                          </div>
+                        {/* image */}
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                            className="object-cover absolute inset-0"
+                          />
                         </div>
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
                 
                 {/* Left Arrow - positioned at the edge of image area, only navigation method */}
                 <button
