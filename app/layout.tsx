@@ -107,9 +107,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Chatbot widget configuration
+  // In production (Vercel): Uses NEXT_PUBLIC_CHATBOT_URL from env vars
+  // In local dev: Falls back to localhost:3000 if env var not set
+  const chatbotUrl = process.env.NEXT_PUBLIC_CHATBOT_URL || 'http://localhost:3000';
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Chatbot Widget Script - Config must load BEFORE widget.js */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.CHATBOT_BASE_URL = "${chatbotUrl}";
+              window.CHATBOT_TITLE = "Arnob's Assistant";
+              window.CHATBOT_GREETING = "👋 How can I help you today?";
+              window.CHATBOT_PLACEHOLDER = "Ask about Arnob...";
+            `,
+          }}
+        />
+        {/* Load widget.js synchronously (no async) to ensure config is set first */}
+        <script src={`${chatbotUrl}/widget.js`}></script>
+        <link rel="stylesheet" href={`${chatbotUrl}/styles.css`} />
       </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
         <GoogleAnalytics />
