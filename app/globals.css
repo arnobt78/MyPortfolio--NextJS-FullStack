@@ -23,6 +23,7 @@
   }
   
   /* Prevent any child elements from causing horizontal overflow */
+  /* Moved from widget styles.css to root layer for better control */
   body > * {
     max-width: 100%;
     overflow-x: hidden;
@@ -95,11 +96,11 @@
     contain: layout style;
   }
 
-  /* SIMPLE FIX: Hide ALL browser default scrollbars on main content containers */
+  /* SIMPLE DIRECT FIX: Hide browser default scrollbars on page content containers */
   /* Keep ONLY custom ScrollArea scrollbars visible */
-  /* Use specific class to target problematic pages */
+  /* Target specific page containers - hide their scrollbars immediately */
   .page-content-no-scrollbar {
-    /* Hide browser default scrollbar immediately - use !important to override any other styles */
+    /* Hide browser default scrollbar immediately - use !important to override widget styles */
     scrollbar-width: none !important; /* Firefox */
     -ms-overflow-style: none !important; /* IE and Edge */
     /* Reserve space to prevent layout shift */
@@ -112,7 +113,7 @@
     height: 0 !important;
   }
 
-  /* Also target containers with min-h-[90vh] as fallback */
+  /* Also target containers with min-h-[90vh] as fallback - hide scrollbars */
   section[class*="min-h-[90vh]"],
   div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) {
     scrollbar-width: none !important;
