@@ -6,14 +6,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-8 xl:py-12 border-t border-white/10 mt-auto">
+    <footer className="py-8 xl:py-12 mt-4 sm:mt-8">
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row justify-between items-center gap-4">
           {/* Left side - Copyright */}
           <div className="text-white/60 text-sm sm:text-base">
             © {currentYear} All rights reserved.
           </div>
-          
+
           {/* Right side - Links */}
           <div className="flex gap-6 sm:gap-8">
             <Link
