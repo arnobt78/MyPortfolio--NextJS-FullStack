@@ -19,7 +19,7 @@ const PageTransition = ({ children }: PageTransitionProps) => {
             opacity: 0,
             transition: { delay: 1.6, duration: 0.4, ease: "easeInOut" },
           }}
-          className="h-screen w-screen fixed bg-primary top-0 pointer-events-none"
+          className="h-screen w-screen fixed bg-primary top-0 left-0 right-0 pointer-events-none overflow-hidden"
         />
 
         {children}
