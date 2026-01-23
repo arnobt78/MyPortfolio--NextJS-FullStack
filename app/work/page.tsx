@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Work & Projects | Arnob Mahmud Portfolio",
     description:
       "Browse through 93+ innovative web development projects including AI chatbots, e-commerce platforms, mobile apps, and automation tools.",
-    url: "https://arnob-mahmud.vercel.app/work",
+    url: "https://www.arnobmahmud.com/work",
   },
 };
 

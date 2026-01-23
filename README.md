@@ -2,7 +2,7 @@
 
 A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.
 
-- **Live-Demo:** [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/)
+- **Live-Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
 
 ![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
 ![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
@@ -1992,7 +1992,7 @@ import "./styles.css";
 
 ```typescript
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arnob-mahmud.vercel.app"),
+  metadataBase: new URL("https://www.arnobmahmud.com"),
   title: "Arnob Mahmud | Full-Stack Developer | Portfolio",
   description: "Professional portfolio showcasing web development projects...",
   keywords: [
@@ -2008,7 +2008,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Arnob Mahmud | Full-Stack Developer",
     description: "Portfolio of Arnob Mahmud...",
-    url: "https://arnob-mahmud.vercel.app",
+    url: "https://www.arnobmahmud.com",
     siteName: "Arnob Mahmud Portfolio",
     images: [{ url: "/assets/photo.png" }],
     locale: "en_US",
@@ -2353,7 +2353,7 @@ SOFTWARE.
 **Arnob Mahmud**
 
 - 📧 Email: [arnobt78@gmail.com](mailto:arnobt78@gmail.com)
-- 🌐 Portfolio: [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/)
+- 🌐 Portfolio: [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
 - 💼 LinkedIn: [linkedin.com/in/arnob-mahmud-05839655/](https://www.linkedin.com/in/arnob-mahmud-05839655/)
 - 🐙 GitHub: [github.com/arnobt78](https://github.com/arnobt78)
 - 📱 Phone: +49 157 34664351
@@ -2427,7 +2427,7 @@ Send your project details to [arnobt78@gmail.com](mailto:arnobt78@gmail.com) to 
 
 Feel free to use this project repository and extend this project further!
 
-If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://arnob-mahmud.vercel.app/](https://arnob-mahmud.vercel.app/).
+If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/).
 
 **Enjoy building and learning!** 🚀
 

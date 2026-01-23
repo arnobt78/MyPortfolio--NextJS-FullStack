@@ -543,7 +543,7 @@ const projects: Project[] = [
       { name: "Framer Motion" },
     ],
     image: "/assets/work/project29.png",
-    live: "https://arnob-mahmud.vercel.app/",
+    live: "https://www.arnobmahmud.com/",
     github: "https://github.com/arnobt78/MyPortfolio--NextJS-FullStack",
   },
 

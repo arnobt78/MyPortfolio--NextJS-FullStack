@@ -20,7 +20,7 @@ const mainDescription =
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arnob-mahmud.vercel.app"),
+  metadataBase: new URL("https://www.arnobmahmud.com"),
 
   title:
     "Arnob Mahmud | Full-Stack Software Engineer | Web, Cloud & Automation | Germany",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title:
       "Arnob Mahmud | Full-Stack Software Engineer | Enterprise Web & Cloud Solutions",
     description: mainDescription,
-    url: "https://arnob-mahmud.vercel.app",
+    url: "https://www.arnobmahmud.com",
     siteName: "Arnob Mahmud Portfolio",
     images: [
       {
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://arnob-mahmud.vercel.app",
+    canonical: "https://www.arnobmahmud.com",
   },
 };
 

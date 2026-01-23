@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "Services | Arnob Mahmud Portfolio",
     description:
       "Expert services in web development, mobile apps, UI/UX design, test automation, and cybersecurity. Get scalable solutions tailored to your needs.",
-    url: "https://arnob-mahmud.vercel.app/services",
+    url: "https://www.arnobmahmud.com/services",
   },
 };
 
