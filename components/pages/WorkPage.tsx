@@ -688,7 +688,7 @@ const WorkPage = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex flex-col justify-center pb-4 animate-ease-in-out" style={{ scrollbarGutter: 'stable' }}>
+    <div className="min-h-[90vh] flex flex-col justify-center pb-4 animate-ease-in-out">
       <div className="container mx-auto">
         {/* View Mode Toggle */}
         <div className="flex flex-col gap-4 mb-6">
@@ -922,7 +922,7 @@ const WorkPage = () => {
 
         {/* List View */}
         {viewMode === "list" && (
-          <div className="flex flex-col gap-8 max-h-[90vh] overflow-y-auto pr-4 custom-scrollbar" style={{ scrollbarGutter: 'stable' }}>
+          <div className="flex flex-col gap-8">
             {projects.map((proj, index) => (
               <React.Fragment key={index}>
                 <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-8">

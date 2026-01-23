@@ -210,19 +210,24 @@ export default function RootLayout({
           }}
         />
         {/* Chatbot Widget Script - Config must load BEFORE widget.js */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+        {/* Re-enabled for testing - CSS fixes should prevent scrollbar issues */}
+        {true && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
               window.CHATBOT_BASE_URL = "${chatbotUrl}";
               window.CHATBOT_TITLE = "Arnob's Assistant";
               window.CHATBOT_GREETING = "👋 How can I help you today?";
               window.CHATBOT_PLACEHOLDER = "Ask about Arnob...";
             `,
-          }}
-        />
-        {/* Load widget.js synchronously (no async) to ensure config is set first */}
-        <script src={`${chatbotUrl}/widget.js`}></script>
-        <link rel="stylesheet" href={`${chatbotUrl}/styles.css`} />
+              }}
+            />
+            {/* Load widget.js synchronously (no async) to ensure config is set first */}
+            <script src={`${chatbotUrl}/widget.js`}></script>
+            <link rel="stylesheet" href={`${chatbotUrl}/styles.css`} />
+          </>
+        )}
       </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
         <GoogleAnalytics />

@@ -7,8 +7,6 @@
     /* Prevent horizontal scrollbar and layout shift */
     overflow-x: hidden;
     max-width: 100vw;
-    /* Reserve space for scrollbar to prevent layout shift */
-    scrollbar-gutter: stable;
   }
   
   body {
@@ -18,8 +16,6 @@
     /* Prevent horizontal scrollbar and layout shift */
     overflow-x: hidden;
     max-width: 100vw;
-    /* Reserve space for scrollbar to prevent layout shift */
-    scrollbar-gutter: stable;
   }
   
   /* Prevent any child elements from causing horizontal overflow */
@@ -28,6 +24,50 @@
     max-width: 100%;
     overflow-x: hidden;
   }
+  
+  /* CRITICAL FIX: Prevent inner scrollbars on all containers within viewport */
+  /* Target all possible containers that might create inner scrollbars */
+  main,
+  section,
+  div[class*="container"],
+  /* Remove overflow from min-h containers - let content flow naturally */
+  div[class*="min-h-[90vh]"],
+  section[class*="min-h-[90vh]"],
+  div[class*="h-screen"],
+  div[class*="h-full"] {
+    /* Prevent vertical scrollbars unless explicitly needed */
+    overflow-y: visible !important;
+    overflow: visible !important;
+  }
+  
+  /* CRITICAL: Override widget CSS that might add scrollbars */
+  /* Target widget containers specifically */
+  [id*="chatbot"],
+  [class*="chatbot"],
+  [id*="widget"],
+  [class*="widget"],
+  iframe[src*="chatbot"],
+  iframe[src*="widget"] {
+    overflow: visible !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Prevent widget CSS from affecting main page containers */
+  /* Override any widget styles that might add overflow to body children */
+  body > div:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not([id*="chatbot"]):not([class*="chatbot"]):not([id*="widget"]):not([class*="widget"]) {
+    overflow-y: visible !important;
+    overflow: visible !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  body > div:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not([id*="chatbot"]):not([class*="chatbot"]):not([id*="widget"]):not([class*="widget"])::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
   .h1 {
     @apply text-[36px] xl:text-[56px] leading-[1.1] font-semibold;
   }
@@ -103,8 +143,8 @@
     /* Hide browser default scrollbar immediately - use !important to override widget styles */
     scrollbar-width: none !important; /* Firefox */
     -ms-overflow-style: none !important; /* IE and Edge */
-    /* Reserve space to prevent layout shift */
-    scrollbar-gutter: stable;
+    /* Prevent overflow that causes scrollbars */
+    overflow-y: visible !important;
   }
   
   .page-content-no-scrollbar::-webkit-scrollbar {
@@ -118,11 +158,95 @@
   div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
-    scrollbar-gutter: stable;
+    overflow-y: visible !important;
+    overflow: visible !important;
   }
   
   section[class*="min-h-[90vh]"]::-webkit-scrollbar,
   div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar)::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  /* CRITICAL: Remove overflow from max-h containers that create inner scrollbars */
+  div[class*="max-h-[90vh]"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]) {
+    overflow-y: visible !important;
+    overflow: visible !important;
+    max-height: none !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  div[class*="max-h-[90vh]"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport])::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  /* CRITICAL: Prevent any container from creating inner scrollbars */
+  /* Target containers with height constraints that might create scrollbars */
+  /* Exception: Keep ScrollArea components and custom-scrollbar working */
+  div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar),
+  section[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]),
+  div[class*="max-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar),
+  /* Target page content containers */
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) > div,
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) > section {
+    /* Only allow visible overflow, prevent scrollbars */
+    overflow-x: hidden;
+    /* Let vertical content flow to main page scrollbar - NO inner scrollbars */
+    overflow-y: visible !important;
+    overflow: visible !important;
+  }
+  
+  /* Hide scrollbars on these specific containers */
+  div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar)::-webkit-scrollbar,
+  section[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport])::-webkit-scrollbar,
+  div[class*="max-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar)::-webkit-scrollbar,
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) > div::-webkit-scrollbar,
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) > section::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  
+  div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar),
+  section[class*="min-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]),
+  div[class*="max-h-[90vh]"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]):not(.custom-scrollbar) {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  /* Exception: Keep ScrollArea components working */
+  [data-radix-scroll-area-root],
+  [data-radix-scroll-area-viewport],
+  .custom-scrollbar {
+    /* These need their own scrollbars - handled separately */
+  }
+  
+  /* AGGRESSIVE FIX: Prevent inner scrollbars on all main content containers */
+  /* This targets any container that might be creating unwanted scrollbars */
+  body > main,
+  body > div > section,
+  body > div > div[class*="container"],
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport]),
+  /* Target PageTransition wrapper */
+  body > div[class*="framer-motion"] > div,
+  /* Target any div with overflow-y-auto that's not explicitly needed */
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]) {
+    overflow-y: visible !important;
+    overflow: visible !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  
+  body > main::-webkit-scrollbar,
+  body > div > section::-webkit-scrollbar,
+  body > div > div[class*="container"]::-webkit-scrollbar,
+  [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport])::-webkit-scrollbar,
+  body > div[class*="framer-motion"] > div::-webkit-scrollbar,
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport])::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;

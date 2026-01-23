@@ -12,11 +12,12 @@ const AboutPage = () => {
   return (
     <section
       className="py-6 animate-ease-in-out"
-      style={{ scrollbarGutter: "stable" }}
     >
       <div className="container mx-auto">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="h1 mb-8 text-center xl:text-left">About</h1>
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center xl:text-left">
+            About
+          </h1>
 
           <div className="bg-[#27272c] rounded-xl p-6 sm:p-10 space-y-6">
             <div>
@@ -132,13 +133,13 @@ const AboutPage = () => {
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
                 I am passionate about creating innovative solutions that solve
-                real-world problems. Whether it&apos;s developing a responsive web
-                application, building a RESTful API, implementing automation
+                real-world problems. Whether it&apos;s developing a responsive
+                web application, building a RESTful API, implementing automation
                 scripts, or designing cloud infrastructure, I bring a
                 comprehensive approach to every project.
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                Based in Groß-Umstadt, Germany, I work with clients globally,
+                Based in Hessen, Germany, I work with clients globally,
                 delivering high-quality software solutions that meet their
                 business objectives. My technical skills include React, Next.js,
                 Angular, Node.js, Python, .NET, AWS, Docker, and many other
