@@ -26,6 +26,9 @@ export const metadata: Metadata = {
       "Expert services in web development, mobile apps, UI/UX design, test automation, and cybersecurity. Get scalable solutions tailored to your needs.",
     url: "https://www.arnobmahmud.com/services",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/services",
+  },
 };
 
 export default function Services() {

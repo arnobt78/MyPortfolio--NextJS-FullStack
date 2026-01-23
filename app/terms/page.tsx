@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: "Terms of Use | Arnob Mahmud",
     description: "Terms of Use for Arnob Mahmud's personal portfolio website.",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/terms",
+  },
 };
 
 export default function Terms() {

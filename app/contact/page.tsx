@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     description:
       "Get in touch for web development, mobile apps, automation, and digital solutions projects.",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/contact",
+  },
 };
 
 export default function Contact() {

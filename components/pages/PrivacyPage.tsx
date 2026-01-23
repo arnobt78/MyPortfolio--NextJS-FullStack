@@ -62,19 +62,71 @@ const PrivacyPage = () => {
             </div>
 
             <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Cookies and Tracking Technologies</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                This website uses cookies and similar tracking technologies to enhance your browsing 
+                experience, analyze site traffic, and understand where our visitors are coming from. 
+                Cookies are small data files stored on your device that help us improve our website 
+                functionality and user experience.
+              </p>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                We use Google Analytics to collect anonymous usage statistics. This helps us understand 
+                how visitors interact with our website, which pages are most popular, and how we can 
+                improve our content and services. You can control cookie preferences through your 
+                browser settings, though disabling cookies may affect website functionality.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Data Retention</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                We retain your personal information only for as long as necessary to fulfill the 
+                purposes outlined in this Privacy Policy, unless a longer retention period is 
+                required or permitted by law. Contact form submissions are typically retained for 
+                up to one year to ensure we can respond to follow-up inquiries and maintain 
+                communication records.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
               <h2 className="h2 mb-4 text-accent">Your Rights</h2>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                You have the right to request access to, correction of, or deletion of your 
-                personal information. If you wish to exercise these rights, please contact us 
-                through the contact form on this website.
+                Under applicable data protection laws, including the General Data Protection 
+                Regulation (GDPR) if you are located in the European Economic Area, you have 
+                several rights regarding your personal information:
+              </p>
+              <ul className="list-disc list-inside text-white/60 text-md sm:text-lg space-y-2 ml-4 mb-4">
+                <li>The right to access your personal data</li>
+                <li>The right to rectify inaccurate or incomplete data</li>
+                <li>The right to erasure (&quot;right to be forgotten&quot;)</li>
+                <li>The right to restrict processing of your data</li>
+                <li>The right to data portability</li>
+                <li>The right to object to processing</li>
+              </ul>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                If you wish to exercise any of these rights, please contact us through the contact 
+                form on this website. We will respond to your request within a reasonable timeframe 
+                and in accordance with applicable data protection laws.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Changes to This Privacy Policy</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                We may update this Privacy Policy from time to time to reflect changes in our 
+                practices, technology, legal requirements, or other factors. When we make changes, 
+                we will update the &quot;Last updated&quot; date at the top of this page. We encourage 
+                you to review this Privacy Policy periodically to stay informed about how we are 
+                protecting your information.
               </p>
             </div>
 
             <div className="border-t border-white/10 pt-6">
               <h2 className="h2 mb-4 text-accent">Contact</h2>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed">
-                If you have any questions about this Privacy Policy, please contact us through 
-                the contact form on this website.
+                If you have any questions, concerns, or requests regarding this Privacy Policy or 
+                our data practices, please contact us through the contact form on this website. 
+                We are committed to addressing your inquiries promptly and transparently.
               </p>
             </div>
           </div>

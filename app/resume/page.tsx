@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     description:
       "Professional experience, education, and technical skills - 4+ years of full-stack development",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/resume",
+  },
 };
 
 export default function Resume() {

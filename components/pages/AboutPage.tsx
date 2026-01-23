@@ -123,11 +123,34 @@ const AboutPage = () => {
                 development, software engineering, and digital transformation
                 projects.
               </p>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                With over 5 years of hands-on experience in the software
+                development industry, I specialize in building scalable,
+                high-performance applications using modern technologies. My
+                expertise spans across the entire development stack, from
+                frontend user interfaces to backend APIs and database design.
+              </p>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                I am passionate about creating innovative solutions that solve
+                real-world problems. Whether it&apos;s developing a responsive web
+                application, building a RESTful API, implementing automation
+                scripts, or designing cloud infrastructure, I bring a
+                comprehensive approach to every project.
+              </p>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                Based in Groß-Umstadt, Germany, I work with clients globally,
+                delivering high-quality software solutions that meet their
+                business objectives. My technical skills include React, Next.js,
+                Angular, Node.js, Python, .NET, AWS, Docker, and many other
+                cutting-edge technologies.
+              </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed">
                 For inquiries, collaboration opportunities, or to discuss
                 potential projects with very reasonable rates (as demo for free)
                 and best quality services and on time delivery, please feel free
-                to reach out through the contact page.
+                to reach out through the contact page. I&apos;m always open to
+                discussing new projects, creative ideas, or opportunities to be
+                part of your vision.
               </p>
             </div>
           </div>

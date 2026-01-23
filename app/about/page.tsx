@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     description:
       "Learn more about Arnob Mahmud, a Full-Stack Software Engineer.",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/about",
+  },
 };
 
 export default function About() {

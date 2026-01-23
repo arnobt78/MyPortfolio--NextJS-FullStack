@@ -77,18 +77,80 @@ const TermsPage = () => {
             </div>
 
             <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Intellectual Property Rights</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                All content on this website, including but not limited to text, graphics, logos, 
+                images, audio clips, digital downloads, and software, is the property of Arnob 
+                Mahmud or its content suppliers and is protected by international copyright, 
+                trademark, and other intellectual property laws.
+              </p>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                You may not reproduce, distribute, modify, create derivative works of, publicly 
+                display, publicly perform, republish, download, store, or transmit any of the 
+                material on our website without prior written consent, except as permitted by 
+                applicable copyright laws.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">User Conduct</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                You agree to use this website only for lawful purposes and in a way that does not 
+                infringe the rights of, restrict, or inhibit anyone else&apos;s use and enjoyment of 
+                the website. Prohibited behavior includes harassing or causing distress or 
+                inconvenience to any person, transmitting obscene or offensive content, or 
+                disrupting the normal flow of dialogue within our website.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Indemnification</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                You agree to indemnify, defend, and hold harmless Arnob Mahmud, its officers, 
+                directors, employees, agents, and third parties, for any losses, costs, liabilities, 
+                and expenses (including reasonable attorney&apos;s fees) relating to or arising out 
+                of your use of or inability to use the website or services, any user postings made 
+                by you, your violation of any terms of this agreement, or your violation of any 
+                rights of a third party.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Governing Law</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                These Terms of Use shall be governed by and construed in accordance with the laws 
+                of Germany, without regard to its conflict of law provisions. Any disputes arising 
+                from or relating to these terms or the use of this website shall be subject to the 
+                exclusive jurisdiction of the courts located in Germany.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
               <h2 className="h2 mb-4 text-accent">Modifications</h2>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                We may revise these terms of use at any time without notice. By using this website 
-                you are agreeing to be bound by the then current version of these terms of use.
+                We reserve the right to revise these terms of use at any time without notice. By 
+                using this website, you are agreeing to be bound by the then current version of 
+                these terms of use. We encourage you to review these terms periodically to stay 
+                informed of any updates or changes.
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-6">
+              <h2 className="h2 mb-4 text-accent">Severability</h2>
+              <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
+                If any provision of these Terms of Use is found to be unenforceable or invalid 
+                under any applicable law, such unenforceability or invalidity shall not render 
+                these Terms of Use unenforceable or invalid as a whole. Such provisions shall be 
+                deleted without affecting the remaining provisions herein.
               </p>
             </div>
 
             <div className="border-t border-white/10 pt-6">
               <h2 className="h2 mb-4 text-accent">Contact</h2>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed">
-                If you have any questions about these Terms of Use, please contact us through 
-                the contact form on this website.
+                If you have any questions, comments, or concerns about these Terms of Use, please 
+                contact us through the contact form on this website. We will make every effort to 
+                address your inquiries in a timely and professional manner.
               </p>
             </div>
           </div>

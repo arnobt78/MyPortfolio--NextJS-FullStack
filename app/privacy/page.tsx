@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: "Privacy Policy | Arnob Mahmud",
     description: "Privacy Policy for Arnob Mahmud's personal portfolio website.",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/privacy",
+  },
 };
 
 export default function Privacy() {

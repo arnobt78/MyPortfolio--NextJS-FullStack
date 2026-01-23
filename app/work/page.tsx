@@ -25,6 +25,9 @@ export const metadata: Metadata = {
       "Browse through 93+ innovative web development projects including AI chatbots, e-commerce platforms, mobile apps, and automation tools.",
     url: "https://www.arnobmahmud.com/work",
   },
+  alternates: {
+    canonical: "https://www.arnobmahmud.com/work",
+  },
 };
 
 export default function Work() {
