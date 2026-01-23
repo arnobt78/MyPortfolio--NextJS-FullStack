@@ -5,6 +5,8 @@
 @layer base {
   body {
     @apply font-primary bg-primary text-white leading-loose;
+    /* Fallback font to prevent CLS while custom font loads */
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   }
   .h1 {
     @apply text-[36px] xl:text-[56px] leading-[1.1] font-semibold;

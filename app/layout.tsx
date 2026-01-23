@@ -12,18 +12,20 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
   variable: "--font-jetbrainsMono",
+  display: "swap", // Prevent layout shift by using fallback font immediately
 });
 
-// SEO-optimized main description for metadata
+// SEO-optimized main description for metadata (≤160 chars for search results)
 const mainDescription =
-  "Full-Stack Software Engineer with 5+ years of experience delivering enterprise-grade web and API solutions. Specialized in React, Next.js, Angular, Node.js, .NET, Python, and cloud platforms (AWS, Docker, Kubernetes). Proven expertise in scalable architecture, automation, security, CI/CD, and production-ready systems for businesses and startups in Germany and Europe.";
+  "Full-Stack Software Engineer (5+ years) delivering enterprise web & API solutions. React, Next.js, Angular, Node.js, .NET, Python, AWS, Docker, Kubernetes. Germany.";
 
+// SEO-optimized title (≤70 chars to avoid truncation)
+const mainTitle = "Arnob Mahmud | Full-Stack Engineer | Web & Cloud Solutions";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.arnobmahmud.com"),
 
-  title:
-    "Arnob Mahmud | Full-Stack Software Engineer | Web, Cloud & Automation | Germany",
+  title: mainTitle,
 
   description: mainDescription,
 
@@ -72,8 +74,7 @@ export const metadata: Metadata = {
   applicationName: "Arnob Mahmud Portfolio",
 
   openGraph: {
-    title:
-      "Arnob Mahmud | Full-Stack Software Engineer | Enterprise Web & Cloud Solutions",
+    title: mainTitle,
     description: mainDescription,
     url: "https://www.arnobmahmud.com",
     siteName: "Arnob Mahmud Portfolio",
@@ -91,8 +92,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title:
-      "Arnob Mahmud | Full-Stack Software Engineer | Web & Cloud Solutions",
+    title: mainTitle,
     description: mainDescription,
     images: ["/assets/photo.png"],
   },
@@ -115,6 +115,45 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* JSON-LD Structured Data for SEO (Person Schema) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Arnob Mahmud",
+              jobTitle: "Full-Stack Software Engineer",
+              description: mainDescription,
+              url: "https://www.arnobmahmud.com",
+              sameAs: [
+                "https://www.linkedin.com/in/arnob-mahmud-05839655/",
+                "https://github.com/arnobt78",
+                "https://www.youtube.com/@arnobcorleone8570",
+                "https://www.instagram.com/arnob_t78/",
+              ],
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "DE",
+                addressLocality: "Germany",
+              },
+              knowsAbout: [
+                "React",
+                "Next.js",
+                "Angular",
+                "Node.js",
+                ".NET",
+                "Python",
+                "AWS",
+                "Docker",
+                "Kubernetes",
+                "CI/CD",
+                "Web Development",
+                "Cloud Computing",
+              ],
+            }),
+          }}
+        />
         {/* Chatbot Widget Script - Config must load BEFORE widget.js */}
         <script
           dangerouslySetInnerHTML={{
