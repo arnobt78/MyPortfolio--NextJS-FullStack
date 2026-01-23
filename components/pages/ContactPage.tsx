@@ -94,7 +94,7 @@ const ContactPage = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -117,7 +117,7 @@ const ContactPage = () => {
         try {
           const autoReplyResponse = await axios.post(
             "/api/send-auto-reply",
-            formData
+            formData,
           );
 
           if (autoReplyResponse.status === 200) {
@@ -260,7 +260,9 @@ const ContactPage = () => {
                 </Alert>
               )}
               <p className="text-white/60 text-start sm:text-justify text-md sm:text-lg">
-                Available for freelance, contract, or full-time roles. I help businesses and teams design, build, and scale reliable digital products — from idea to production.
+                Available for freelance, contract, or full-time roles. I help
+                businesses and teams design, build, and scale reliable digital
+                products — from idea to production.
               </p>
               <div className="grid gap-4">
                 <Input
@@ -320,7 +322,9 @@ const ContactPage = () => {
                             {item.description}
                           </Link>
                           <button
-                            onClick={() => handleCopy(item.href || item.description, index)}
+                            onClick={() =>
+                              handleCopy(item.href || item.description, index)
+                            }
                             className="text-white/60 hover:text-accent transition-colors duration-300 p-1 inline-flex items-center ml-2 align-middle"
                             aria-label={`Copy ${item.title}`}
                             type="button"
@@ -334,9 +338,13 @@ const ContactPage = () => {
                         </>
                       ) : (
                         <>
-                          <h3 className="text-white text-lg sm:text-xl inline">{item.description}</h3>
+                          <h3 className="text-white text-lg sm:text-xl inline">
+                            {item.description}
+                          </h3>
                           <button
-                            onClick={() => handleCopy(item.href || item.description, index)}
+                            onClick={() =>
+                              handleCopy(item.href || item.description, index)
+                            }
                             className="text-white/60 hover:text-accent transition-colors duration-300 p-1 inline-flex items-center ml-2 align-middle"
                             aria-label={`Copy ${item.title}`}
                             type="button"
