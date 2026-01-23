@@ -688,7 +688,7 @@ const WorkPage = () => {
   };
 
   return (
-    <div className="min-h-[90vh] flex flex-col justify-center pb-4 animate-ease-in-out">
+    <div className="min-h-[90vh] flex flex-col justify-center pb-4 animate-ease-in-out" style={{ scrollbarGutter: 'stable' }}>
       <div className="container mx-auto">
         {/* View Mode Toggle */}
         <div className="flex flex-col gap-4 mb-6">

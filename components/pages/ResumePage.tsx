@@ -275,7 +275,7 @@ const ResumePage = () => {
   }
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out">
+    <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out page-content-no-scrollbar">
       <div className="container mx-auto">
         <Tabs
           value={activeTab}
@@ -291,7 +291,7 @@ const ResumePage = () => {
           </TabsList>
 
           {/* content */}
-          <div className="min-h-[90vh] w-full">
+          <div className="min-h-[90vh] w-full page-content-no-scrollbar">
             {/* About me */}
             <TabsContent
               value="about"

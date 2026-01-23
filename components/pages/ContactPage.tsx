@@ -229,7 +229,7 @@ const ContactPage = () => {
   };
 
   return (
-    <section className="py-6 animate-ease-in-out">
+    <section className="py-6 animate-ease-in-out" style={{ scrollbarGutter: 'stable' }}>
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row gap-0">
           <div className="xl:w-[54%] order-2 xl:order-none">
