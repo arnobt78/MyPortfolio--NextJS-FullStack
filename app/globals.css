@@ -91,6 +91,31 @@
     contain: layout style;
   }
 
+  /* Hide browser default scrollbars on main content containers */
+  /* Keep only custom ScrollArea scrollbars visible */
+  /* Target sections and divs with min-h-[90vh] that shouldn't show scrollbars */
+  section[class*="min-h-[90vh]"],
+  div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-viewport]):not([data-radix-scroll-area-root]) {
+    /* Hide browser default scrollbar but allow scrolling via body */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  section[class*="min-h-[90vh]"]::-webkit-scrollbar,
+  div[class*="min-h-[90vh]"]:not([data-radix-scroll-area-viewport]):not([data-radix-scroll-area-root])::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* Ensure ScrollArea custom scrollbars remain visible - hide browser scrollbar on viewport */
+  [data-radix-scroll-area-viewport] {
+    scrollbar-width: none; /* Hide browser scrollbar */
+    -ms-overflow-style: none;
+  }
+  
+  [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+    display: none; /* Hide browser scrollbar */
+  }
+
   /* Custom Scrollbar Styles - Overlay scrollbars to prevent layout shift */
   .custom-scrollbar {
     /* Reserve space for scrollbar to prevent layout shift */

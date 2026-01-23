@@ -291,7 +291,7 @@ const ResumePage = () => {
           </TabsList>
 
           {/* content */}
-          <div className="min-h-[90vh] w-full ">
+          <div className="min-h-[90vh] w-full">
             {/* About me */}
             <TabsContent
               value="about"
