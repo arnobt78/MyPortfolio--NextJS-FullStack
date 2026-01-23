@@ -18,7 +18,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 // SEO-optimized main description for metadata (≤160 chars for search results)
 const mainDescription =
-  "Full-Stack Software Engineer (5+ years) delivering enterprise web & API solutions. React, Next.js, Angular, Node.js, .NET, Python, AWS, Docker, Kubernetes. Germany.";
+  "Full-Stack Software Engineer (5+ years) delivering enterprise web & API solutions. React, Next.js, Angular, Node.js, .NET, Python, AWS, Docker. Germany.";
 
 // SEO-optimized title (≤70 chars to avoid truncation)
 const mainTitle = "Arnob Mahmud | Full-Stack Engineer | Web & Cloud Solutions";
@@ -111,8 +111,9 @@ export default function RootLayout({
   // Chatbot widget configuration
   // In production (Vercel): Uses NEXT_PUBLIC_CHATBOT_URL from env vars
   // In local dev: Falls back to localhost:3000 if env var not set
-  const chatbotUrl = process.env.NEXT_PUBLIC_CHATBOT_URL || 'http://localhost:3000';
-  
+  const chatbotUrl =
+    process.env.NEXT_PUBLIC_CHATBOT_URL || "http://localhost:3000";
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -167,7 +168,8 @@ export default function RootLayout({
               "@type": "LocalBusiness",
               "@id": "https://www.arnobmahmud.com/#business",
               name: "Code & Cloud Lösungen",
-              description: "Software company in Groß-Umstadt providing full-stack web development, automation, and digital solutions.",
+              description:
+                "Software company in Groß-Umstadt providing full-stack web development, automation, and digital solutions.",
               url: "https://www.arnobmahmud.com",
               telephone: "+4915734664351",
               email: "arnobt78@gmail.com",
@@ -203,9 +205,7 @@ export default function RootLayout({
                 "@type": "Country",
                 name: "Germany",
               },
-              sameAs: [
-                "https://www.google.com/maps?cid=01391579296381946892",
-              ],
+              sameAs: ["https://www.google.com/maps?cid=01391579296381946892"],
             }),
           }}
         />
