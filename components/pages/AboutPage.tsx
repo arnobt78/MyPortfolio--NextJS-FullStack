@@ -10,9 +10,7 @@ import {
 
 const AboutPage = () => {
   return (
-    <section
-      className="py-6 animate-ease-in-out"
-    >
+    <section className="py-6 animate-ease-in-out">
       <div className="container mx-auto">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center xl:text-left">
@@ -21,7 +19,26 @@ const AboutPage = () => {
 
           <div className="bg-[#27272c] rounded-xl p-6 sm:p-10 space-y-6">
             <div>
-              <h2 className="h2 mb-4 text-accent">Business Identity</h2>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                <h2 className="h2 text-accent">Business Identity</h2>
+                <a
+                  href="https://websitelaunches.com/site/arnobmahmud.com"
+                  target="_blank"
+                  rel="noopener"
+                  style={{ textDecoration: "none", border: "none" }}
+                  title="This site is publicly listed and monitored by Website Launches."
+                  className="flex-shrink-0"
+                >
+                  <img
+                    src="https://websitelaunches.com/api/trust_badge.php?domain=arnobmahmud.com&theme=dark&style=default"
+                    alt="Listed on Website Launches"
+                    width="220"
+                    height="54"
+                    style={{ border: "none" }}
+                    className="w-auto h-auto max-w-[180px] sm:max-w-[220px]"
+                  />
+                </a>
+              </div>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
                 This portfolio is associated with{" "}
                 <span className="text-white font-semibold">
@@ -50,17 +67,16 @@ const AboutPage = () => {
                     <FaMapMarkerAlt className="text-accent mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-white font-semibold mb-1">Address:</p>
-                      <p>Breubergstraße 11, 64823 Groß-Umstadt, Deutschland</p>
+                      <p className="text-white/70">
+                        Breubergstraße 11, 64823 Groß-Umstadt, Deutschland
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <FaPhoneAlt className="text-accent mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-white font-semibold mb-1">Phone:</p>
-                      <Link
-                        href="tel:+4915734664351"
-                        className="text-accent hover:text-accent-hover transition-colors"
-                      >
+                      <Link href="tel:+4915734664351" className="text-white/70">
                         +49 1573 4664351
                       </Link>
                     </div>
@@ -71,7 +87,7 @@ const AboutPage = () => {
                       <p className="text-white font-semibold mb-1">Email:</p>
                       <Link
                         href="mailto:arnobt78@gmail.com"
-                        className="text-accent hover:text-accent-hover transition-colors"
+                        className="text-white/70"
                       >
                         arnobt78@gmail.com
                       </Link>
