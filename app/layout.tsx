@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import GoogleAnalytics from "../components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "../components/ScrollToTop";
@@ -134,8 +135,11 @@ export default function RootLayout({
               ],
               address: {
                 "@type": "PostalAddress",
+                streetAddress: "Breubergstraße 11",
+                postalCode: "64823",
+                addressLocality: "Groß-Umstadt",
                 addressCountry: "DE",
-                addressLocality: "Germany",
+                addressRegion: "Hessen",
               },
               knowsAbout: [
                 "React",
@@ -150,6 +154,57 @@ export default function RootLayout({
                 "CI/CD",
                 "Web Development",
                 "Cloud Computing",
+              ],
+            }),
+          }}
+        />
+        {/* JSON-LD Structured Data for SEO (LocalBusiness Schema) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "@id": "https://www.arnobmahmud.com/#business",
+              name: "Code & Cloud Lösungen",
+              description: "Software company in Groß-Umstadt providing full-stack web development, automation, and digital solutions.",
+              url: "https://www.arnobmahmud.com",
+              telephone: "+4915734664351",
+              email: "arnobt78@gmail.com",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Breubergstraße 11",
+                postalCode: "64823",
+                addressLocality: "Groß-Umstadt",
+                addressCountry: "DE",
+                addressRegion: "Hessen",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "49.8675",
+                longitude: "8.9333",
+              },
+              openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                  "Sunday",
+                ],
+                opens: "00:00",
+                closes: "23:59",
+              },
+              priceRange: "$$",
+              areaServed: {
+                "@type": "Country",
+                name: "Germany",
+              },
+              sameAs: [
+                "https://www.google.com/maps?cid=01391579296381946892",
               ],
             }),
           }}
@@ -176,6 +231,7 @@ export default function RootLayout({
         <StairTransition />
         <Header />
         <PageTransition>{children}</PageTransition>
+        <Footer />
       </body>
     </html>
   );
