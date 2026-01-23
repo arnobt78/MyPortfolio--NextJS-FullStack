@@ -91,29 +91,38 @@
     contain: layout style;
   }
 
-  /* Custom Scrollbar Styles */
+  /* Custom Scrollbar Styles - Overlay scrollbars to prevent layout shift */
+  .custom-scrollbar {
+    /* Reserve space for scrollbar to prevent layout shift */
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #00ff99 rgba(255, 255, 255, 0.05);
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
+    /* Make scrollbar overlay (doesn't take up layout space) */
+    background: transparent;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    /* Overlay track */
+    margin: 4px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #00ff99;
     border-radius: 10px;
+    /* Overlay thumb */
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #00cc7a;
-  }
-
-  /* Firefox scrollbar */
-  .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #00ff99 rgba(255, 255, 255, 0.05);
+    background-clip: padding-box;
   }
 
   /* Typewriter Cursor Blink Animation */

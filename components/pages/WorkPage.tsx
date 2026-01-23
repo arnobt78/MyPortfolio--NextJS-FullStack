@@ -922,7 +922,7 @@ const WorkPage = () => {
 
         {/* List View */}
         {viewMode === "list" && (
-          <div className="flex flex-col gap-8 max-h-[90vh] overflow-y-auto pr-4 custom-scrollbar">
+          <div className="flex flex-col gap-8 max-h-[90vh] overflow-y-auto pr-4 custom-scrollbar" style={{ scrollbarGutter: 'stable' }}>
             {projects.map((proj, index) => (
               <React.Fragment key={index}>
                 <div className="flex flex-col xl:grid xl:grid-cols-2 xl:gap-8">
