@@ -101,6 +101,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arnobmahmud.com",
   },
+
+  // Search Console: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in .env.local and Vercel to the meta-tag "content" value from Google.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
+    verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION },
+  }),
 };
 
 export default function RootLayout({
@@ -117,6 +122,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Bing Webmaster Tools: set NEXT_PUBLIC_BING_SITE_VERIFICATION in .env.local and Vercel to the meta-tag content value from Bing. */}
+        {process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && (
+          <meta
+            name="msvalidate.01"
+            content={process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION}
+          />
+        )}
         {/* JSON-LD Structured Data for SEO (Person Schema) */}
         <script
           type="application/ld+json"
