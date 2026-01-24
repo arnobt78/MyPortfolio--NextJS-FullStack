@@ -5,6 +5,7 @@ export const translations = {
     "nav.expertise": "Expertise",
     "nav.experience": "Experience",
     "nav.projects": "Projects",
+    "nav.faq": "FAQ",
     "nav.contact": "Contact",
     "header.cta": "Hire me!",
 
@@ -370,6 +371,7 @@ export const translations = {
     "nav.expertise": "Expertise",
     "nav.experience": "Erfahrung",
     "nav.projects": "Projekte",
+    "nav.faq": "FAQ",
     "nav.contact": "Kontakt",
     "header.cta": "Beauftragen!",
 

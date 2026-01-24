@@ -22,6 +22,7 @@ const links: { nameKey: string; path: string }[] = [
   { nameKey: "nav.experience", path: "/resume" },
   { nameKey: "nav.projects", path: "/work" },
   { nameKey: "nav.contact", path: "/contact" },
+  { nameKey: "nav.faq", path: "/faq" },
 ];
 
 const MobileNav = () => {

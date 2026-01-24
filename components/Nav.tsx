@@ -10,6 +10,7 @@ const links: { nameKey: string; path: string }[] = [
   { nameKey: "nav.experience", path: "/resume" },
   { nameKey: "nav.projects", path: "/work" },
   { nameKey: "nav.contact", path: "/contact" },
+  { nameKey: "nav.faq", path: "/faq" },
 ];
 
 const Nav = () => {
@@ -23,7 +24,7 @@ const Nav = () => {
           key={index}
           className={`${
             link.path === pathname ? "text-accent" : ""
-          } text-md capitalize font-medium hover:text-accent transition-all min-w-[96px] text-center`}
+          } text-md capitalize font-medium hover:text-accent transition-all min-w-[70px] text-center`}
         >
           {t(link.nameKey)}
         </Link>
