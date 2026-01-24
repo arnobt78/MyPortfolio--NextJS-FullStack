@@ -7,20 +7,25 @@ import {
   FaPhoneAlt,
   FaEnvelope,
 } from "react-icons/fa";
+import { useLanguage } from "@/context/LanguageContext";
+import Image from "next/image";
 
 const AboutPage = () => {
+  const { t } = useLanguage();
   return (
     <section className="py-6 animate-ease-in-out">
       <div className="container mx-auto">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center xl:text-left">
-            About
+          <h1 className="text-2xl sm:text-4xl font-bold mb-8 text-center xl:text-left">
+            {t("about.title")}
           </h1>
 
           <div className="bg-[#27272c] rounded-xl p-6 sm:p-10 space-y-6">
             <div>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                <h2 className="h2 text-accent">Business Identity</h2>
+                <h2 className="text-xl sm:text-2xl mb-4 text-accent">
+                  {t("about.businessIdentity.title")}
+                </h2>
                 <a
                   href="https://websitelaunches.com/site/arnobmahmud.com"
                   target="_blank"
@@ -29,44 +34,47 @@ const AboutPage = () => {
                   title="This site is publicly listed and monitored by Website Launches."
                   className="flex-shrink-0"
                 >
-                  <img
+                  <Image
                     src="https://websitelaunches.com/api/trust_badge.php?domain=arnobmahmud.com&theme=dark&style=default"
                     alt="Listed on Website Launches"
-                    width="220"
-                    height="54"
+                    width={220}
+                    height={54}
                     style={{ border: "none" }}
                     className="w-auto h-auto max-w-[180px] sm:max-w-[220px]"
                   />
                 </a>
               </div>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                This portfolio is associated with{" "}
+                {t("about.businessIdentity.description.prefix")}{" "}
                 <span className="text-white font-semibold">
-                  Code & Cloud Lösungen
+                  {t("about.businessIdentity.businessName")}
                 </span>
-                , a verified freelancing software developer based in
-                Groß-Umstadt, Germany.
+                {t("about.businessIdentity.description.suffix")}
               </p>
 
               {/* Google Business Profile Section */}
               <div className="mt-6 p-4 bg-[#1c1c22] rounded-lg border border-white/5">
-                <div className="flex items-center gap-3 mb-4">
-                  <FaGoogle className="text-accent text-xl" />
-                  <h3 className="h3 text-white">Code & Cloud Lösungen</h3>
-                  <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-xl">
-                    Verified
+                <div className="flex flex-col gap-2 mb-4 sm:flex-row sm:items-center sm:gap-3">
+                  <div className="flex items-center gap-3">
+                    <FaGoogle className="text-accent text-xl" />
+                    <h3 className="h3 text-white">
+                      {t("about.businessIdentity.businessName")}
+                    </h3>
+                  </div>
+                  <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-xl w-fit">
+                    {t("about.businessIdentity.verified")}
                   </span>
                 </div>
                 <p className="text-white/60 text-sm sm:text-base mb-4">
-                  Freelancing software developer in Groß-Umstadt. Connect with
-                  us on Google Business Profile for reviews, business
-                  information, and location details.
+                  {t("about.businessIdentity.profileDescription")}
                 </p>
                 <div className="space-y-3 text-white/60 text-sm sm:text-base">
                   <div className="flex items-start gap-3">
                     <FaMapMarkerAlt className="text-accent mt-1 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-semibold mb-1">Address:</p>
+                      <p className="text-white font-semibold mb-1">
+                        {t("about.businessIdentity.address.label")}
+                      </p>
                       <p className="text-white/70">
                         Breubergstraße 11, 64823 Groß-Umstadt, Deutschland
                       </p>
@@ -75,7 +83,9 @@ const AboutPage = () => {
                   <div className="flex items-start gap-3">
                     <FaPhoneAlt className="text-accent mt-1 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-semibold mb-1">Phone:</p>
+                      <p className="text-white font-semibold mb-1">
+                        {t("about.businessIdentity.phone.label")}
+                      </p>
                       <Link href="tel:+4915734664351" className="text-white/70">
                         +49 1573 4664351
                       </Link>
@@ -84,7 +94,9 @@ const AboutPage = () => {
                   <div className="flex items-start gap-3">
                     <FaEnvelope className="text-accent mt-1 flex-shrink-0" />
                     <div>
-                      <p className="text-white font-semibold mb-1">Email:</p>
+                      <p className="text-white font-semibold mb-1">
+                        {t("about.businessIdentity.email.label")}
+                      </p>
                       <Link
                         href="mailto:arnobt78@gmail.com"
                         className="text-white/70"
@@ -102,72 +114,33 @@ const AboutPage = () => {
                     className="inline-flex items-center gap-2 text-accent hover:text-accent-hover transition-colors duration-300 text-sm sm:text-base"
                   >
                     <FaGoogle />
-                    <span>View on Google Business</span>
+                    <span>{t("about.businessIdentity.viewOnGoogle")}</span>
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* <div className="border-t border-white/10 pt-6">
-              <h2 className="h2 mb-4 text-accent">
-                Other schema: Person, PostalAddress
-              </h2>
-              <div className="space-y-3 text-white/60 text-md sm:text-lg font-mono">
-                <p>
-                  <span className="text-white">PLZ:</span> 64823
-                </p>
-                <p>
-                  <span className="text-white">Ort:</span> Groß-Umstadt
-                </p>
-                <p>
-                  <span className="text-white">Land:</span> Deutschland
-                </p>
-              </div>
-            </div> */}
-
             <div className="border-t border-white/10 pt-6">
-              <h2 className="h2 mb-4 text-accent">About This Portfolio</h2>
+              <h2 className="text-xl sm:text-2xl mb-4 text-accent">
+                {t("about.portfolio.title")}
+              </h2>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                Welcome to my personal portfolio website. I am Arnob Mahmud, a
-                Full-Stack Software Engineer with extensive experience in web
-                and mobile app development, automation, and digital solutions
-                from scratch to production and maintenance.
+                {t("about.portfolio.paragraph1")}
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                This website showcases my work, skills, and professional
-                experience. It serves as a platform to connect with potential
-                clients, employers, and collaborators who are interested in web
-                development, software engineering, and digital transformation
-                projects.
+                {t("about.portfolio.paragraph2")}
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                With over 5 years of hands-on experience in the software
-                development industry, I specialize in building scalable,
-                high-performance applications using modern technologies. My
-                expertise spans across the entire development stack, from
-                frontend user interfaces to backend APIs and database design.
+                {t("about.portfolio.paragraph3")}
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                I am passionate about creating innovative solutions that solve
-                real-world problems. Whether it&apos;s developing a responsive
-                web application, building a RESTful API, implementing automation
-                scripts, or designing cloud infrastructure, I bring a
-                comprehensive approach to every project.
+                {t("about.portfolio.paragraph4")}
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed mb-4">
-                Based in Hessen, Germany, I work with clients globally,
-                delivering high-quality software solutions that meet their
-                business objectives. My technical skills include React, Next.js,
-                Angular, Node.js, Python, .NET, AWS, Docker, and many other
-                cutting-edge technologies.
+                {t("about.portfolio.paragraph5")}
               </p>
               <p className="text-white/60 text-md sm:text-lg leading-relaxed">
-                For inquiries, collaboration opportunities, or to discuss
-                potential projects with very reasonable rates (as demo for free)
-                and best quality services and on time delivery, please feel free
-                to reach out through the contact page. I&apos;m always open to
-                discussing new projects, creative ideas, or opportunities to be
-                part of your vision.
+                {t("about.portfolio.paragraph6")}
               </p>
             </div>
           </div>

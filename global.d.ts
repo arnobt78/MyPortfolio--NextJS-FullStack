@@ -15,12 +15,12 @@ declare module "*.sass" {
 
 // Swiper CSS imports
 declare module "swiper/css" {
-  const content: any;
+  const content: unknown;
   export default content;
 }
 
 declare module "swiper/css/*" {
-  const content: any;
+  const content: unknown;
   export default content;
 }
 

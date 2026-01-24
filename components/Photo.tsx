@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Photo = () => {
+  const { t } = useLanguage();
   return (
     <div className="w-full h-full relative">
       <div className="animate-fade-in">
@@ -10,7 +12,7 @@ const Photo = () => {
         <div className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px] mix-blend-lighten absolute animate-fade-in-delayed">
           <Image
             src="/photo.png"
-            alt="Arnob Mahmud Photo"
+            alt={t("home.photoAlt")}
             width={498}
             height={498}
             priority

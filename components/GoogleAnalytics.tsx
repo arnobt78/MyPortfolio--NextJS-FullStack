@@ -12,7 +12,7 @@ const GoogleAnalytics = () => {
       console.log("🎯 Google Analytics initialized with ID:", measurementId);
       console.log(
         "📊 Check if GA is working: window.dataLayer",
-        (window as any).dataLayer
+        (window as Window & { dataLayer?: unknown[] }).dataLayer
       );
     }
   }, [measurementId]);

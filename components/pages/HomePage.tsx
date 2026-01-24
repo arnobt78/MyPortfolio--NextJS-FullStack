@@ -7,8 +7,10 @@ import Social from "../Social";
 import Photo from "../Photo";
 import Stats from "../Stats";
 import { useTypewriter } from "../../hooks/useTypewriter";
+import { useLanguage } from "@/context/LanguageContext";
 
 const HomePage = () => {
+  const { t } = useLanguage();
   const { displayText, isComplete } = useTypewriter({
     text: "Arnob Mahmud",
     speed: 200,
@@ -18,8 +20,9 @@ const HomePage = () => {
   return (
     <section>
       <div className="container mx-auto">
-        <div className="flex flex-col xl:flex-row items-center justify-between xl:pb-12"
-        style={{ animationDelay: "0.3s" }}
+        <div
+          className="flex flex-col xl:flex-row items-center justify-between xl:pb-12"
+          style={{ animationDelay: "0.3s" }}
         >
           {/* text */}
           <div className="text-center xl:text-left order-2 xl:order-none">
@@ -27,7 +30,7 @@ const HomePage = () => {
               className="text-2xl sm:text-3xl font-bold leading-none text-white group-hover:text-accent mb-5 animate-ease-in-out"
               style={{ animationDelay: "0.7s" }}
             >
-              Hello! I&apos;m <br />{" "}
+              {t("home.hello")} <br />{" "}
             </h2>
             <h1
               className="h1 mb-5 animate-ease-in-out"
@@ -42,13 +45,13 @@ const HomePage = () => {
               className="w-full xl:max-w-[600px] text-lg sm:text-xl text-start animate-ease-in-out justify-center mx-auto xl:mx-0"
               style={{ animationDelay: "1.1s" }}
             >
-              Full-Stack Software Engineer | Automation & Digital Solutions Engineer
+              {t("home.tagline")}
             </span>
             <p
-              className="w-full xl:max-w-[600px] mt-5 mb-10 text-white/80 text-start sm:text-justify text-md sm:text-lg animate-ease-in-out justify-center mx-auto xl:mx-0"
+              className="w-full xl:max-w-[600px] mt-5 mb-10 text-white/80 text-start sm:text-start text-md sm:text-lg animate-ease-in-out justify-center mx-auto xl:mx-0"
               style={{ animationDelay: "1.3s" }}
             >
-            Full-Stack Software Engineer (5+ years) delivering enterprise-grade web and API solutions using Node.js, .NET, Python, React, Next.js, Angular and cloud platforms. Experienced in client-facing projects, SaaS, and ERP environments, with a strong focus on clean architecture, code quality, testing, performance, and reliable production delivery.
+              {t("home.bio")}
             </p>
 
             {/* button and socials */}
@@ -64,7 +67,7 @@ const HomePage = () => {
                   size="lg"
                   className="uppercase flex items-center gap-2"
                 >
-                  <span>Download Resume </span>
+                  <span>{t("home.downloadResume")} </span>
                   <FiDownload />
                 </Button>
               </Link>
@@ -81,15 +84,13 @@ const HomePage = () => {
           </div>
 
           {/* photo */}
-          <div className="order-1 xl:order-none mb-8 xl:mb-0 animate-ease-in-out"
-          >
+          <div className="order-1 xl:order-none mb-8 xl:mb-0 animate-ease-in-out">
             <Photo />
           </div>
         </div>
       </div>
-      
+
       <Stats />
- 
     </section>
   );
 };

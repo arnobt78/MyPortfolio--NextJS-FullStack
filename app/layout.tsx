@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -8,6 +9,8 @@ import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "../components/ScrollToTop";
 import StairTransition from "../components/StairTranstion";
 import PageTransition from "../components/PageTransition";
+import { I18nProvider } from "@/components/I18nProvider";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -108,7 +111,7 @@ export const metadata: Metadata = {
   }),
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -119,9 +122,24 @@ export default function RootLayout({
   const chatbotUrl =
     process.env.NEXT_PUBLIC_CHATBOT_URL || "http://localhost:3000";
 
+  let initialLanguage = "en";
+  try {
+    const hdrs = await headers();
+    const lang = hdrs.get("x-initial-language");
+    if (lang && (lang === "en" || lang === "de")) {
+      initialLanguage = lang;
+    }
+  } catch {}
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={initialLanguage} suppressHydrationWarning>
       <head>
+        {/* Prevent language flicker: set initial lang before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__INITIAL_LANGUAGE__="${initialLanguage}";`,
+          }}
+        />
         {/* Bing Webmaster Tools: set NEXT_PUBLIC_BING_SITE_VERIFICATION in .env.local and Vercel to the meta-tag content value from Bing. */}
         {process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && (
           <meta
@@ -236,19 +254,24 @@ export default function RootLayout({
               }}
             />
             {/* Load widget.js synchronously (no async) to ensure config is set first */}
+            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
             <script src={`${chatbotUrl}/widget.js`}></script>
             <link rel="stylesheet" href={`${chatbotUrl}/styles.css`} />
           </>
         )}
       </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
-        <GoogleAnalytics />
-        <Analytics />
-        <ScrollToTop />
-        <StairTransition />
-        <Header />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
+        <I18nProvider initialLanguage={initialLanguage}>
+          <LanguageProvider initialLanguage={initialLanguage}>
+            <GoogleAnalytics />
+            <Analytics />
+            <ScrollToTop />
+            <StairTransition />
+            <Header />
+            <PageTransition>{children}</PageTransition>
+            <Footer />
+          </LanguageProvider>
+        </I18nProvider>
       </body>
     </html>
   );

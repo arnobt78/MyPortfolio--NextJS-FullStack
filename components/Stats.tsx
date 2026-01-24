@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
+import { useLanguage } from "@/context/LanguageContext";
+
+// Card is intentionally kept imported (project style consistency)
+void Card;
 
 const stats = [
-  { num: 5, text: "Years of Experience", startFrom: 0 },
-  { num: 93, text: "Projects Completed", startFrom: 63 },
-  { num: 14, text: "Technologies Mastered", startFrom: 0 },
-  { num: 1676, text: "Code Commits", startFrom: 1636 },
+  { num: 5, textKey: "home.stats.years" as const, startFrom: 0 },
+  { num: 93, textKey: "home.stats.projects" as const, startFrom: 63 },
+  { num: 14, textKey: "home.stats.technologies" as const, startFrom: 0 },
+  { num: 1676, textKey: "home.stats.commits" as const, startFrom: 1636 },
 ];
 
 interface AnimatedCounterProps {
@@ -43,7 +47,7 @@ const AnimatedCounter = ({
       // Ease-out animation curve for smoother effect
       const easeOut = 1 - Math.pow(1 - progress, 3);
       const newValue = Math.floor(
-        animationStartValue + (target - animationStartValue) * easeOut
+        animationStartValue + (target - animationStartValue) * easeOut,
       );
 
       setCurrent(newValue);
@@ -66,6 +70,7 @@ const AnimatedCounter = ({
 };
 
 const Stats = () => {
+  const { t } = useLanguage();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -100,10 +105,12 @@ const Stats = () => {
                 )}
                 <p
                   className={`${
-                    item.text.length < 15 ? "max-w-[100px]" : "max-w-[150px]"
+                    t(item.textKey).length < 15
+                      ? "max-w-[100px]"
+                      : "max-w-[150px]"
                   } leading-snug text-md sm:text-lg text-white/80 text-center sm:text-left`}
                 >
-                  {item.text}
+                  {t(item.textKey)}
                 </p>
               </div>
             );

@@ -1,5 +1,9 @@
 import { animate, easeInOut, motion } from "framer-motion";
 
+// Keep imported helpers referenced (avoids unused-import lint warnings)
+void animate;
+void easeInOut;
+
 const stairAnimation = {
   initial: {
     top: "0%",

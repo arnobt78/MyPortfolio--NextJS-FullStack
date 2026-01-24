@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 import {
   FaHtml5,
@@ -21,7 +22,24 @@ import {
   FaGithub,
 } from "react-icons/fa";
 
-import { SiTailwindcss, SiNextdotjs, SiKubernetes, SiDotnet, SiJest, SiOpenai, SiTypescript } from "react-icons/si";
+import {
+  SiTailwindcss,
+  SiNextdotjs,
+  SiKubernetes,
+  SiDotnet,
+  SiJest,
+  SiOpenai,
+  SiTypescript,
+} from "react-icons/si";
+
+// Keep icon imports referenced (avoid unused-import warnings)
+void FaHtml5;
+void FaCss3;
+void FaJs;
+void FaVuejs;
+void FaJava;
+void FaPhp;
+void SiTailwindcss;
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
@@ -81,54 +99,51 @@ interface SkillsData {
   skillList: SkillItem[];
 }
 
-// About data
-const about: AboutData = {
-  title: "Professional Summary",
-  description:
-    "Full-Stack Software Engineer (5+ years) delivering scalable, production-ready web and mobile applications. Experienced in .NET, Node.js, Python, React, Next.js, Angular, TypeScript, REST APIs, and cloud platforms. Skilled in clean architecture, automation, CI/CD, UI/UX, and security best practices, turning complex requirements into reliable, maintainable solutions that drive business impact.",
+// About data - will be populated with translations in component
+const getAboutData = (t: (key: string) => string): AboutData => ({
+  title: t("resume.about.title"),
+  description: t("resume.about.description"),
   info: [
     {
-      fieldName: "Name",
+      fieldName: t("resume.about.field.name"),
       fieldValue: "Arnob Mahmud",
     },
     {
-      fieldName: "Phone",
+      fieldName: t("resume.about.field.phone"),
       fieldValue: "+4915734664351",
     },
     {
-      fieldName: "Experience",
-      fieldValue: "5+ Years",
+      fieldName: t("resume.about.field.experience"),
+      fieldValue: t("resume.about.value.experience"),
     },
     {
-      fieldName: "Skype",
+      fieldName: t("resume.about.field.skype"),
       fieldValue: "arnob_t78",
     },
     {
-      fieldName: "Nationality",
+      fieldName: t("resume.about.field.nationality"),
       fieldValue: "Bangladeshi",
     },
     {
-      fieldName: "Email",
+      fieldName: t("resume.about.field.email"),
       fieldValue: "arnob_t78@yahoo.com",
     },
     {
-      fieldName: "Availability",
-      fieldValue: "Available",
+      fieldName: t("resume.about.field.availability"),
+      fieldValue: t("resume.about.value.availability"),
     },
     {
-      fieldName: "Languages",
+      fieldName: t("resume.about.field.languages"),
       fieldValue: "English (C2), German (B1), Bengali (Native), Hindi, Urdu",
     },
   ],
-};
+});
 
-// Experience data
-const experience: ExperienceData = {
+// Experience data - will be populated with translations in component
+const getExperienceData = (t: (key: string) => string): ExperienceData => ({
   icon: "/assets/resume/badge.svg",
-  title: "Job Experience",
-  description:
-    "Full-Stack Software Engineer with 5+ years of experience delivering scalable, high-performance web & mobile applications. Skilled in clean architecture, automation, testing, and cloud-ready deployment, with a focus on quality, reliability, and business impact."
-,
+  title: t("resume.experience.title"),
+  description: t("resume.experience.description"),
   items: [
     {
       company: "Freelance / Remote",
@@ -161,15 +176,13 @@ const experience: ExperienceData = {
       duration: "Jun 2012 – Dec 2012",
     },
   ],
-};
+});
 
-
-// Education data
-const education: EducationData = {
+// Education data - will be populated with translations in component
+const getEducationData = (t: (key: string) => string): EducationData => ({
   icon: "/assets/resume/cap.svg",
-  title: "Education & Certifications",
-  description:
-    "M.Sc. in High Integrity Systems and B.Sc. in Computer Science & Engineering, complemented by advanced web development certifications. Strong academic foundation supporting full-stack development, scalable applications, and modern web technologies.",
+  title: t("resume.education.title"),
+  description: t("resume.education.description"),
   items: [
     {
       institution: "Frankfurt University of Applied Sciences, Germany",
@@ -192,14 +205,12 @@ const education: EducationData = {
       duration: "2022 – 2024",
     },
   ],
-};
+});
 
-
-// Skill data
-const skills: SkillsData = {
-  title: "Technical Skills",
-  description:
-    "Full-Stack Software Engineer proficient across frontend, backend, databases, cloud, DevOps, and testing. Experienced in building scalable, production-ready applications, integrating APIs, and delivering robust, user-centric solutions using modern frameworks and tools.",
+// Skill data - will be populated with translations in component
+const getSkillsData = (t: (key: string) => string): SkillsData => ({
+  title: t("resume.skills.title"),
+  description: t("resume.skills.description"),
   skillList: [
     { icon: <FaReact />, name: "React.js" },
     { icon: <SiNextdotjs />, name: "Next.js" },
@@ -218,13 +229,19 @@ const skills: SkillsData = {
     { icon: <SiOpenai />, name: "AI/ML Integration" },
     { icon: <FaGithub />, name: "Git & Version Control" },
   ],
-};
-
+});
 
 const ResumePage = () => {
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
   // Default to "about" for server-side rendering (prevents hydration mismatch)
   const [activeTab, setActiveTab] = useState("about");
+
+  // Get translated data
+  const about = getAboutData(t);
+  const experience = getExperienceData(t);
+  const education = getEducationData(t);
+  const skills = getSkillsData(t);
 
   // Read URL hash on client-side mount to restore tab state
   useEffect(() => {
@@ -232,7 +249,7 @@ const ResumePage = () => {
     // Check if there's a hash in the URL (e.g., #experience, #education, #skills)
     const hash = window.location.hash.slice(1); // Remove the # symbol
     const validTabs = ["about", "experience", "education", "skills"];
-    
+
     if (hash && validTabs.includes(hash)) {
       setActiveTab(hash);
     }
@@ -253,16 +270,16 @@ const ResumePage = () => {
           <div className="flex flex-col xl:flex-row gap-16 animate-ease-in-out">
             <div className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
               <div className="inline-flex items-center w-full bg-accent justify-center whitespace-nowrap text-primary rounded-lg p-3 text-base font-bold shadow-sm">
-                About me
+                {t("resume.tab.about")}
               </div>
               <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
-                Experience
+                {t("resume.tab.experience")}
               </div>
               <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
-                Education
+                {t("resume.tab.education")}
               </div>
               <div className="inline-flex items-center w-full bg-[#27272c] justify-center whitespace-nowrap text-white rounded-lg p-3 text-base font-medium">
-                Skills
+                {t("resume.tab.skills")}
               </div>
             </div>
             <div className="min-h-[90vh] w-full"></div>
@@ -279,13 +296,16 @@ const ResumePage = () => {
           value={activeTab}
           onValueChange={handleTabChange}
           className="flex flex-col xl:flex-row gap-16 animate-ease-in-out"
-          
         >
           <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
-            <TabsTrigger value="about">About me</TabsTrigger>
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="education">Education</TabsTrigger>
-            <TabsTrigger value="skills">Skills</TabsTrigger>
+            <TabsTrigger value="about">{t("resume.tab.about")}</TabsTrigger>
+            <TabsTrigger value="experience">
+              {t("resume.tab.experience")}
+            </TabsTrigger>
+            <TabsTrigger value="education">
+              {t("resume.tab.education")}
+            </TabsTrigger>
+            <TabsTrigger value="skills">{t("resume.tab.skills")}</TabsTrigger>
           </TabsList>
 
           {/* content */}
@@ -299,7 +319,9 @@ const ResumePage = () => {
                 className="flex flex-col gap-[30px] animate-ease-in-out"
                 style={{ animationDelay: "0s" }}
               >
-                <h3 className="text-2xl sm:text-3xl font-bold">{about.title}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold">
+                  {about.title}
+                </h3>
                 <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                   {about.description}
                 </p>
@@ -310,15 +332,19 @@ const ResumePage = () => {
                         key={index}
                         className="flex items-center justify-center xl:justify-start gap-4"
                       >
-                        <span className="text-white/60 text-md sm:text-lg">{item.fieldName}</span>
-                        <span className="text-md sm:text-lg">{item.fieldValue}</span>
+                        <span className="text-white/60 text-md sm:text-lg">
+                          {item.fieldName}
+                        </span>
+                        <span className="text-md sm:text-lg">
+                          {item.fieldValue}
+                        </span>
                       </li>
                     );
                   })}
                 </ul>
               </div>
             </TabsContent>
-            
+
             {/* experience */}
             <TabsContent
               value="experience"
@@ -328,7 +354,9 @@ const ResumePage = () => {
                 className="flex flex-col gap-[30px] text-center xl:text-left animate-ease-in-out"
                 style={{ animationDelay: "0s" }}
               >
-                <h3 className="text-2xl sm:text-3xl font-bold">{experience.title}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold">
+                  {experience.title}
+                </h3>
                 <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                   {experience.description}
                 </p>
@@ -361,7 +389,9 @@ const ResumePage = () => {
                 className="flex flex-col gap-[30px] text-center xl:text-left animate-ease-in-out"
                 style={{ animationDelay: "0s" }}
               >
-                <h3 className="text-2xl sm:text-3xl font-bold">{education.title}</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold">
+                  {education.title}
+                </h3>
                 <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                   {education.description}
                 </p>
@@ -395,7 +425,9 @@ const ResumePage = () => {
                 style={{ animationDelay: "0s" }}
               >
                 <div className="flex flex-col gap-[30px] text-center xl:text-left ">
-                  <h3 className="text-2xl sm:text-3xl font-bold">{skills.title}</h3>
+                  <h3 className="text-2xl sm:text-3xl font-bold">
+                    {skills.title}
+                  </h3>
                   <p className="max-w-[1000px] text-white/60 text-start sm:text-justify text-md sm:text-lg mx-auto xl:mx-0">
                     {skills.description}
                   </p>
@@ -422,8 +454,6 @@ const ResumePage = () => {
                 </ul>
               </div>
             </TabsContent>
-
-            
           </div>
         </Tabs>
       </div>

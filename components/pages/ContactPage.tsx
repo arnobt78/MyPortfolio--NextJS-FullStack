@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { Copy, Check } from "lucide-react";
 import { useTypewriter } from "../../hooks/useTypewriter";
+import { useLanguage } from "@/context/LanguageContext";
 
 // TypeScript interfaces
 interface InfoItem {
@@ -45,32 +46,34 @@ interface ApiErrorResponse {
   message?: string;
 }
 
-// Contact information data
-const info: InfoItem[] = [
+// Contact information data - will be populated with translations in component
+const getInfoData = (t: (key: string) => string): InfoItem[] => [
   {
     icon: <FaPhoneAlt />,
-    title: "Phone",
+    title: t("contact.info.phone"),
     description: "+4915734664351",
+    href: "tel:+4915734664351",
   },
   {
     icon: <FaEnvelope />,
-    title: "Email",
+    title: t("contact.info.email"),
     description: "arnobt78@gmail.com",
+    href: "mailto:arnobt78@gmail.com",
   },
   {
     icon: <FaMapMarkerAlt />,
-    title: "Address",
+    title: t("contact.info.address"),
     description: "Frankfurt am Main, Germany",
   },
   {
     icon: <FaLinkedin />,
-    title: "Linkedin",
+    title: t("contact.info.linkedin"),
     description: "arnob-mahmud-05839655",
     href: "https://www.linkedin.com/in/arnob-mahmud-05839655/",
   },
   {
     icon: <FaGithub />,
-    title: "Github",
+    title: t("contact.info.github"),
     description: "arnobt78",
     href: "https://github.com/arnobt78",
   },
@@ -87,8 +90,12 @@ const ContactPage = () => {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const formRef = React.useRef<HTMLFormElement>(null);
 
+  const { t } = useLanguage();
+  // Get translated info data
+  const info = getInfoData(t);
+
   const { displayText, isComplete } = useTypewriter({
-    text: "Let’s build something great!",
+    text: t("contact.typewriter"),
     speed: 200,
     delay: 2000,
   });
@@ -124,15 +131,16 @@ const ContactPage = () => {
             const autoReplyData = autoReplyResponse.data;
             setAlertMessage({
               type: "success",
-              title: "Success!",
-              message: `Your message has been sent successfully! Check your email for confirmation (Reference: ${autoReplyData.referenceNumber}). I'll get back to you soon!`,
+              title: t("contact.alert.success.title"),
+              message: t("contact.alert.success.message", {
+                referenceNumber: autoReplyData.referenceNumber,
+              }),
             });
           } else {
             setAlertMessage({
               type: "success",
-              title: "Success!",
-              message:
-                "Your message has been sent successfully! I'll get back to you soon!",
+              title: t("contact.alert.success.title"),
+              message: t("contact.alert.success.messageSimple"),
             });
           }
         } catch (autoReplyError: unknown) {
@@ -141,18 +149,17 @@ const ContactPage = () => {
           if (axios.isAxiosError(err) && err.response) {
             setAlertMessage({
               type: "error",
-              title: "Auto-reply Failed!",
+              title: t("contact.alert.error.autoReply.title"),
               message:
                 err.response.data?.details ||
                 err.response.data?.error ||
-                "Auto-reply could not be sent. Your message was received and I'll get back to you soon!",
+                t("contact.alert.error.autoReply.message"),
             });
           } else {
             setAlertMessage({
               type: "success",
-              title: "Success!",
-              message:
-                "Your message has been sent successfully! I'll get back to you soon!",
+              title: t("contact.alert.success.title"),
+              message: t("contact.alert.success.messageSimple"),
             });
           }
         }
@@ -160,9 +167,8 @@ const ContactPage = () => {
       } else {
         setAlertMessage({
           type: "error",
-          title: "Failed to Send!",
-          message:
-            "Sorry, there was an issue sending your message. Please try again.",
+          title: t("contact.alert.error.sendFailed.title"),
+          message: t("contact.alert.error.sendFailed.message"),
         });
       }
     } catch (error: unknown) {
@@ -172,33 +178,30 @@ const ContactPage = () => {
         if (err.response) {
           setAlertMessage({
             type: "error",
-            title: "Failed to Send!",
+            title: t("contact.alert.error.sendFailed.title"),
             message:
               err.response.data?.details ||
               err.response.data?.error ||
-              "Sorry, there was an issue sending your message. Please try again.",
+              t("contact.alert.error.sendFailed.message"),
           });
         } else if (err.request) {
           setAlertMessage({
             type: "error",
-            title: "Network Error!",
-            message:
-              "Unable to connect to the server. Please check your internet connection and try again.",
+            title: t("contact.alert.error.network.title"),
+            message: t("contact.alert.error.network.message"),
           });
         } else {
           setAlertMessage({
             type: "error",
-            title: "Error Occurred!",
-            message:
-              "An unexpected error occurred while sending the message. Please try again later.",
+            title: t("contact.alert.error.generic.title"),
+            message: t("contact.alert.error.generic.message"),
           });
         }
       } else {
         setAlertMessage({
           type: "error",
-          title: "Error Occurred!",
-          message:
-            "An unexpected error occurred while sending the message. Please try again later.",
+          title: t("contact.alert.error.generic.title"),
+          message: t("contact.alert.error.generic.message"),
         });
       }
     } finally {
@@ -260,15 +263,13 @@ const ContactPage = () => {
                 </Alert>
               )}
               <p className="text-white/60 text-start sm:text-justify text-md sm:text-lg">
-                Available for freelance, contract, or full-time roles. I help
-                businesses and teams design, build, and scale reliable digital
-                products — from idea to production.
+                {t("contact.description")}
               </p>
               <div className="grid gap-4">
                 <Input
                   type="text"
                   name="fullname"
-                  placeholder="Enter your name"
+                  placeholder={t("contact.form.name.placeholder")}
                   value={formData.fullname}
                   onChange={handleChange}
                 />
@@ -276,7 +277,7 @@ const ContactPage = () => {
                 <Input
                   type="email"
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder={t("contact.form.email.placeholder")}
                   value={formData.email}
                   onChange={handleChange}
                 />
@@ -285,18 +286,20 @@ const ContactPage = () => {
               <Textarea
                 className="h-[200px]"
                 name="message"
-                placeholder="Type your message here"
+                placeholder={t("contact.form.message.placeholder")}
                 value={formData.message}
                 onChange={handleChange}
               />
 
               <Button
                 size="md"
-                className="max-w-40"
+                className="max-w-48"
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? "Sending..." : "Send Message"}
+                {isLoading
+                  ? t("contact.form.button.sending")
+                  : t("contact.form.button.send")}
               </Button>
             </form>
           </div>
@@ -315,8 +318,16 @@ const ContactPage = () => {
                         <>
                           <Link
                             href={item.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            target={
+                              item.href.startsWith("http")
+                                ? "_blank"
+                                : undefined
+                            }
+                            rel={
+                              item.href.startsWith("http")
+                                ? "noopener noreferrer"
+                                : undefined
+                            }
                             className="text-white text-lg sm:text-xl hover:text-accent transition-colors duration-300 inline"
                           >
                             {item.description}

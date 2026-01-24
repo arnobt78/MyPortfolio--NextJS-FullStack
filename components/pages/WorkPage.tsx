@@ -17,6 +17,7 @@ import Image from "next/image";
 import type { Swiper as SwiperType } from "swiper";
 
 import { useTypewriter } from "../../hooks/useTypewriter";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectStack {
   name: string;
@@ -37,11 +38,8 @@ const projects: Project[] = [
   {
     num: "01",
     category: "Fullstack",
-    title:
-      "CodeBook E-Commerce Platform - React, AWS (Lambda, DynamoDB, S3, HTTP API Gateway) Serverless Architecture FullStack Project",
-    description:
-  "Production-ready full-stack e-commerce platform built with React and AWS serverless architecture. Features a complete customer storefront, Stripe payments, order management, and a role-based admin dashboard. Powered by AWS Lambda, API Gateway, and DynamoDB for scalable backend operations, with JWT authentication, responsive UI, and modern React patterns.",
-
+    title: "work.project.01.title",
+    description: "work.project.01.description",
     stack: [
       { name: "React.js" },
       { name: "TailwindCSS" },
@@ -59,11 +57,8 @@ const projects: Project[] = [
   {
     num: "02",
     category: "Fullstack",
-    title:
-      "Retrieval-Augmented Generation (RAG) AI Chat Bot - Next.js,Vercel AI SDK, Upstash Vector, Redis Database FullStack Project",
-    description:
-  "Context-aware AI chatbot built with Next.js using Retrieval-Augmented Generation (RAG). Combines vector search and memory via Upstash Vector & Redis to deliver accurate, stateful responses powered by modern AI and cloud-native architecture.",
-
+    title: "work.project.02.title",
+    description: "work.project.02.description",
     stack: [
       { name: "Next.js" },
       { name: "TailwindCSS" },
@@ -78,11 +73,8 @@ const projects: Project[] = [
   {
     num: "03",
     category: "Fullstack",
-    title:
-      "HealthCare Doctor Appointment Management System - Next.js FullStack Project (Featuring Admin Dashboard Approve/Decline SMS Notifications)",
-    description:
-  "Full-stack healthcare appointment management system built with Next.js. Includes patient booking, admin approval workflows, secure data handling, and automated SMS notifications via Twilio.",
-
+    title: "work.project.03.title",
+    description: "work.project.03.description",
     stack: [
       { name: "Next.js" },
       { name: "Typescript" },
@@ -97,11 +89,8 @@ const projects: Project[] = [
   {
     num: "04",
     category: "Fullstack",
-    title:
-      "IoT Embedded Motor Sync Intelligence - Real-time Industrial IoT Dashboard, Motor Physics Engine, Business Intelligence Platform (C++, .NET, PostgreSQL, SignalR, Docker, React)",
-    description:
-  "Production-ready industrial IoT platform for real-time motor monitoring and analytics. Combines a C++ motor physics engine with a .NET backend (SignalR) and a React dashboard to deliver live telemetry, synchronization insights, and business intelligence.",
-
+    title: "work.project.04.title",
+    description: "work.project.04.description",
     stack: [
       { name: "React" },
       { name: ".NET Core" },
@@ -118,10 +107,8 @@ const projects: Project[] = [
   {
     num: "05",
     category: "Fullstack",
-    title:
-      "Stock Inventory Management System - Next.js, Prisma, MongoDB FullStack Project (including Business-Insights Dashboard)",
-    description:
-      "A Next.js based inventory management application designed to help you manage your product stock efficiently. This application includes features such as product listing, adding new products, editing existing products, and filtering products based on various criteria using JWT, Prisma, MongoDB, Session, Cookies and authMiddleware.",
+    title: "work.project.05.title",
+    description: "work.project.05.description",
     stack: [
       { name: "Next.js" },
       { name: "MongoDB" },
@@ -136,10 +123,8 @@ const projects: Project[] = [
   {
     num: "06",
     category: "Fullstack",
-    title:
-      "Hotel Booking Management System - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)",
-    description:
-      "A comprehensive, production-ready hotel booking platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring advanced search, booking management, analytics dashboard, and payment integration.",
+    title: "work.project.06.title",
+    description: "work.project.06.description",
     stack: [
       { name: "React" },
       { name: "Express.js" },
@@ -155,10 +140,8 @@ const projects: Project[] = [
   {
     num: "07",
     category: "Fullstack",
-    title:
-      "Smart AI Collaborative URL Bookmark Manager - Next.js, TanStack React Query, Prisma, PostgreSQL, Upstash, QStash, Cloudinary, Google Gemini, Groq, OpenRouter, Hugging Face FullStack Project",
-    description:
-      "A production-ready, full-stack URL bookmarking and sharing platform built with Next.js, TypeScript, and PostgreSQL. Features AI-powered enhancements, real-time collaboration, vector search, and intelligent URL organization.",
+    title: "work.project.07.title",
+    description: "work.project.07.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -174,10 +157,8 @@ const projects: Project[] = [
   {
     num: "08",
     category: "Fullstack",
-    title:
-      "Employee & Project Management Platform - Angular 18, TypeScript, MongoDB Full-Stack Serverless Application (Including Real-time Dashboard, Calendar, Gantt Chart, Business Insights, API Monitoring)",
-    description:
-      "A comprehensive, full-stack Employee Project Management System built with Angular 18, featuring real-time dashboards, project tracking, calendar views, Gantt charts, business insights, and API monitoring. This is a production-ready CRUD application demonstrating modern web development practices with serverless architecture.",
+    title: "work.project.08.title",
+    description: "work.project.08.description",
     stack: [{ name: "Angular" }, { name: "TypeScript" }, { name: "MongoDB" }],
     image: "/assets/work/project08.png",
     live: "https://employee-project-management.vercel.app/",
@@ -188,10 +169,8 @@ const projects: Project[] = [
   {
     num: "09",
     category: "Fullstack",
-    title:
-      "Library Management System - Next.js, PostgreSQL, Redis, Upstash, Brevo, Resend, ImageKit FullStack Project",
-    description:
-      "A Next.js, TypeScript, Postgres, the University Library Management System is a production-grade platform featuring a public-facing app and admin interface. It offers advanced functionalities like seamless book borrowing with reminders and receipts, robust user management, automated workflows, optimized tech stack for real-world scalability.",
+    title: "work.project.09.title",
+    description: "work.project.09.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -207,10 +186,8 @@ const projects: Project[] = [
   {
     num: "10",
     category: "Fullstack",
-    title:
-      "Food Recipe Spoonacular Guide - Next.js, PostgreSQL FullStack Project",
-    description:
-      "A modern next.js full-stack recipe management guide/helper application. This UI lets users search for recipes, view details, and manage favourites, with a beautiful, responsive design and seamless backend integration.",
+    title: "work.project.10.title",
+    description: "work.project.10.description",
     stack: [
       { name: "Next.js" },
       { name: "PostgreSQL" },
@@ -225,10 +202,8 @@ const projects: Project[] = [
   {
     num: "11",
     category: "Fullstack",
-    title:
-      "MultiView Calendar Health Care Appointment Management System – Next.js, Postgresql FullStack Project (Admin Control Panel Permission Dashboard)",
-    description:
-      "A modern, full-featured calendar and appointment management web application built with Next.js & PostgreSQL. Perfect for healthcare, clinics, and organizations needing robust scheduling, filtering, and client management with multiple calendar views, instant search, advanced filtering, and a clean, responsive UI.",
+    title: "work.project.11.title",
+    description: "work.project.11.description",
     stack: [
       { name: "Next.js" },
       { name: "PostgreSQL" },
@@ -243,10 +218,8 @@ const projects: Project[] = [
   {
     num: "12",
     category: "Fullstack",
-    title:
-      "Universal Multi-Provider Assistant - React, TypeScript, Vite FullStack Project (Multi-Model AI Chatbot including Business Insights & Performance Dashboard)",
-    description:
-      "A modern, responsive AI chat bot application supporting multiple AI providers including Google Gemini, Groq, OpenRouter, Hugging Face, and OpenAI and enable to store the chat history. Built with React, TypeScript, and Vite including business-insights analytics and performance dashboard, typewriter effect, and animated icons for the best user experience.",
+    title: "work.project.12.title",
+    description: "work.project.12.description",
     stack: [
       { name: "React" },
       { name: "TypeScript" },
@@ -262,9 +235,8 @@ const projects: Project[] = [
   {
     num: "13",
     category: "Fullstack",
-    title: "Modern E-Commerce Platform - Next.js, Postgresql FullStack Project",
-    description:
-      "A feature-rich reusable e-commerce platform including monthly subscription system, language support, iframe, OTP authentication and more, designed for maintainability, scalability, and a delightful user experience. It demonstrates best practices in modular React/Next.js development, robust type safety, and real-world UI/UX polish.",
+    title: "work.project.13.title",
+    description: "work.project.13.description",
     stack: [
       { name: "Next.js" },
       { name: "PostgreSQL" },
@@ -279,10 +251,8 @@ const projects: Project[] = [
   {
     num: "14",
     category: "Fullstack",
-    title:
-      "Developer's Blog Platform – Next.js, MongoDB, TanStack React Query FullStack Project (Blog for Coding Errors & Solutions)",
-    description:
-      "A modern, full-stack developer blog platform focused on sharing real-world coding errors and their solutions. Dev-Bug-Coder-Blog empowers developers to post, discuss, and resolve bugs, fostering a collaborative learning environment.",
+    title: "work.project.14.title",
+    description: "work.project.14.description",
     stack: [
       { name: "Next.js" },
       { name: "MongoDB" },
@@ -297,10 +267,8 @@ const projects: Project[] = [
   {
     num: "15",
     category: "Frontend",
-    title:
-      "Travel & Camping Landing Page - Next.js, TailwindCSS Frontend Project",
-    description:
-      "A modern, responsive, and feature-rich travel and camping web application built with Next.js, React, and Tailwind CSS. This project provides a beautiful UI/UX for exploring camping destinations, viewing features, and guiding users through an engaging journey experience.",
+    title: "work.project.15.title",
+    description: "work.project.15.description",
     stack: [{ name: "Next.js" }, { name: "TailwindCSS" }],
     image: "/assets/work/project15.png",
     live: "https://travel-camping-ui.vercel.app/",
@@ -311,10 +279,8 @@ const projects: Project[] = [
   {
     num: "16",
     category: "Fullstack",
-    title:
-      "Embedded Feedback Collection System - Next.js, MongoDB FullStack Project",
-    description:
-      "A modern, production-ready feedback collection widget system built with Next.js, React, TypeScript, Prisma, and MongoDB. This project provides an embeddable web component that can be integrated into any website, along with a comprehensive dashboard for managing projects, viewing feedback, and analyzing insights.",
+    title: "work.project.16.title",
+    description: "work.project.16.description",
     stack: [
       { name: "Next.js" },
       { name: "MongoDB" },
@@ -330,10 +296,8 @@ const projects: Project[] = [
   {
     num: "17",
     category: "Fullstack",
-    title:
-      "Professional Home Nursing Services Platform - React, Express.js, MongoDB FullStack Project",
-    description:
-      "A full-stack web application for managing home nursing care services, built with React and Express.js. This platform provides comprehensive functionality for service management, job applications, contact forms, and an admin dashboard for managing applications.",
+    title: "work.project.17.title",
+    description: "work.project.17.description",
     stack: [{ name: "React" }, { name: "Express.js" }, { name: "MongoDB" }],
     image: "/assets/work/project17.png",
     live: "https://develop-testing-1.netlify.app/",
@@ -344,10 +308,8 @@ const projects: Project[] = [
   {
     num: "18",
     category: "Frontend",
-    title:
-      "Embedded Marketing - Modern React Landing Page with Feedback Widget",
-    description:
-      "A modern, production-ready, static React landing page template built with Vite, TailwindCSS, and Framer Motion. Features a fully integrated feedback widget powered by Next.js, Prisma, and Vercel. This project demonstrates best practices for building, styling, and extending React apps with real-world features.",
+    title: "work.project.18.title",
+    description: "work.project.18.description",
     stack: [
       { name: "React" },
       { name: "Vite" },
@@ -363,10 +325,8 @@ const projects: Project[] = [
   {
     num: "19",
     category: "Frontend",
-    title:
-      "Restaurant TS Landing Page - Next.js, TailwindCSS, Framer Motion Frontend Project",
-    description:
-      "A beautiful, fully responsive restaurant landing page built with Next.js, TypeScript, TailwindCSS, and Framer Motion. This project demonstrates modern web development practices including server-side rendering, component composition, animation patterns, and responsive design.",
+    title: "work.project.19.title",
+    description: "work.project.19.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -381,10 +341,8 @@ const projects: Project[] = [
   {
     num: "20",
     category: "Frontend",
-    title:
-      "Restaurant Gericht Landing Page - React.js, TailwindCSS Frontend Project",
-    description:
-      "A modern, fully responsive restaurant website built using React, TailwindCSS. It showcases a premium restaurant experience with a clean design, interactive gallery, menu, chef's word, awards, and contact sections. The project is ideal for learning React component architecture, CSS styling, and building scalable web applications.",
+    title: "work.project.20.title",
+    description: "work.project.20.description",
     stack: [{ name: "React" }, { name: "TailwindCSS" }],
     image: "/assets/work/project20.png",
     live: "https://restaurant-3-gericht.netlify.app/",
@@ -394,10 +352,8 @@ const projects: Project[] = [
   {
     num: "21",
     category: "Fullstack",
-    title:
-      "Restaurant Food Ordering Management System - React, Express.js FullStack MERN Project (including Business-Insights Dashboard)",
-    description:
-      "A comprehensive, modern food ordering platform built with the MERN stack (MongoDB, Express.js, React, Node.js) featuring real-time order management, payment processing, analytics dashboard, and advanced search capabilities.",
+    title: "work.project.21.title",
+    description: "work.project.21.description",
     stack: [
       { name: "MongoDB" },
       { name: "Express.js" },
@@ -413,10 +369,8 @@ const projects: Project[] = [
   {
     num: "22",
     category: "Frontend",
-    title:
-      "Coffee Shop 1 Landing Page - Next.js, TailwindCSS, Framer Motion Frontend Project",
-    description:
-      "A modern, fully responsive coffee shop landing page built with Next, React, TypeScript, and TailwindCSS. This project showcases advanced animations, smooth scrolling effects, and a beautiful user interface perfect for learning modern frontend development.",
+    title: "work.project.22.title",
+    description: "work.project.22.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -431,10 +385,8 @@ const projects: Project[] = [
   {
     num: "23",
     category: "Frontend",
-    title:
-      "Coffee Shop 2 Landing Page - React, Vite, TailwindCSS Frontend Project",
-    description:
-      "A modern, responsive coffee shop landing page built with React, Vite, and Tailwind CSS. This project demonstrates best practices in React component structure, animation, and UI/UX, making it a great template for learning, customization, and real-world use.",
+    title: "work.project.23.title",
+    description: "work.project.23.description",
     stack: [{ name: "React" }, { name: "Vite" }, { name: "TailwindCSS" }],
     image: "/assets/work/project23.png",
     live: "https://coffeelover-cafe.netlify.app/",
@@ -444,10 +396,8 @@ const projects: Project[] = [
   {
     num: "24",
     category: "Fullstack",
-    title:
-      "Job Tracking Application - Next.js, TypeScript, Clerk, Prisma, React Query, PostgreSQL FullStack Project",
-    description:
-      "A full-featured, production-ready job tracking application built with Next.js, TypeScript, Clerk, Prisma, React Query, PostgreSQL, and modern web technologies. Jobify helps job seekers efficiently organize, track, and analyze their job search journey with a beautiful, responsive dashboard.",
+    title: "work.project.24.title",
+    description: "work.project.24.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -463,10 +413,8 @@ const projects: Project[] = [
   {
     num: "25",
     category: "Fullstack",
-    title:
-      "Next Store | E-Commerce Platform - Next.js, PostgreSQL, Vercel Blob, Stripe Fullstack Project",
-    description:
-      "A beautifully designed, high-performance e-commerce platform built with Next.js 14, TypeScript, Prisma, PostgreSQL, Vercel Blob Storage, Clerk authentication, Stripe payments, and shadcn/ui. Next Store offers a seamless online shopping experience with fast checkout, secure payments, and a curated selection of products.",
+    title: "work.project.25.title",
+    description: "work.project.25.description",
     stack: [
       { name: "Next.js" },
       { name: "PostgreSQL" },
@@ -482,10 +430,8 @@ const projects: Project[] = [
   {
     num: "26",
     category: "Fullstack",
-    title:
-      "Comfy Store | E-Commerce Platform - React, Vite, Redux Toolkit, Node.js, Express.js FullStack Project",
-    description:
-      "An advanced, modern eCommerce web application built with React, Vite, Redux Toolkit, TailwindCSS, DaisyUI, and more. This project demonstrates a real-world online shop with a rich set of features, clean project structure, and best practices for state management, UI, and API integration.",
+    title: "work.project.26.title",
+    description: "work.project.26.description",
     stack: [
       { name: "React" },
       { name: "Vite" },
@@ -501,10 +447,8 @@ const projects: Project[] = [
   {
     num: "27",
     category: "Frontend",
-    title:
-      "Premium Skincare Salon - Next.js, TailwindCSS, Framer-Motion Frontend Project",
-    description:
-      "A modern, responsive, and animated frontend website built with Next.js, React, TypeScript, and TailwindCSS. This project demonstrates how to build a professional skincare salon website with smooth animations, custom cursor interactions, and a modular component structure.",
+    title: "work.project.27.title",
+    description: "work.project.27.description",
     stack: [
       { name: "Next.js" },
       { name: "TailwindCSS" },
@@ -519,10 +463,8 @@ const projects: Project[] = [
   {
     num: "28",
     category: "Frontend",
-    title:
-      "Hotel Booking 2 Landing Page - React, Vite, TailwindCSS Fundamental Frontend Project",
-    description:
-      "A modern, responsive hotel booking frontend website built with React, Vite, TailwindCSS. This project demonstrates core React concepts (components, context API, hooks), advanced UI/UX with custom components, a mobile-friendly layout, and integration with third-party React libraries. It is designed both as a learning resource and a practical template for static hotel or accommodation websites.",
+    title: "work.project.28.title",
+    description: "work.project.28.description",
     stack: [{ name: "React" }, { name: "Vite" }, { name: "TailwindCSS" }],
     image: "/assets/work/project28.png",
     live: "https://hotel-booking-arnob.netlify.app/",
@@ -533,9 +475,8 @@ const projects: Project[] = [
   {
     num: "29",
     category: "Fullstack",
-    title: "Modern Portfolio Website - Next.js FullStack Project",
-    description:
-      "A cutting-edge, production-ready portfolio website built with Next.js, TypeScript, TailwindCSS, and Framer Motion. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.",
+    title: "work.project.29.title",
+    description: "work.project.29.description",
     stack: [
       { name: "Next.js" },
       { name: "TypeScript" },
@@ -673,9 +614,10 @@ const WorkPage = () => {
   const [project, setPorject] = useState<Project>(projects[0]);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const swiperRef = useRef<SwiperType | null>(null);
+  const { t } = useLanguage();
 
   const { displayText, isComplete } = useTypewriter({
-    text: `Projects (${projects.length})`,
+    text: t("work.projectsTitle", { count: projects.length }),
     speed: 200,
     delay: 2000,
   });
@@ -694,56 +636,56 @@ const WorkPage = () => {
         <div className="flex flex-col gap-4 mb-6">
           {/* Row 1: Typewriter Title and View Mode Buttons */}
           <div className="flex justify-between items-center gap-0">
-          {/* Typewriter Title */}
+            {/* Typewriter Title */}
             <h2 className="text-xl xl:text-2xl font-bold text-accent whitespace-nowrap">
-            {displayText}
-            {!isComplete && <span className="typewriter-cursor"></span>}
-          </h2>
+              {displayText}
+              {!isComplete && <span className="typewriter-cursor"></span>}
+            </h2>
 
-          {/* View Mode Buttons */}
-          <div className="flex gap-2">
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger
-                  onClick={() => setViewMode("grid")}
-                  className={`w-[30px] xl:w-[40px] h-[30px] xl:h-[40px] rounded-md flex justify-center items-center transition-all ${
-                    viewMode === "grid"
-                      ? "bg-accent text-primary"
-                      : "bg-white/5 text-white hover:bg-white/10"
-                  }`}
-                >
-                  <Grid3x3 className="text-2xl" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Grid View</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            {/* View Mode Buttons */}
+            <div className="flex gap-2">
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger
+                    onClick={() => setViewMode("grid")}
+                    className={`w-[30px] xl:w-[40px] h-[30px] xl:h-[40px] rounded-md flex justify-center items-center transition-all ${
+                      viewMode === "grid"
+                        ? "bg-accent text-primary"
+                        : "bg-white/5 text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <Grid3x3 className="text-2xl" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t("work.view.grid")}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
 
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger
-                  onClick={() => setViewMode("list")}
-                  className={`w-[30px] xl:w-[40px] h-[30px] xl:h-[40px] rounded-md flex justify-center items-center transition-all ${
-                    viewMode === "list"
-                      ? "bg-accent text-primary"
-                      : "bg-white/5 text-white hover:bg-white/10"
-                  }`}
-                >
-                  <List className="text-2xl" />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>List View</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+              <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                  <TooltipTrigger
+                    onClick={() => setViewMode("list")}
+                    className={`w-[30px] xl:w-[40px] h-[30px] xl:h-[40px] rounded-md flex justify-center items-center transition-all ${
+                      viewMode === "list"
+                        ? "bg-accent text-primary"
+                        : "bg-white/5 text-white hover:bg-white/10"
+                    }`}
+                  >
+                    <List className="text-2xl" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{t("work.view.list")}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
 
           {/* Row 2: GitHub Link */}
           <div className="flex flex-col gap-2">
             <span className="text-sm sm:text-base text-white/80">
-              Here it&apos;s showcase 40+ projects, to check 90+ open-source production ready Project, visit my Github repo:{" "}
+              {t("work.githubNote.prefix")}{" "}
               <Link
                 href="https://github.com/arnobt78"
                 target="_blank"
@@ -776,7 +718,7 @@ const WorkPage = () => {
                         <BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Live project</p>
+                        <p>{t("work.tooltip.live")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -790,7 +732,7 @@ const WorkPage = () => {
                         <BsGithub className="text-white text-3xl group-hover:text-accent" />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Github Repository</p>
+                        <p>{t("work.tooltip.github")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -800,17 +742,17 @@ const WorkPage = () => {
 
             {/* Title - order 2 on mobile, grid position [row 2, col 1] on desktop */}
             <h2 className="text-md lg:text-lg xl:text-xl font-semibold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
-              {project.title}
+              {t(project.title)}
             </h2>
 
             {/* Image/Swiper - order 3 on mobile, grid position [row 1, col 2] with row-span to span all rows on desktop */}
             <div className="order-3 xl:row-start-1 xl:row-span-6 xl:col-start-2 mb-2 xl:mb-0 relative xl:self-stretch">
               <div className="relative">
-              <Swiper
-                spaceBetween={30}
-                slidesPerView={1}
-                className="xl:h-[520px] mb-12"
-                onSlideChange={handleSlidechange}
+                <Swiper
+                  spaceBetween={30}
+                  slidesPerView={1}
+                  className="xl:h-[520px] mb-12"
+                  onSlideChange={handleSlidechange}
                   onSwiper={(swiper) => {
                     swiperRef.current = swiper;
                   }}
@@ -823,30 +765,30 @@ const WorkPage = () => {
                   touchEventsTarget="container"
                   touchRatio={1}
                   threshold={10}
-              >
-                {projects.map((project, index) => {
-                  return (
-                    <SwiperSlide key={index} className="w-full">
-                      <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
+                >
+                  {projects.map((project, index) => {
+                    return (
+                      <SwiperSlide key={index} className="w-full">
+                        <div className="h-[460px] relative group justify-center items-center bg-pink-50/20 rounded-lg overflow-hidden">
                           {/* overlay - pointer-events-none to allow clicks through */}
                           <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10 pointer-events-none"></div>
 
-                        {/* image */}
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
-                            className="object-cover absolute inset-0"
-                          />
+                          {/* image */}
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={project.image}
+                              alt={t(project.title)}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+                              className="object-cover absolute inset-0"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
-                
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+
                 {/* Left Arrow - positioned at the edge of image area, only navigation method */}
                 <button
                   type="button"
@@ -865,7 +807,7 @@ const WorkPage = () => {
                       swiperRef.current.slidePrev();
                     }
                   }}
-                  aria-label="Previous project"
+                  aria-label={t("work.aria.prev")}
                 >
                   <PiCaretLeftBold className="text-white text-xl md:text-2xl xl:text-3xl transition-all duration-300 group-hover:text-accent pointer-events-none" />
                 </button>
@@ -888,7 +830,7 @@ const WorkPage = () => {
                       swiperRef.current.slideNext();
                     }
                   }}
-                  aria-label="Next project"
+                  aria-label={t("work.aria.next")}
                 >
                   <PiCaretRightBold className="text-white text-xl md:text-2xl xl:text-3xl transition-all duration-300 group-hover:text-accent pointer-events-none" />
                 </button>
@@ -897,7 +839,7 @@ const WorkPage = () => {
 
             {/* Description - order 4 on mobile, grid position [row 3, col 1] on desktop */}
             <p className=" text-white/60 text-start sm:text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
-              {project.description}
+              {t(project.description)}
             </p>
 
             {/* Stack - order 5 on mobile, grid position [row 4, col 1] on desktop */}
@@ -943,7 +885,7 @@ const WorkPage = () => {
                               <BsArrowUpRight className="text-white text-3xl group-hover:text-accent" />
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Live project</p>
+                              <p>{t("work.tooltip.live")}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -957,7 +899,7 @@ const WorkPage = () => {
                               <BsGithub className="text-white text-3xl group-hover:text-accent" />
                             </TooltipTrigger>
                             <TooltipContent>
-                              <p>Github Repository</p>
+                              <p>{t("work.tooltip.github")}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -967,7 +909,7 @@ const WorkPage = () => {
 
                   {/* Title - order 2 on mobile, grid position [row 2, col 1] on desktop */}
                   <h2 className="text-md lg:text-lg xl:text-xl font-semibold  leading-none text-white group-hover:text-accent transition-all duration-500 capitalize order-2 xl:row-start-2 xl:col-start-1 mb-6 xl:mb-0">
-                    {proj.title}
+                    {t(proj.title)}
                   </h2>
 
                   {/* Image - order 3 on mobile, grid position [row 1-6, col 2] on desktop */}
@@ -979,7 +921,7 @@ const WorkPage = () => {
                       <div className="relative w-full h-full">
                         <Image
                           src={proj.image}
-                          alt={proj.title}
+                          alt={t(proj.title)}
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
                           className="object-cover absolute inset-0"
@@ -990,7 +932,7 @@ const WorkPage = () => {
 
                   {/* Description - order 4 on mobile, grid position [row 3, col 1] on desktop */}
                   <p className="text-white/60 text-start sm:text-justify order-4 xl:row-start-3 xl:col-start-1 mb-6 xl:mb-0">
-                    {proj.description}
+                    {t(proj.description)}
                   </p>
 
                   {/* Stack - order 5 on mobile, grid position [row 4, col 1] on desktop */}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BsArrowDownRight } from "react-icons/bs";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ServiceStack {
   name: string;
@@ -9,8 +10,8 @@ interface ServiceStack {
 
 interface Service {
   num: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   stack: ServiceStack[];
   href: string;
 }
@@ -18,9 +19,8 @@ interface Service {
 const services: Service[] = [
   {
     num: "01",
-    title: "Web & Application Development",
-    description:
-      "Design and build scalable, production-ready web and mobile applications with clean architecture, modern frameworks, and reliable backend APIs—focused on performance, maintainability, and business impact.",
+    titleKey: "services.01.title",
+    descriptionKey: "services.01.description",
     stack: [
       { name: ".NET" },
       { name: "Node.js" },
@@ -34,9 +34,8 @@ const services: Service[] = [
   },
   {
     num: "02",
-    title: "UI / UX Engineering",
-    description:
-      "Create intuitive, user-centric interfaces that balance usability and visual clarity. Translate business requirements into responsive, accessible, and consistent user experiences.",
+    titleKey: "services.02.title",
+    descriptionKey: "services.02.description",
     stack: [
       { name: "Figma" },
       { name: "Wireframing" },
@@ -47,26 +46,23 @@ const services: Service[] = [
   },
   {
     num: "03",
-    title: "Test Automation, DevOps & Quality Engineering",
-    description:
-      "Ensure high software quality and reliable delivery through automated testing, CI/CD pipelines, and integration validation. Focused on stability, performance, and defect prevention across the full delivery lifecycle.",
+    titleKey: "services.03.title",
+    descriptionKey: "services.03.description",
     stack: [
-  { name: "CI/CD" },
-  { name: "Docker" },
-  { name: "Kubernetes" },
-  { name: "Cypress" },
-  { name: "Jest" },
-  { name: "Selenium" },
-  { name: "VPS" },
-],
-
+      { name: "CI/CD" },
+      { name: "Docker" },
+      { name: "Kubernetes" },
+      { name: "Cypress" },
+      { name: "Jest" },
+      { name: "Selenium" },
+      { name: "VPS" },
+    ],
     href: "/contact",
   },
   {
     num: "04",
-    title: "Cloud, Security & Reliability",
-    description:
-      "Deliver secure, reliable cloud-based systems with practical security controls, access management, and monitoring. Focused on stability, compliance, and production resilience across modern application environments.",
+    titleKey: "services.04.title",
+    descriptionKey: "services.04.description",
     stack: [
       { name: "AWS" },
       { name: "Auth" },
@@ -80,6 +76,7 @@ const services: Service[] = [
 ];
 
 const ServicesPage = () => {
+  const { t } = useLanguage();
   return (
     <section className="min-h-[90vh] flex flex-col justify-center py-4 xl:pb-4 animate-ease-in-out page-content-no-scrollbar">
       <div className="container mx-auto">
@@ -104,18 +101,21 @@ const ServicesPage = () => {
                 </div>
                 {/* title */}
                 <h2 className="text-xl sm:text-2xl font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
-                  {service.title}
+                  {t(service.titleKey)}
                 </h2>
                 {/* description  */}
                 <p className="text-white/60 text-start text-md sm:text-lg">
-                  {service.description}
+                  {t(service.descriptionKey)}
                 </p>
                 {/* stack */}
                 <div className="text-start">
                   <ul className="flex flex-wrap gap-2">
                     {service.stack.map((item, stackIndex) => {
                       return (
-                        <li key={stackIndex} className="text-md sm:text-lg text-accent">
+                        <li
+                          key={stackIndex}
+                          className="text-md sm:text-lg text-accent"
+                        >
                           {item.name}
                           {/* removing the last comma  */}
                           {stackIndex !== service.stack.length - 1 && ","}

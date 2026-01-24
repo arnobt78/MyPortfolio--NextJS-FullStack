@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   return (
     <footer className="py-8 xl:py-12 mt-4 sm:mt-8">
@@ -11,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-col xl:flex-row justify-between items-center gap-4">
           {/* Left side - Copyright */}
           <div className="text-white/60 text-sm sm:text-base">
-            © {currentYear} All rights reserved.
+            © {currentYear} {t("footer.rights")}
           </div>
 
           {/* Right side - Links */}
@@ -20,19 +22,19 @@ const Footer = () => {
               href="/about"
               className="text-white/60 hover:text-accent transition-colors duration-300 text-sm sm:text-base capitalize"
             >
-              About
+              {t("footer.about")}
             </Link>
             <Link
               href="/privacy"
               className="text-white/60 hover:text-accent transition-colors duration-300 text-sm sm:text-base capitalize"
             >
-              Privacy
+              {t("footer.privacy")}
             </Link>
             <Link
               href="/terms"
               className="text-white/60 hover:text-accent transition-colors duration-300 text-sm sm:text-base capitalize"
             >
-              Terms
+              {t("footer.terms")}
             </Link>
           </div>
         </div>
