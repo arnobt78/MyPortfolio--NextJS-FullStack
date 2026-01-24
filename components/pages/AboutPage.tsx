@@ -39,6 +39,8 @@ const AboutPage = () => {
                     alt="Listed on Website Launches"
                     width={220}
                     height={54}
+                    loader={({ src }) => src}
+                    unoptimized
                     style={{ border: "none" }}
                     className="w-auto h-auto max-w-[180px] sm:max-w-[220px]"
                   />
