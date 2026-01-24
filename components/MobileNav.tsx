@@ -73,7 +73,10 @@ const MobileNav = () => {
           </SheetClose>
         </div>
 
-        <div className="mt-10 flex-1 min-h-0 overflow-y-auto pb-10">
+        <div
+          className="mt-10 flex-1 min-h-0 overflow-y-auto pb-10 overscroll-contain touch-pan-y"
+          data-radix-scroll-area-viewport=""
+        >
           {/* nav */}
           <SheetClose asChild>
             <nav className="flex flex-col justify-center items-center gap-4">
