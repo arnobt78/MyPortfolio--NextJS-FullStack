@@ -1,8 +1,17 @@
-# Modern Portfolio Website - Next.js FullStack Project (My Personal Portfolio)
+# Modern Portfolio Website - Next.js FullStack Project (My Personal Official Portfolio)
 
-A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, and stunning animations.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-18.3.1-blue)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue)](https://www.typescriptlang.org/)
 
-- **Live-Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
+A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, internationalization (i18n), and stunning animations.
+
+- **Live Demo:** [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
+
+**Author:** [Arnob Mahmud](https://www.arnobmahmud.com/) | **License:** [MIT](./LICENSE)
+
+> 🌟 **Open Source Project** - This is an open-source project. Feel free to use, enhance, and extend this project to the next level! Contributions, improvements, forks, and stars are always welcome. Together, we can make this portfolio template even better!
 
 ![Screenshot 2025-10-23 at 13 47 13](https://github.com/user-attachments/assets/bf6b85ce-a1bb-437a-9f2e-c338c6ac41c7)
 ![Screenshot 2025-10-23 at 13 47 33](https://github.com/user-attachments/assets/a755f24a-bb4e-4728-a411-a0bf3056bce8)
@@ -10,14 +19,18 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 ![Screenshot 2025-10-23 at 13 49 36](https://github.com/user-attachments/assets/ae0fa79a-59b3-4377-afbd-75671d8382f8)
 ![Screenshot 2025-10-23 at 13 49 49](https://github.com/user-attachments/assets/b59d6039-72ef-4da9-92a3-9de1286446bc)
 
+---
+
 ## 📋 Table of Contents
 
+- [Overview](#-overview)
 - [Features](#-features)
-- [Tech Stack](#-tech-stack)
+- [Technology Stack](#-technology-stack)
 - [Project Structure](#-project-structure)
 - [Installation & Setup](#-installation--setup)
 - [Environment Variables](#-environment-variables)
 - [How to Run](#-how-to-run)
+- [Internationalization (i18n)](#-internationalization-i18n)
 - [Components Overview](#-components-overview)
 - [API Endpoints](#-api-endpoints)
 - [Pages & Routes](#-pages--routes)
@@ -25,6 +38,7 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - [Styling & Animations](#-styling--animations)
 - [Email Configuration](#-email-configuration)
 - [Analytics Integration](#-analytics-integration)
+- [SEO & Metadata](#-seo--metadata)
 - [Deployment](#-deployment)
 - [Reusable Components Guide](#-reusable-components-guide)
 - [Best Practices](#-best-practices)
@@ -32,6 +46,26 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - [Troubleshooting](#-troubleshooting)
 - [Contributing](#-contributing)
 - [License](#-license)
+- [Conclusion](#-conclusion)
+
+---
+
+## 🎯 Overview
+
+This is a **production-ready, modern portfolio website** that demonstrates best practices in Next.js development. It features a complete full-stack implementation with server-side rendering, API routes, email functionality, multi-language support, and professional animations.
+
+### Key Highlights
+
+- **Next.js 15** with App Router and Server Components
+- **TypeScript** for type safety throughout the codebase
+- **Internationalization (i18n)** - English and German support
+- **Email Integration** - Contact form with auto-reply functionality
+- **Analytics** - Google Analytics 4 and Vercel Analytics
+- **SEO Optimized** - Meta tags, Open Graph, structured data, sitemap
+- **Responsive Design** - Mobile-first approach with TailwindCSS
+- **Smooth Animations** - Framer Motion for page transitions and interactions
+- **Modern UI Components** - Radix UI and Shadcn UI components
+- **Performance Optimized** - Image optimization, lazy loading, code splitting
 
 ---
 
@@ -43,13 +77,14 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - 🎨 **Modern UI/UX** with TailwindCSS and Shadcn UI components
 - 🎭 **Smooth Animations** powered by Framer Motion
 - 📱 **Fully Responsive** design for all devices
-- 🌙 **Dark Mode** optimized color scheme
+- 🌍 **Internationalization** - English and German language support
 - 🔒 **Type-Safe** with TypeScript
 - 📧 **Contact Form** with email notifications and auto-reply
 - 📊 **Analytics** with Google Analytics & Vercel Analytics
-- 🎯 **SEO Optimized** with meta tags and Open Graph
+- 🎯 **SEO Optimized** with meta tags, Open Graph, and structured data
 - ♿ **Accessible** components following WCAG guidelines
 - 🚀 **Fast Performance** with optimized images and lazy loading
+- 🤖 **AI Chatbot Widget** integration for interactive FAQ
 
 ### Advanced Features
 
@@ -63,20 +98,23 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - 🎯 **Custom Tooltips** for enhanced UX
 - 📱 **Mobile Navigation** with hamburger menu
 - 🔄 **Loading States** for async operations
+- 🌐 **Language Switcher** with cookie persistence
+- 📄 **Dynamic Sitemap** generation
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Technology Stack
 
 ### Frontend
 
-- **Framework:** Next.js 15.0.0 (React 18.3.1)
+- **Framework:** Next.js 15.5.9 (React 18.3.1)
 - **Language:** TypeScript 5.7.2
 - **Styling:** TailwindCSS 3.4.17
 - **Animations:** Framer Motion 12.23.24
 - **UI Components:** Radix UI, Shadcn UI
 - **Icons:** React Icons 5.5.0, Lucide React 0.546.0
 - **Carousel:** Swiper 12.0.2
+- **Internationalization:** i18next 25.8.0, react-i18next 16.5.3
 
 ### Backend & APIs
 
@@ -84,6 +122,7 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 - **Email Service:** Nodemailer 7.0.9
 - **HTTP Client:** Axios 1.12.2
 - **Email Templates:** @react-email/render 1.4.0
+- **Alternative Email:** Resend 6.2.0
 
 ### Analytics & Monitoring
 
@@ -93,7 +132,7 @@ A cutting-edge, production-ready portfolio website built with **Next.js 15**, **
 ### Development Tools
 
 - **Package Manager:** npm/yarn/pnpm
-- **Linting:** ESLint 9.17.0
+- **Linting:** ESLint 8.57.0
 - **Build Tool:** Turbopack (Next.js 15)
 - **Deployment:** Vercel
 
@@ -109,55 +148,81 @@ portfolio-arnob-new/
 │   │   │   └── route.ts
 │   │   └── send-auto-reply/     # Auto-reply email handler
 │   │       └── route.ts
+│   ├── about/                    # About page
+│   │   └── page.tsx
 │   ├── contact/                  # Contact page
+│   │   └── page.tsx
+│   ├── faq/                      # FAQ page
+│   │   └── page.tsx
+│   ├── privacy/                  # Privacy policy page
 │   │   └── page.tsx
 │   ├── resume/                   # Resume/CV page
 │   │   └── page.tsx
 │   ├── services/                 # Services offered page
 │   │   └── page.tsx
+│   ├── terms/                    # Terms of service page
+│   │   └── page.tsx
 │   ├── work/                     # Portfolio/Projects page
 │   │   └── page.tsx
 │   ├── globals.css              # Global styles & animations
 │   ├── layout.tsx               # Root layout with metadata
-│   └── page.tsx                 # Homepage
+│   ├── page.tsx                 # Homepage
+│   └── sitemap.ts               # Dynamic sitemap generation
 │
 ├── components/                   # React Components
 │   ├── pages/                   # Page-specific components
+│   │   ├── AboutPage.tsx       # About page content
 │   │   ├── ContactPage.tsx     # Contact form with validation
+│   │   ├── FAQPage.tsx         # FAQ accordion
 │   │   ├── HomePage.tsx        # Hero section with typewriter
+│   │   ├── PrivacyPage.tsx     # Privacy policy content
 │   │   ├── ResumePage.tsx      # Tabbed resume/skills section
 │   │   ├── ServicesPage.tsx    # Service cards grid
+│   │   ├── TermsPage.tsx       # Terms of service content
 │   │   └── WorkPage.tsx        # Projects showcase with carousel
 │   │
 │   ├── ui/                      # Reusable UI components (Shadcn)
-│   │   ├── alert.tsx           # Alert/notification component
+│   │   ├── accordion.tsx       # FAQ accordion component
+│   │   ├── alert.tsx          # Alert/notification component
 │   │   ├── button.tsx          # Custom button variants
 │   │   ├── card.tsx            # Card component
-│   │   ├── input.tsx           # Form input field
-│   │   ├── scroll-area.tsx     # Custom scrollbar
+│   │   ├── dropdown-menu.tsx  # Dropdown menu
+│   │   ├── input.tsx          # Form input field
+│   │   ├── scroll-area.tsx    # Custom scrollbar
 │   │   ├── select.tsx          # Dropdown select
-│   │   ├── sheet.tsx           # Mobile navigation sheet
+│   │   ├── sheet.tsx          # Mobile navigation sheet
 │   │   ├── tabs.tsx            # Tab navigation
 │   │   ├── textarea.tsx        # Multi-line input
 │   │   └── tooltip.tsx         # Tooltip component
 │   │
+│   ├── LanguageSelector/        # Language switcher component
+│   │   └── LanguageSelector.tsx
+│   │
+│   ├── Footer.tsx               # Footer with links
 │   ├── GoogleAnalytics.tsx      # GA4 integration
-│   ├── Header.tsx               # Main navigation header
-│   ├── MobileNav.tsx            # Mobile hamburger menu
-│   ├── Nav.tsx                  # Desktop navigation links
-│   ├── PageTransition.tsx       # Page animation wrapper
-│   ├── Photo.tsx                # Profile photo with effects
-│   ├── ScrollToTop.tsx          # Scroll-to-top button
-│   ├── Social.tsx               # Social media links
-│   ├── Stairs.tsx               # Stair animation component
-│   ├── StairTransition.tsx      # Stair transition wrapper
-│   ├── Stats.tsx                # Animated statistics counter
-│   └── WorkSliderBtns.tsx       # Carousel navigation buttons
+│   ├── Header.tsx                # Main navigation header
+│   ├── I18nProvider.tsx         # i18n provider wrapper
+│   ├── MobileNav.tsx             # Mobile hamburger menu
+│   ├── Nav.tsx                   # Desktop navigation links
+│   ├── PageTransition.tsx        # Page animation wrapper
+│   ├── Photo.tsx                 # Profile photo with effects
+│   ├── ScrollToTop.tsx           # Scroll-to-top button
+│   ├── Social.tsx                # Social media links
+│   ├── Stairs.tsx                # Stair animation component
+│   ├── StairTranstion.tsx       # Stair transition wrapper
+│   └── Stats.tsx                 # Animated statistics counter
+│
+├── context/                      # React Context Providers
+│   └── LanguageContext.tsx      # Language state management
 │
 ├── hooks/                        # Custom React Hooks
 │   └── useTypewriter.ts         # Typewriter text effect hook
 │
-├── lib/                          # Utility functions
+├── lib/                          # Utility functions & configurations
+│   ├── i18n.ts                  # i18next configuration
+│   ├── language-cookie.ts       # Cookie-based language persistence
+│   ├── language-detection.ts    # Browser language detection
+│   ├── translations.ts          # Translation strings (en/de)
 │   └── utils.ts                 # Helper functions (cn, etc.)
 │
 ├── public/                       # Static assets
@@ -166,13 +231,16 @@ portfolio-arnob-new/
 │   │   ├── skills/             # Skill icons
 │   │   └── work/               # Project screenshots
 │   ├── favicon.ico             # Site favicon
-│   └── photo.png               # Profile photo
+│   ├── photo.png               # Profile photo
+│   └── robots.txt              # SEO robots file
 │
 ├── .env.local                    # Environment variables (not in repo)
-├── .gitignore                    # Git ignore rules
-├── eslint.config.mjs            # ESLint configuration
+├── .eslintignore                # ESLint ignore rules
+├── .eslintrc.json               # ESLint configuration
+├── .gitignore                   # Git ignore rules
 ├── global.d.ts                  # Global TypeScript declarations
-├── next-env.d.ts                # Next.js TypeScript definitions
+├── LICENSE                      # MIT License
+├── middleware.ts                # Next.js middleware (language detection)
 ├── next.config.js               # Next.js configuration
 ├── package.json                 # Project dependencies
 ├── postcss.config.mjs           # PostCSS configuration
@@ -189,7 +257,7 @@ portfolio-arnob-new/
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** 18.17 or higher
+- **Node.js** 18.17 or higher ([Download](https://nodejs.org/))
 - **npm** (comes with Node.js) or **yarn** or **pnpm**
 - **Git** for version control
 - A **Gmail account** (for email functionality)
@@ -251,6 +319,29 @@ EMAIL_PASS=your-16-character-app-password
 # Google Analytics 4 Measurement ID
 # Find this in GA4: Admin > Data Streams > Your Stream
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+
+
+# =================================
+# CHATBOT WIDGET (Optional)
+# =================================
+
+# Chatbot widget URL (for embedded chatbot functionality)
+# In production: Your chatbot deployment URL
+# In development: http://localhost:3000 (if running locally)
+NEXT_PUBLIC_CHATBOT_URL=https://your-chatbot-url.vercel.app
+
+
+# =================================
+# SEO & VERIFICATION (Optional)
+# =================================
+
+# Google Search Console verification code
+# Get from: https://search.google.com/search-console
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
+
+# Bing Webmaster Tools verification code
+# Get from: https://www.bing.com/webmasters
+NEXT_PUBLIC_BING_SITE_VERIFICATION=your-verification-code
 ```
 
 ### How to Obtain Environment Variables
@@ -281,6 +372,8 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
 **Example:** `abcdwxyzpqrsjklm`
 
+**Security Note:** Never share your app password or commit it to version control!
+
 #### 3. **NEXT_PUBLIC_GA_MEASUREMENT_ID** (Google Analytics - Optional)
 
 **Steps to get your Measurement ID:**
@@ -296,6 +389,35 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
 **Example:** `G-7CTQNDTW0G`
 
+#### 4. **NEXT_PUBLIC_CHATBOT_URL** (Chatbot Widget - Optional)
+
+If you're using the embedded chatbot widget:
+
+- **Production:** Your chatbot deployment URL (e.g., `https://portfolio-chatbot-widget.vercel.app`)
+- **Development:** `http://localhost:3000` (if running chatbot locally)
+
+#### 5. **NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION** (Google Search Console - Optional)
+
+**Steps:**
+
+1. Go to [Google Search Console](https://search.google.com/search-console)
+2. Add your property (website URL)
+3. Choose **HTML tag** verification method
+4. Copy the `content` value from the meta tag
+5. Add to `.env.local`
+
+**Example:** `abc123def456ghi789`
+
+#### 6. **NEXT_PUBLIC_BING_SITE_VERIFICATION** (Bing Webmaster - Optional)
+
+**Steps:**
+
+1. Go to [Bing Webmaster Tools](https://www.bing.com/webmasters)
+2. Add your site
+3. Choose **Meta tag** verification
+4. Copy the `content` value
+5. Add to `.env.local`
+
 ### Security Best Practices
 
 ⚠️ **Never commit `.env.local` to Git!**
@@ -307,11 +429,12 @@ The `.gitignore` file is already configured to exclude:
 - `.env.test.local`
 - `.env.production.local`
 
-If you accidentally commit sensitive data:
+**If you accidentally commit sensitive data:**
 
-1. Remove it from Git history
-2. Immediately regenerate all compromised credentials
+1. Remove it from Git history immediately
+2. Regenerate all compromised credentials
 3. Update `.env.local` with new credentials
+4. Rotate any exposed API keys or passwords
 
 ---
 
@@ -325,10 +448,10 @@ Start the development server with hot-reload:
 # Using npm
 npm run dev
 
-# Using yarn
+# Or using yarn
 yarn dev
 
-# Using pnpm
+# Or using pnpm
 pnpm dev
 ```
 
@@ -336,6 +459,8 @@ The application will be available at:
 
 - **Local:** [http://localhost:3000](http://localhost:3000)
 - **Network:** Check terminal for network URL
+
+**Note:** The project uses Turbopack for faster development builds.
 
 ### Clean Development Mode
 
@@ -369,6 +494,99 @@ npm run lint
 
 ---
 
+## 🌍 Internationalization (i18n)
+
+This project includes full internationalization support with English and German languages.
+
+### How It Works
+
+1. **Language Detection:**
+   - Checks browser language preference
+   - Falls back to cookie-stored preference
+   - Defaults to English if no preference found
+
+2. **Language Persistence:**
+   - Stores selected language in cookies
+   - Persists across page reloads
+   - Uses `selectedLanguage` cookie key
+
+3. **Translation System:**
+   - Uses `i18next` and `react-i18next`
+   - Translation strings stored in `lib/translations.ts`
+   - Supports nested keys (e.g., `home.hello`)
+
+### Adding a New Language
+
+1. **Add translations to `lib/translations.ts`:**
+
+```typescript
+export const translations = {
+  en: {
+    "nav.home": "Home",
+    // ... existing translations
+  },
+  de: {
+    "nav.home": "Startseite",
+    // ... existing translations
+  },
+  // Add new language
+  fr: {
+    "nav.home": "Accueil",
+    // ... add all translation keys
+  },
+};
+```
+
+2. **Update language types:**
+
+```typescript
+// In context/LanguageContext.tsx
+export type Language = "en" | "de" | "fr"; // Add new language
+
+// In middleware.ts
+const supportedLanguages = ["en", "de", "fr"]; // Add new language
+```
+
+3. **Update i18n configuration:**
+
+```typescript
+// In lib/i18n.ts
+resources: {
+  en: { translation: translations.en },
+  de: { translation: translations.de },
+  fr: { translation: translations.fr }, // Add new language
+},
+```
+
+### Using Translations in Components
+
+```tsx
+import { useLanguage } from "@/context/LanguageContext";
+
+function MyComponent() {
+  const { t } = useLanguage();
+  
+  return (
+    <div>
+      <h1>{t("home.hello")}</h1>
+      <p>{t("home.bio")}</p>
+    </div>
+  );
+}
+```
+
+### Language Switcher Component
+
+The `LanguageSelector` component provides a dropdown to switch languages:
+
+```tsx
+import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
+
+<LanguageSelector />
+```
+
+---
+
 ## 🧩 Components Overview
 
 ### Page Components (`components/pages/`)
@@ -385,15 +603,27 @@ npm run lint
 - Social media links
 - Animated statistics counter
 
-**Reusability:**
+**Code Example:**
 
 ```tsx
 import HomePage from "@/components/pages/HomePage";
 
-// Use in any page
 export default function Home() {
   return <HomePage />;
 }
+```
+
+**Reusability:**
+
+```tsx
+// Extract typewriter effect
+import { useTypewriter } from "@/hooks/useTypewriter";
+
+const { displayText, isComplete } = useTypewriter({
+  text: "Your Name",
+  speed: 200,
+  delay: 2000,
+});
 ```
 
 **Customization:**
@@ -415,14 +645,16 @@ export default function Home() {
 - Hover effects with color transitions
 - Arrow icon that rotates on hover
 - Service cards with numbering
+- Technology stack display
 
 **Data Structure:**
 
-```tsx
+```typescript
 interface Service {
   num: string; // Service number (e.g., "01")
-  title: string; // Service title
-  description: string; // Service description
+  titleKey: string; // Translation key for title
+  descriptionKey: string; // Translation key for description
+  stack: ServiceStack[]; // Technologies used
   href: string; // Link to contact page
 }
 ```
@@ -433,8 +665,12 @@ interface Service {
 const services: Service[] = [
   {
     num: "01",
-    title: "Web Development",
-    description: "Building modern web applications...",
+    titleKey: "services.01.title",
+    descriptionKey: "services.01.description",
+    stack: [
+      { name: "React" },
+      { name: "Next.js" },
+    ],
     href: "/contact",
   },
   // Add more services here
@@ -446,6 +682,7 @@ const services: Service[] = [
 - Extract the service card into a separate component
 - Pass services array as props
 - Style using Tailwind utility classes
+- Perfect for service pages, product showcases, or feature lists
 
 ---
 
@@ -459,10 +696,11 @@ const services: Service[] = [
 - Scrollable content areas
 - Icon-based skill display with tooltips
 - Timeline cards for experience/education
+- Multi-language support
 
 **Data Structures:**
 
-```tsx
+```typescript
 // About section
 interface InfoItem {
   fieldName: string;
@@ -499,13 +737,16 @@ const experience: ExperienceData = {
 };
 ```
 
-1. **Add Skills:**
+2. **Add Skills:**
 
 ```tsx
 import { FaReact } from "react-icons/fa";
 
 const skills: SkillsData = {
-  skillList: [{ icon: <FaReact />, name: "React.js" }],
+  skillList: [
+    { icon: <FaReact />, name: "React.js" },
+    // Add more skills
+  ],
 };
 ```
 
@@ -513,7 +754,7 @@ const skills: SkillsData = {
 
 - Convert to a generic tabbed component
 - Pass data as props
-- Use in team pages, product showcases, etc.
+- Use in team pages, product showcases, or documentation sites
 
 ---
 
@@ -528,15 +769,16 @@ const skills: SkillsData = {
 - Project filtering by category
 - Live demo and GitHub repository links
 - Technology stack display
+- Multi-language project descriptions
 
 **Project Data Structure:**
 
-```tsx
+```typescript
 interface Project {
   num: string; // Project number
   category: string; // Frontend/Fullstack/Backend
-  title: string; // Project name
-  description: string; // Detailed description
+  title: string; // Translation key for title
+  description: string; // Translation key for description
   stack: ProjectStack[]; // Technologies used
   image: string; // Screenshot path
   live: string; // Live demo URL
@@ -551,9 +793,12 @@ const projects: Project[] = [
   {
     num: "01",
     category: "Fullstack",
-    title: "Your Project Name",
-    description: "Detailed project description...",
-    stack: [{ name: "Next.js" }, { name: "TypeScript" }],
+    title: "work.project.01.title", // Translation key
+    description: "work.project.01.description", // Translation key
+    stack: [
+      { name: "Next.js" },
+      { name: "TypeScript" },
+    ],
     image: "/assets/work/project-image.png",
     live: "https://your-live-demo.com",
     github: "https://github.com/yourusername/repo",
@@ -563,8 +808,8 @@ const projects: Project[] = [
 
 **View Mode Toggle:**
 
-- Grid View: Carousel with single project focus
-- List View: All projects in scrollable list
+- **Grid View:** Carousel with single project focus
+- **List View:** All projects in scrollable list
 
 **Reusability:**
 
@@ -572,6 +817,7 @@ const projects: Project[] = [
 - Agency project showcases
 - Product galleries
 - Case study presentations
+- E-commerce product listings
 
 ---
 
@@ -587,10 +833,12 @@ const projects: Project[] = [
 - Auto-reply email to user
 - Smooth scroll to alert message
 - Contact information display
+- Copy-to-clipboard functionality
+- Multi-language support
 
 **Form Data Structure:**
 
-```tsx
+```typescript
 interface FormData {
   fullname: string;
   email: string;
@@ -621,6 +869,48 @@ const autoReply = await axios.post("/api/send-auto-reply", formData);
 - Add file upload capability
 - Integrate with other backend services (Firebase, Supabase)
 - Add CAPTCHA for spam protection
+- Use in newsletter signups, feedback forms, or support tickets
+
+---
+
+#### 6. **FAQPage.tsx**
+
+**Purpose:** Frequently Asked Questions page with accordion interface.
+
+**Key Features:**
+
+- Accordion component for expandable Q&A
+- Multi-language support
+- Smooth expand/collapse animations
+- Accessible keyboard navigation
+
+**Data Structure:**
+
+```typescript
+interface FAQItem {
+  question: string; // Translation key
+  answer: string; // Translation key
+}
+```
+
+**How to Add FAQs:**
+
+```tsx
+const faqData: FAQItem[] = [
+  {
+    question: t("faq.01.question"),
+    answer: t("faq.01.answer"),
+  },
+  // Add more FAQs
+];
+```
+
+**Reusability:**
+
+- Use in help centers
+- Documentation sites
+- Product pages
+- Support pages
 
 ---
 
@@ -678,7 +968,7 @@ import { Input } from "@/components/ui/input";
   placeholder="Enter your email"
   value={email}
   onChange={(e) => setEmail(e.target.value)}
-/>;
+/>
 ```
 
 ---
@@ -692,7 +982,10 @@ Multi-line text input for longer content.
 ```tsx
 import { Textarea } from "@/components/ui/textarea";
 
-<Textarea placeholder="Your message" className="h-[200px]" />;
+<Textarea 
+  placeholder="Your message" 
+  className="h-[200px]" 
+/>
 ```
 
 ---
@@ -715,7 +1008,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 <Alert variant="success">
   <AlertTitle>Success!</AlertTitle>
   <AlertDescription>Your message has been sent.</AlertDescription>
-</Alert>;
+</Alert>
 ```
 
 ---
@@ -736,9 +1029,32 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
   </TabsList>
 
   <TabsContent value="tab1">Content for Tab 1</TabsContent>
-
   <TabsContent value="tab2">Content for Tab 2</TabsContent>
-</Tabs>;
+</Tabs>
+```
+
+---
+
+#### **accordion.tsx**
+
+Expandable accordion component for FAQs or collapsible content.
+
+**Usage:**
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Question?</AccordionTrigger>
+    <AccordionContent>Answer here.</AccordionContent>
+  </AccordionItem>
+</Accordion>
 ```
 
 ---
@@ -764,7 +1080,7 @@ import {
       <p>Tooltip content here</p>
     </TooltipContent>
   </Tooltip>
-</TooltipProvider>;
+</TooltipProvider>
 ```
 
 ---
@@ -780,6 +1096,7 @@ Main navigation header with logo and links.
 - Logo with accent dot
 - Desktop navigation menu
 - Mobile hamburger menu
+- Language selector
 - "Hire me" CTA button
 
 **Customization:**
@@ -810,7 +1127,8 @@ const links = [
 ```
 
 **How to Add Links:**
-Simply add to the `links` array with name and path.
+
+Simply add to the `links` array with name and path. The component uses translation keys for display.
 
 ---
 
@@ -825,6 +1143,19 @@ Mobile-friendly sheet navigation.
 - Logo display
 - Close button
 - Mobile-optimized link styles
+
+---
+
+#### **Footer.tsx**
+
+Footer component with copyright and links.
+
+**Features:**
+
+- Dynamic year display
+- Links to About, Privacy, Terms pages
+- Multi-language support
+- Responsive layout
 
 ---
 
@@ -864,6 +1195,7 @@ Animated statistics counter.
 - Smooth easing animation
 - Responsive grid layout
 - Customizable duration
+- Multi-language support
 
 **Data Structure:**
 
@@ -871,14 +1203,22 @@ Animated statistics counter.
 const stats = [
   {
     num: 5, // Target number
-    text: "Years of Experience",
+    textKey: "home.stats.years", // Translation key
     startFrom: 0, // Starting number
   },
 ];
 ```
 
 **How It Works:**
+
 Uses `requestAnimationFrame` for smooth 60fps animation with ease-out curve.
+
+**Reusability:**
+
+- E-commerce dashboards
+- Analytics displays
+- Achievement counters
+- Progress indicators
 
 ---
 
@@ -891,6 +1231,20 @@ Profile photo with circular border animation.
 - Circular shape with rotating border effect
 - Responsive sizing
 - Image optimization with Next.js Image
+- Fade-in animation
+
+**Customization:**
+
+```tsx
+// Change image source
+<Image
+  src="/your-photo.png"
+  alt="Your Name"
+  width={498}
+  height={498}
+  priority
+/>
+```
 
 ---
 
@@ -909,6 +1263,7 @@ export default function RootLayout({ children }) {
 ```
 
 **Animation:**
+
 Uses Framer Motion's `AnimatePresence` with fade and slide effects.
 
 ---
@@ -950,7 +1305,29 @@ Google Analytics 4 integration component.
 - Silent fail for ad blockers
 
 **Usage:**
+
 Already included in `layout.tsx` root layout.
+
+---
+
+#### **LanguageSelector.tsx**
+
+Language switcher dropdown component.
+
+**Features:**
+
+- Dropdown menu for language selection
+- Visual flag/icons for languages
+- Persists selection in cookies
+- Updates UI immediately
+
+**Usage:**
+
+```tsx
+import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
+
+<LanguageSelector />
+```
 
 ---
 
@@ -1016,6 +1393,23 @@ const transporter = nodemailer.createTransport({
 - Invalid email format
 - Missing fields
 
+**Usage Example:**
+
+```tsx
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  try {
+    const response = await axios.post("/api/send-email", formData);
+    if (response.status === 200) {
+      // Show success message
+    }
+  } catch (error) {
+    // Handle error
+  }
+};
+```
+
 ---
 
 ### 2. `/api/send-auto-reply` (POST)
@@ -1066,6 +1460,14 @@ ARN-1729699200000-742
 - Contact information footer
 - Disclaimer section
 
+**Usage Example:**
+
+```tsx
+// Send auto-reply after main email
+const autoReply = await axios.post("/api/send-auto-reply", formData);
+console.log("Reference:", autoReply.data.referenceNumber);
+```
+
 ---
 
 ## 🗂️ Pages & Routes
@@ -1077,10 +1479,14 @@ Next.js 15 uses the **App Router** with file-based routing.
 | Route       | File                    | Component      | Description            |
 | ----------- | ----------------------- | -------------- | ---------------------- |
 | `/`         | `app/page.tsx`          | `HomePage`     | Landing page with hero |
+| `/about`    | `app/about/page.tsx`   | `AboutPage`    | About information      |
 | `/services` | `app/services/page.tsx` | `ServicesPage` | Services offered       |
 | `/resume`   | `app/resume/page.tsx`   | `ResumePage`   | Resume/Skills          |
 | `/work`     | `app/work/page.tsx`     | `WorkPage`     | Portfolio projects     |
+| `/faq`      | `app/faq/page.tsx`      | `FAQPage`      | Frequently asked questions |
 | `/contact`  | `app/contact/page.tsx`  | `ContactPage`  | Contact form           |
+| `/privacy`  | `app/privacy/page.tsx`  | `PrivacyPage`  | Privacy policy         |
+| `/terms`    | `app/terms/page.tsx`    | `TermsPage`    | Terms of service       |
 
 ### Creating New Pages
 
@@ -1093,7 +1499,7 @@ mkdir app/blog
 touch app/blog/page.tsx
 ```
 
-1. Create page component:
+2. Create page component:
 
 ```tsx
 // app/blog/page.tsx
@@ -1107,7 +1513,7 @@ export default function BlogPage() {
 }
 ```
 
-1. Add to navigation:
+3. Add to navigation:
 
 ```tsx
 // components/Nav.tsx
@@ -1138,6 +1544,26 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 ```
 
 Access at: `/blog/my-first-post`
+
+### Sitemap Generation
+
+The project includes automatic sitemap generation via `app/sitemap.ts`:
+
+```typescript
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    {
+      url: 'https://www.arnobmahmud.com',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 1,
+    },
+    // ... more routes
+  ];
+}
+```
+
+Access at: `/sitemap.xml`
 
 ---
 
@@ -1179,7 +1605,7 @@ function MyComponent() {
   return (
     <h1>
       {displayText}
-      {!isComplete && <span className="cursor">|</span>}
+      {!isComplete && <span className="typewriter-cursor">|</span>}
     </h1>
   );
 }
@@ -1259,6 +1685,7 @@ keyframes: {
 - Scrollbar styling
 - Text outline effects
 - Typewriter cursor animation
+- Horizontal scroll prevention
 
 **Typewriter Cursor:**
 
@@ -1273,14 +1700,8 @@ keyframes: {
 }
 
 @keyframes blink {
-  0%,
-  49% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 ```
 
@@ -1319,7 +1740,10 @@ keyframes: {
 **Hover Effects:**
 
 ```tsx
-<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+<motion.div 
+  whileHover={{ scale: 1.05 }} 
+  whileTap={{ scale: 0.95 }}
+>
   Click me
 </motion.div>
 ```
@@ -1479,6 +1903,7 @@ window.gtag("event", "button_click", {
 ```
 
 **Page Views:**
+
 Automatically tracked on route changes.
 
 **View Reports:**
@@ -1493,6 +1918,7 @@ Automatically tracked on route changes.
 ### Vercel Analytics
 
 **Setup:**
+
 Already integrated in `app/layout.tsx`:
 
 ```tsx
@@ -1526,6 +1952,57 @@ export default function RootLayout({ children }) {
 
 ---
 
+## 🔍 SEO & Metadata
+
+### Metadata Configuration
+
+**File:** `app/layout.tsx`
+
+The project includes comprehensive SEO metadata:
+
+```typescript
+export const metadata: Metadata = {
+  metadataBase: new URL("https://www.arnobmahmud.com"),
+  title: "Arnob Mahmud | Full-Stack Engineer | Web & Cloud Solutions",
+  description: "Full-Stack Software Engineer (5+ years)...",
+  keywords: [
+    "Full-Stack Software Engineer",
+    "React",
+    "Next.js",
+    // ... more keywords
+  ],
+  openGraph: {
+    title: "...",
+    description: "...",
+    url: "https://www.arnobmahmud.com",
+    images: [{ url: "/assets/photo.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    // ... Twitter metadata
+  },
+};
+```
+
+### Structured Data (JSON-LD)
+
+The project includes two structured data schemas:
+
+1. **Person Schema** - For personal information
+2. **LocalBusiness Schema** - For business information
+
+These help search engines understand your content better.
+
+### Sitemap
+
+Automatic sitemap generation at `/sitemap.xml` via `app/sitemap.ts`.
+
+### Robots.txt
+
+Located at `public/robots.txt` for search engine crawling instructions.
+
+---
+
 ## 🚀 Deployment
 
 ### Deploy to Vercel (Recommended)
@@ -1540,21 +2017,27 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
-1. **Connect to Vercel:**
+2. **Connect to Vercel:**
+
    - Go to [Vercel](https://vercel.com)
    - Click "Add New" > "Project"
    - Import your GitHub repository
    - Vercel auto-detects Next.js
 
-2. **Configure Environment Variables:**
+3. **Configure Environment Variables:**
+
    - Click "Environment Variables"
    - Add all variables from `.env.local`:
      - `EMAIL_USER`
      - `EMAIL_PASS`
      - `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+     - `NEXT_PUBLIC_CHATBOT_URL` (if using)
+     - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` (optional)
+     - `NEXT_PUBLIC_BING_SITE_VERIFICATION` (optional)
    - Click "Deploy"
 
-3. **Auto-Deployment:**
+4. **Auto-Deployment:**
+
    - Every push to `main` branch triggers new deployment
    - Pull requests create preview deployments
 
@@ -1579,13 +2062,16 @@ vercel --prod
 ### Deploy to Netlify
 
 1. **Build Settings:**
+
    - Build command: `npm run build`
    - Publish directory: `.next`
 
 2. **Environment Variables:**
+
    Add all variables from `.env.local` in Netlify dashboard
 
 3. **Netlify Configuration:**
+
    Create `netlify.toml`:
 
 ```toml
@@ -1626,7 +2112,7 @@ vercel --prod
 npm run build
 ```
 
-1. **Start with PM2:**
+2. **Start with PM2:**
 
 ```bash
 # Install PM2
@@ -1642,7 +2128,7 @@ pm2 save
 pm2 startup
 ```
 
-1. **Configure Nginx:**
+3. **Configure Nginx:**
 
 ```nginx
 server {
@@ -1660,7 +2146,7 @@ server {
 }
 ```
 
-1. **Enable SSL with Certbot:**
+4. **Enable SSL with Certbot:**
 
 ```bash
 sudo certbot --nginx -d yourdomain.com
@@ -2055,8 +2541,8 @@ export const metadata: Metadata = {
 
 **Location-based:**
 
-- [Frankfurt] Developer
-- [Germany] Web Developer
+- Frankfurt Developer
+- Germany Web Developer
 - Remote Developer
 
 ---
@@ -2113,7 +2599,7 @@ npm run dev:clean
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-1. **Verify in Browser Console:**
+2. **Verify in Browser Console:**
 
 ```javascript
 // Check if gtag is loaded
@@ -2121,12 +2607,12 @@ console.log(window.gtag);
 console.log(window.dataLayer);
 ```
 
-1. **Disable Ad Blocker:**
+3. **Disable Ad Blocker:**
 
 - Ad blockers prevent GA from loading
 - Test in incognito mode without extensions
 
-1. **Wait 24-48 hours:**
+4. **Wait 24-48 hours:**
 
 - GA4 data processing takes time
 - Real-time reports update faster
@@ -2214,9 +2700,52 @@ npm run build
 
 ---
 
+#### 6. Internationalization Issues
+
+**Language not persisting:**
+
+- Check cookie settings in browser
+- Verify `middleware.ts` is properly configured
+- Check `LanguageContext.tsx` for cookie setting logic
+
+**Translations not loading:**
+
+- Verify `lib/translations.ts` has all required keys
+- Check `lib/i18n.ts` configuration
+- Ensure `I18nProvider` wraps the app in `layout.tsx`
+
+---
+
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
+This is an **open-source project** and contributions are welcome! Whether you want to:
+
+- 🐛 Fix bugs
+- ✨ Add new features
+- 📚 Improve documentation
+- 🎨 Enhance UI/UX
+- ⚡ Optimize performance
+- 🔧 Refactor code
+- 🌍 Add translations
+- 💡 Suggest improvements
+
+**Feel free to:**
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Make your changes** with proper TypeScript types and linting
+4. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+5. **Push to the branch** (`git push origin feature/amazing-feature`)
+6. **Open a Pull Request**
+
+### Development Guidelines
+
+- Use **TypeScript** with proper type definitions
+- Follow **ESLint** rules (run `npm run lint`)
+- Write **clear commit messages**
+- Add **comments** for complex logic
+- Test your changes before submitting
+- Update **documentation** if needed
 
 ### Reporting Bugs
 
@@ -2234,35 +2763,7 @@ We welcome contributions! Here's how you can help:
 2. Describe the feature and its benefits
 3. Provide examples or mockups
 
-### Pull Requests
-
-1. **Fork the repository**
-
-```bash
-# Click "Fork" on GitHub
-git clone https://github.com/yourusername/MyPortfolio--NextJS-FullStack-Website.git
-```
-
-1. **Create a feature branch**
-
-```bash
-git checkout -b feature/amazing-feature
-```
-
-1. **Make your changes**
-
-- Follow existing code style
-- Add comments for complex logic
-- Update documentation if needed
-
-1. **Commit your changes**
-
-```bash
-git add .
-git commit -m "feat: add amazing feature"
-```
-
-**Commit Message Format:**
+### Commit Message Format
 
 - `feat:` - New feature
 - `fix:` - Bug fix
@@ -2272,49 +2773,13 @@ git commit -m "feat: add amazing feature"
 - `test:` - Adding tests
 - `chore:` - Maintenance tasks
 
-1. **Push to your fork**
-
-```bash
-git push origin feature/amazing-feature
-```
-
-1. **Open a Pull Request**
-
-- Go to original repository on GitHub
-- Click "New Pull Request"
-- Select your branch
-- Describe your changes
-- Wait for review
+**Together, we can take this project to the next level!** 🚀
 
 ---
 
 ## 📄 License
 
-This project is open-source and available under the **MIT License**.
-
-```bash
-MIT License
-
-Copyright (c) 2025 Arnob Mahmud
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
+This project is open-source and available under the **[MIT License](./LICENSE)**.
 
 **What this means:**
 
@@ -2324,110 +2789,51 @@ SOFTWARE.
 - ⚠️ Must include the license notice
 - ⚠️ No warranty provided
 
+For full license details, see the [LICENSE](./LICENSE) file in the repository.
+
 ---
 
-## 🙏 Acknowledgments
+## 📝 Conclusion
 
-**Special Thanks To:**
+This project demonstrates a production-ready implementation of a modern portfolio website with:
 
-- **Next.js Team** - For the incredible React framework
-- **Vercel** - For seamless deployment platform
-- **Shadcn** - For beautiful UI components
-- **Framer Motion** - For smooth animations
-- **TailwindCSS** - For utility-first CSS framework
-- **React Icons** - For comprehensive icon library
+- **Modern Architecture**: Next.js App Router, Server Components, API Routes
+- **Best Practices**: TypeScript, proper error handling, input validation
+- **Performance**: Image optimization, lazy loading, code splitting
+- **User Experience**: Smooth animations, responsive design, accessibility
+- **Developer Experience**: Well-documented, type-safe, reusable components
+- **SEO**: Comprehensive metadata, structured data, sitemap generation
+- **Internationalization**: Multi-language support with persistence
+- **Analytics**: Google Analytics and Vercel Analytics integration
 
-**Inspiration & Resources:**
+The codebase is well-documented and structured for easy understanding and extension. Each component can be reused independently in other projects, making this an excellent learning resource and starting point for portfolio websites.
+
+### Key Takeaways
+
+- **Next.js 15** provides excellent developer experience with App Router
+- **TypeScript** ensures type safety and better code quality
+- **TailwindCSS** enables rapid UI development
+- **Framer Motion** creates smooth, professional animations
+- **i18next** makes internationalization straightforward
+- **Nodemailer** enables reliable email functionality
+- **Component reusability** saves time in future projects
+
+### Learning Resources
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [React Documentation](https://react.dev/)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 - [TailwindCSS Docs](https://tailwindcss.com/docs)
 - [Framer Motion Docs](https://www.framer.com/motion/)
-
----
-
-## 📞 Contact & Support
-
-### Get in Touch
-
-**Arnob Mahmud**
-
-- 📧 Email: [arnobt78@gmail.com](mailto:arnobt78@gmail.com)
-- 🌐 Portfolio: [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/)
-- 💼 LinkedIn: [linkedin.com/in/arnob-mahmud-05839655/](https://www.linkedin.com/in/arnob-mahmud-05839655/)
-- 🐙 GitHub: [github.com/arnobt78](https://github.com/arnobt78)
-- 📱 Phone: +49 157 34664351
-- 📍 Location: Frankfurt am Main, Germany
-
-### Support This Project
-
-If you find this project helpful:
-
-- ⭐ **Star** the repository on GitHub
-- 🐛 Report bugs and suggest features
-- 🤝 Contribute via pull requests
-- 📢 Share with other developers
-- 💬 Provide feedback and testimonials
-
----
-
-## 🎯 Project Status
-
-**Current Version:** 1.0.0
-
-**Status:** ✅ Production Ready
-
-**Last Updated:** October 2025
-
-**Roadmap:**
-
-- [ ] Add blog functionality
-- [ ] Implement i18n (internationalization)
-- [ ] Add dark/light theme toggle
-- [ ] Create admin dashboard
-- [ ] Integrate CMS (Sanity/Contentful)
-- [ ] Add unit tests (Jest/React Testing Library)
-- [ ] Implement E2E tests (Playwright/Cypress)
-- [ ] Add PWA support
-- [ ] Optimize for Core Web Vitals
-- [ ] Add more project categories
-
----
-
-## 🌟 Showcase
-
-**Built With This Template:**
-
-Have you built something amazing with this portfolio template? Let me know!
-
-Send your project details to [arnobt78@gmail.com](mailto:arnobt78@gmail.com) to be featured here.
-
----
-
-## 📚 Learning Resources
-
-**Recommended for Beginners:**
-
-- [Next.js Learn Course](https://nextjs.org/learn) - Official interactive course
-- [React Tutorial](https://react.dev/learn) - Official React documentation
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [TailwindCSS Course](https://tailwindcss.com/docs/utility-first)
-- [Framer Motion Tutorial](https://www.framer.com/motion/introduction/)
-
-**YouTube Channels:**
-
-- [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified)
-- [Traversy Media](https://www.youtube.com/@TraversyMedia)
-- [Fireship](https://www.youtube.com/@Fireship)
-- [Net Ninja](https://www.youtube.com/@NetNinja)
+- [i18next Documentation](https://www.i18next.com/)
 
 ---
 
 ## Happy Coding! 🎉
 
-Feel free to use this project repository and extend this project further!
+This is an **open-source project** - feel free to use, enhance, and extend this project further!
 
-If you have any questions or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/).
+If you have any questions, want to contribute, or want to share your work, reach out via GitHub or my portfolio at [https://www.arnobmahmud.com/](https://www.arnobmahmud.com/).
 
 **Enjoy building and learning!** 🚀
 
