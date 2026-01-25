@@ -18,7 +18,7 @@ const HomePage = () => {
   });
 
   return (
-    <section>
+    <section className="py-6 animate-ease-in-out">
       <div className="container mx-auto">
         <div
           className="flex flex-col xl:flex-row items-center justify-between xl:pb-12"

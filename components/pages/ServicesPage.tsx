@@ -78,7 +78,7 @@ const services: Service[] = [
 const ServicesPage = () => {
   const { t } = useLanguage();
   return (
-    <section className="min-h-[90vh] flex flex-col justify-center py-4 xl:pb-4 animate-ease-in-out page-content-no-scrollbar">
+    <section className="min-h-[90vh] flex flex-col justify-center py-6 animate-ease-in-out page-content-no-scrollbar">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 xl:gap-16 items-stretch">
           {services.map((service, index) => {

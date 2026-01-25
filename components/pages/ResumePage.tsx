@@ -265,7 +265,7 @@ const ResumePage = () => {
   // Render placeholder on server to prevent hydration mismatch
   if (!mounted) {
     return (
-      <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out">
+      <div className="min-h-[90vh] flex items-center justify-center py-6 animate-ease-in-out">
         <div className="container mx-auto">
           <div className="flex flex-col xl:flex-row gap-16 animate-ease-in-out">
             <div className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
@@ -290,7 +290,7 @@ const ResumePage = () => {
   }
 
   return (
-    <div className="min-h-[90vh] flex items-center justify-center py-4 xl:pb-4 animate-ease-in-out page-content-no-scrollbar">
+    <div className="min-h-[90vh] flex items-center justify-center py-6 animate-ease-in-out page-content-no-scrollbar">
       <div className="container mx-auto">
         <Tabs
           value={activeTab}
