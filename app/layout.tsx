@@ -11,6 +11,8 @@ import StairTransition from "../components/StairTranstion";
 import PageTransition from "../components/PageTransition";
 import { I18nProvider } from "@/components/I18nProvider";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { Providers } from "./providers";
+import { ChatbotWidget } from "@/components/chatbot/chatbot-widget";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -116,12 +118,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Chatbot widget configuration
-  // In production (Vercel): Uses NEXT_PUBLIC_CHATBOT_URL from env vars
-  // In local dev: Falls back to localhost:3000 if env var not set
-  const chatbotUrl =
-    process.env.NEXT_PUBLIC_CHATBOT_URL || "http://localhost:3000";
-
   let initialLanguage = "en";
   try {
     const hdrs = await headers();
@@ -239,39 +235,22 @@ export default async function RootLayout({
             }),
           }}
         />
-        {/* Chatbot Widget Script - Config must load BEFORE widget.js */}
-        {/* Re-enabled for testing - CSS fixes should prevent scrollbar issues */}
-        {true && (
-          <>
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-              window.CHATBOT_BASE_URL = "${chatbotUrl}";
-              window.CHATBOT_TITLE = "Arnob's Assistant";
-              window.CHATBOT_GREETING = "👋 How can I help you today?";
-              window.CHATBOT_PLACEHOLDER = "Ask about Arnob...";
-            `,
-              }}
-            />
-            {/* Load widget.js synchronously (no async) to ensure config is set first */}
-            {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-            <script src={`${chatbotUrl}/widget.js`}></script>
-            <link rel="stylesheet" href={`${chatbotUrl}/styles.css`} />
-          </>
-        )}
       </head>
       <body className={jetbrainsMono.variable} suppressHydrationWarning>
-        <I18nProvider initialLanguage={initialLanguage}>
-          <LanguageProvider initialLanguage={initialLanguage}>
-            <GoogleAnalytics />
-            <Analytics />
-            <ScrollToTop />
-            <StairTransition />
-            <Header />
-            <PageTransition>{children}</PageTransition>
-            <Footer />
-          </LanguageProvider>
-        </I18nProvider>
+        <Providers>
+          <I18nProvider initialLanguage={initialLanguage}>
+            <LanguageProvider initialLanguage={initialLanguage}>
+              <GoogleAnalytics />
+              <Analytics />
+              <ScrollToTop />
+              <StairTransition />
+              <Header />
+              <PageTransition>{children}</PageTransition>
+              <Footer />
+              <ChatbotWidget />
+            </LanguageProvider>
+          </I18nProvider>
+        </Providers>
       </body>
     </html>
   );

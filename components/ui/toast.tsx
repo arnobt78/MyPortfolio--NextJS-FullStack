@@ -1,0 +1,23 @@
+// React not used in this file
+import { toast as sonnerToast, Toaster as SonnerToaster } from "sonner";
+
+/**
+ * Toast notification wrapper using Sonner
+ * Provides consistent toast notifications across the app
+ */
+export const toast = {
+  success: (message: string, description?: string) => {
+    sonnerToast.success(message, { description });
+  },
+  error: (message: string, description?: string) => {
+    sonnerToast.error(message, { description });
+  },
+  info: (message: string, description?: string) => {
+    sonnerToast.info(message, { description });
+  },
+  warning: (message: string, description?: string) => {
+    sonnerToast.warning(message, { description });
+  },
+};
+
+export { SonnerToaster as Toaster };
