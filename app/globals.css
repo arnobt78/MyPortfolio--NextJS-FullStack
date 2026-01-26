@@ -783,6 +783,34 @@
     transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
   }
 
+  /* CRITICAL: Ensure header is always visible on mobile - prevent clipping */
+  #cb-react > div:first-child,
+  [id="cb-react"] > div:first-child {
+    /* Ensure header is always visible and not clipped */
+    position: relative !important;
+    flex-shrink: 0 !important;
+    z-index: 100000 !important;
+    /* Prevent header from being pushed out of view */
+    min-height: auto !important;
+  }
+
+  /* Ensure messages container scrolls properly without hiding header */
+  #cb-react > div:nth-child(2),
+  [id="cb-react"] > div:nth-child(2) {
+    /* Messages container should scroll, not push header out */
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure input form stays at bottom */
+  #cb-react > form:last-child,
+  [id="cb-react"] > form:last-child {
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
   /* Synchronize all child element transitions with parent */
   #cb-react > *,
   [id="cb-react"] > * {
