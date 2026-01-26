@@ -23,38 +23,54 @@ export async function getAIResponse(
 ) {
   const systemPrompt = `You are a helpful assistant for Arnob Mahmud's portfolio website. Be friendly, professional, and concise. Use the FAQ context to give accurate answers. If you don't know something, say so.`;
 
+  // Helper function to normalize a single message content to string (defined early for reuse)
+  const normalizeContentToString = (content: unknown): string => {
+    if (typeof content === 'string') {
+      return content;
+    }
+    
+    if (Array.isArray(content)) {
+      // Handle array format: [{ type: 'output_text', text: '...' }] or [{ type: 'input_text', text: '...' }]
+      return (content as unknown[])
+        .map((item: unknown) => {
+          if (typeof item === 'string') return item;
+          if (item && typeof item === 'object') {
+            const itemObj = item as { 
+              text?: string; 
+              content?: string; 
+              message?: string;
+              type?: string;
+            };
+            // Extract text from various object formats
+            return itemObj.text || itemObj.content || itemObj.message || '';
+          }
+          return String(item || '');
+        })
+        .filter((text: string) => text.length > 0)
+        .join(' ');
+    }
+    
+    if (content && typeof content === 'object') {
+      // Handle object format: { text: '...' } or { content: '...' }
+      const contentObj = content as { text?: string; content?: string; message?: string };
+      return contentObj.text || contentObj.content || contentObj.message || '';
+    }
+    
+    return String(content || '');
+  };
+
   // Normalize messages: ensure content is always a string
   // This handles various formats: string, array of objects, etc.
   const normalizedMessages: Message[] = messages
     .slice(-6) // Last 6 messages for context
     .map((msg) => {
-      let content: string;
-      if (typeof msg.content === 'string') {
-        content = msg.content;
-      } else if (Array.isArray(msg.content)) {
-        // Handle array format: extract text from objects like [{ type: 'input_text', text: '...' }] or [{ type: 'output_text', text: '...' }]
-        content = (msg.content as unknown[])
-          .map((item: unknown) => {
-            if (typeof item === 'string') return item;
-            if (item && typeof item === 'object') {
-              const itemObj = item as MessageContent;
-              return itemObj.text || itemObj.content || itemObj.message || '';
-            }
-            return String(item || '');
-          })
-          .filter((text: string) => text.length > 0) // Remove empty strings
-          .join(' ');
-      } else if (msg.content && typeof msg.content === 'object') {
-        // Handle object format: { text: '...' } or { content: '...' }
-        const contentObj = msg.content as MessageContent;
-        content = contentObj.text || contentObj.content || contentObj.message || '';
-      } else {
-        content = String(msg.content || '');
-      }
+      const content = normalizeContentToString(msg.content);
+      
       // Filter out empty messages
       if (!content || content.trim().length === 0) {
         return null;
       }
+      
       // Ensure role is valid
       const role = msg.role === 'assistant' ? 'assistant' : msg.role === 'system' ? 'system' : 'user';
       return {
@@ -75,41 +91,14 @@ export async function getAIResponse(
     const aiMessages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [];
     
     // Process all messages, ensuring content is always a string
+    // Even though fullMessages should already be normalized, we double-check here for safety
     for (const msg of fullMessages) {
-      let contentStr: string;
-      
-      if (typeof msg.content === 'string') {
-        contentStr = msg.content;
-      } else if (Array.isArray(msg.content)) {
-        // Handle array format: [{ type: 'output_text', text: '...' }] or [{ type: 'input_text', text: '...' }]
-        contentStr = (msg.content as unknown[])
-          .map((item: unknown) => {
-            if (typeof item === 'string') return item;
-            if (item && typeof item === 'object') {
-              const itemObj = item as { 
-                text?: string; 
-                content?: string; 
-                message?: string;
-                type?: string;
-              };
-              // Handle different array item formats
-              return itemObj.text || itemObj.content || itemObj.message || '';
-            }
-            return String(item || '');
-          })
-          .filter((text: string) => text.length > 0)
-          .join(' ');
-      } else if (msg.content && typeof msg.content === 'object') {
-        // Handle object format: { text: '...' } or { content: '...' }
-        const contentObj = msg.content as { text?: string; content?: string; message?: string };
-        contentStr = contentObj.text || contentObj.content || contentObj.message || '';
-      } else {
-        contentStr = String(msg.content || '');
-      }
+      // Normalize content to string (handles edge cases where normalization might have failed)
+      const contentStr = normalizeContentToString(msg.content);
       
       // Only add non-empty messages
       if (contentStr && contentStr.trim().length > 0) {
-        // Ensure role is valid (OpenRouter doesn't accept 'system' in messages array, only in separate field)
+        // Ensure role is valid
         const role = msg.role === 'system' ? 'system' : 
                      msg.role === 'assistant' ? 'assistant' : 
                      'user';
