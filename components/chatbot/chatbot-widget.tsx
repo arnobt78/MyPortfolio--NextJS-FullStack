@@ -335,8 +335,14 @@ export function ChatbotWidget() {
             placeholder={config.placeholder}
             disabled={isSending}
             className={cn(
-              "flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 rounded-full text-sm placeholder-gray-400 focus:outline-none",
-              fontSizeClasses.base
+              "flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 rounded-full placeholder-gray-400 focus:outline-none",
+              // On mobile (below sm): always use text-base (16px) to prevent iOS auto-zoom
+              // On desktop (sm and above): use dynamic font size from fontSizeClasses.base
+              "text-base",
+              // Apply dynamic font size only on desktop (sm breakpoint and above)
+              fontSizeClasses.base === "text-xs" && "sm:text-xs",
+              fontSizeClasses.base === "text-sm" && "sm:text-sm",
+              fontSizeClasses.base === "text-base" && "sm:text-base",
             )}
             style={{
               backgroundColor: inputBg,
