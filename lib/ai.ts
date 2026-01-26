@@ -61,9 +61,11 @@ export async function getAIResponse(
 
   // Normalize messages: ensure content is always a string
   // This handles various formats: string, array of objects, etc.
+  // CRITICAL: Normalize ALL messages before processing
   const normalizedMessages: Message[] = messages
     .slice(-6) // Last 6 messages for context
     .map((msg) => {
+      // Force normalization - handle any format (string, array, object)
       const content = normalizeContentToString(msg.content);
       
       // Filter out empty messages
@@ -80,10 +82,43 @@ export async function getAIResponse(
     })
     .filter((msg): msg is Message => msg !== null); // Remove null messages
 
+  // Build full messages array - ensure system message is also normalized
   const fullMessages: Message[] = [
     { role: 'system', content: systemPrompt + (context ? `\n\nFAQ Context:\n${context}` : '') },
     ...normalizedMessages,
   ];
+  
+  // CRITICAL: Double-check that all messages in fullMessages have string content
+  // This is a safety net in case normalization failed above
+  for (let i = 0; i < fullMessages.length; i++) {
+    const msg = fullMessages[i];
+    if (typeof msg.content !== 'string') {
+      console.warn(`Message ${i} has non-string content, normalizing:`, typeof msg.content, Array.isArray(msg.content), JSON.stringify(msg.content).substring(0, 100));
+      fullMessages[i] = {
+        ...msg,
+        content: normalizeContentToString(msg.content),
+      };
+    }
+  }
+  
+  // Final verification: ensure all messages are strings
+  const invalidMessages = fullMessages.filter(msg => typeof msg.content !== 'string');
+  if (invalidMessages.length > 0) {
+    console.error('ERROR: Some messages in fullMessages still have non-string content:', invalidMessages);
+    // Force normalize all invalid messages
+    for (let i = 0; i < fullMessages.length; i++) {
+      if (typeof fullMessages[i].content !== 'string') {
+        fullMessages[i] = {
+          ...fullMessages[i],
+          content: normalizeContentToString(fullMessages[i].content),
+        };
+      }
+    }
+  }
+  
+  // Debug: Log fullMessages to see what we're working with
+  console.log('fullMessages count:', fullMessages.length);
+  console.log('fullMessages content types:', fullMessages.map((msg, i) => ({ index: i, role: msg.role, contentType: typeof msg.content, isArray: Array.isArray(msg.content) })));
 
   // Helper function to prepare AI SDK messages (for OpenAI-compatible APIs)
   // This ensures all content is normalized to strings, handling array formats from chat history
@@ -116,6 +151,7 @@ export async function getAIResponse(
   // Primary: Gemini (reliable and free)
   // Use stable model names from deprecation table (gemini-2.5-flash, gemini-2.5-pro)
   const geminiModels = ['gemini-2.5-flash', 'gemini-2.5-pro'];
+  let geminiRateLimited = false;
   
   for (const modelName of geminiModels) {
     try {
@@ -144,43 +180,93 @@ export async function getAIResponse(
         const response = await result.response;
         return { text: response.text() };
       }
-    } catch (error) {
+    } catch (error: unknown) {
+      // Check if it's a rate limit error (429) - skip remaining Gemini models
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('Too Many Requests')) {
+        console.log(`Gemini model ${modelName} rate limited, skipping remaining Gemini models...`);
+        geminiRateLimited = true;
+        break; // Exit Gemini loop immediately
+      }
       console.log(`Gemini model ${modelName} failed, trying next...`, error);
-      continue; // Try next model
     }
   }
   
-  // If all Gemini models failed, log and try fallback
-  console.log('All Gemini models failed, trying OpenRouter GPT...');
+  // If all Gemini models failed (or rate limited), try fallbacks
+  if (geminiRateLimited) {
+    console.log('Gemini rate limited, trying OpenRouter...');
+  } else {
+    console.log('All Gemini models failed, trying OpenRouter...');
+  }
 
   // Fallback 1: OpenRouter GPT
   // Support both OPENROUTER_API_KEY and OpenRouter_API_KEY env var names
   const openRouterApiKey = process.env.OPENROUTER_API_KEY || process.env.OpenRouter_API_KEY;
   if (openRouterApiKey) {
     try {
+      console.log('Trying OpenRouter GPT...');
       const openaiClient = createOpenAI({
         baseURL: 'https://openrouter.ai/api/v1',
         apiKey: openRouterApiKey,
-      headers: {
-        'HTTP-Referer': process.env.NEXT_PUBLIC_CHATBOT_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arnobmahmud.com',
-        'X-Title': 'Portfolio Chatbot',
-      },
-    });
+        headers: {
+          'HTTP-Referer': process.env.NEXT_PUBLIC_CHATBOT_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.arnobmahmud.com',
+          'X-Title': 'Portfolio Chatbot',
+        },
+      });
+      
+      // Force use of Chat Completions API (not Responses API) by using .chat() method
+      const model = openaiClient.chat('openai/gpt-4o-mini');
 
     const aiMessages = prepareAIMessages();
+    
+    // CRITICAL: Final runtime validation - ensure ALL content is strings
+    // Create deep copies to prevent mutation and ensure string content
+    const validatedMessages = aiMessages.map((msg, index) => {
+      // Deep clone to prevent mutation
+      const clonedMsg = JSON.parse(JSON.stringify(msg));
+      
+      // Ensure content is a string
+      if (typeof clonedMsg.content !== 'string') {
+        console.error(`ERROR: Message ${index} has non-string content:`, typeof clonedMsg.content, Array.isArray(clonedMsg.content), clonedMsg);
+        // Force normalize
+        clonedMsg.content = normalizeContentToString(clonedMsg.content);
+      }
+      
+      // Final check - ensure it's a string
+      if (typeof clonedMsg.content !== 'string') {
+        console.error(`CRITICAL: Message ${index} still has non-string content after normalization!`, clonedMsg);
+        clonedMsg.content = String(clonedMsg.content || '');
+      }
+      
+      return {
+        role: clonedMsg.role as 'system' | 'user' | 'assistant',
+        content: String(clonedMsg.content), // Force string conversion
+      };
+    });
+    
+    // Verify all messages have string content after validation
+    const hasArrayContent = validatedMessages.some(msg => Array.isArray(msg.content) || typeof msg.content !== 'string');
+    if (hasArrayContent) {
+      console.error('ERROR: Some messages still have non-string content after validation!', validatedMessages.filter(msg => Array.isArray(msg.content) || typeof msg.content !== 'string'));
+      throw new Error('Message normalization failed: some messages still have array content');
+    }
 
     if (stream) {
-      return await streamText({
-        model: openaiClient('openai/gpt-4o-mini'),
-        messages: aiMessages,
+      const result = streamText({
+        model: model,
+        messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
         temperature: 0.7,
       });
+      console.log('✅ OpenRouter GPT responding successfully');
+      return result;
     } else {
-      return await generateText({
-        model: openaiClient('openai/gpt-4o-mini'),
-        messages: aiMessages,
+      const result = await generateText({
+        model: model,
+        messages: validatedMessages as Array<{ role: 'system' | 'user' | 'assistant'; content: string }>,
         temperature: 0.7,
       });
+      console.log('✅ OpenRouter GPT responding successfully');
+      return result;
     }
     } catch (error) {
       console.error('OpenRouter failed, trying Groq...', error);
@@ -200,14 +286,14 @@ export async function getAIResponse(
       const aiMessages = prepareAIMessages();
 
       if (stream) {
-        return await streamText({
-          model: groq('llama-3.1-70b-versatile'),
+        return streamText({
+          model: groq('llama-3.3-70b-versatile'), // Updated from llama-3.1-70b-versatile (deprecated Jan 24, 2025)
           messages: aiMessages,
           temperature: 0.7,
         });
       } else {
         return await generateText({
-          model: groq('llama-3.1-70b-versatile'),
+          model: groq('llama-3.3-70b-versatile'), // Updated from llama-3.1-70b-versatile (deprecated Jan 24, 2025)
           messages: aiMessages,
           temperature: 0.7,
         });
@@ -217,100 +303,112 @@ export async function getAIResponse(
     }
   }
 
-  // Fallback 3: Hugging Face Inference API (free models available)
+  // Fallback 3: Hugging Face Inference API (trying multiple models)
   // Support both HUGGING_FACE_API_KEY and Hugging_Face_Inference_API_KEY env var names
   const huggingFaceApiKey = process.env.HUGGING_FACE_API_KEY || process.env.Hugging_Face_Inference_API_KEY;
   if (huggingFaceApiKey) {
-    try {
-      console.log('Trying Hugging Face Inference API...');
-      
-      // Format messages for Hugging Face chat models
-      // Use Mistral-7B-Instruct as it's a good free chat model
-      const systemMessage = fullMessages.find(msg => msg.role === 'system');
-      const conversationMessages = fullMessages.filter(msg => msg.role !== 'system');
-      
-      // Build prompt in Mistral chat format
-      let prompt = '';
-      if (systemMessage) {
-        prompt += `<s>[INST] ${systemMessage.content} [/INST]</s>\n`;
-      }
-      
-      // Format conversation history
-      for (let i = 0; i < conversationMessages.length; i++) {
-        const msg = conversationMessages[i];
-        if (msg.role === 'user') {
-          prompt += `[INST] ${msg.content} [/INST]`;
-        } else if (msg.role === 'assistant') {
-          prompt += ` ${msg.content}</s>`;
-        }
-        if (i < conversationMessages.length - 1) {
-          prompt += '\n';
-        }
-      }
-      
-      // If last message is user, add assistant tag
-      if (conversationMessages.length > 0 && conversationMessages[conversationMessages.length - 1].role === 'user') {
-        prompt += ' ';
-      }
+    // List of models to try in order (prioritize smaller/faster models first)
+    const models = [
+      // Small/fast models first (for speed)
+      'Qwen/Qwen3-0.6B', // 0.8B - very fast
+      'google/gemma-2b-it', // 2B - fast
+      'google/gemma-2b', // 2B - fast
+      'microsoft/phi-1_5', // Small and fast
+      'LiquidAI/LFM2.5-1.2B-Thinking', // 1B - fast
+      'LiquidAI/LFM2.5-1.2B-Instruct', // 1B - fast
+      // Medium models (good balance)
+      'meta-llama/Llama-3.1-8B-Instruct', // 8B - reliable
+      'tiiuae/falcon-7b-instruct', // 7B
+      'mistralai/Mistral-7B-Instruct-v0.3', // 7B
+      'HuggingFaceH4/zephyr-7b-beta', // 7B
+      'google/gemma-7b', // 7B
+      'NousResearch/Hermes-2-Pro-Mistral-7B', // 7B
+      'NousResearch/NousCoder-14B', // 14B
+      // Larger models (slower but better quality) - try last
+      'zai-org/GLM-4.7-Flash', // 31B - works but slower
+      'Qwen/Qwen3-Coder-30B-A3B-Instruct', // 31B
+      'openai/gpt-oss-20b', // 22B
+      'openai/gpt-oss-120b', // 120B - very slow
+      // Legacy fallbacks
+      'mistralai/Mistral-7B-Instruct-v0.2',
+      'tiiuae/falcon-7b',
+      'HuggingFaceH4/zephyr-7b-alpha',
+    ];
 
-      const response = await fetch(
-        'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2',
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${huggingFaceApiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            inputs: prompt,
-            parameters: {
-              max_new_tokens: 512,
-              temperature: 0.7,
-              return_full_text: false,
+    const failedModels: string[] = [];
+    const aiMessages = prepareAIMessages();
+
+    for (const model of models) {
+      try {
+        console.log(`Trying Hugging Face model: ${model}...`);
+        
+        // Use OpenAI-compatible router endpoint (like multi-ai-chatbot)
+        const response = await fetch(
+          'https://router.huggingface.co/v1/chat/completions',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${huggingFaceApiKey}`,
             },
-          }),
-        }
-      );
+            body: JSON.stringify({
+              model: model,
+              messages: aiMessages,
+              max_tokens: 512,
+              temperature: 0.7,
+            }),
+          }
+        );
 
-      if (!response.ok) {
-        throw new Error(`Hugging Face API error: ${response.status} ${response.statusText}`);
-      }
+        if (response.ok) {
+          const data = await response.json();
+          
+          // Extract generated text from OpenAI-compatible format
+          let generatedText = '';
+          if (data?.choices?.[0]?.message?.content) {
+            generatedText = data.choices[0].message.content.trim();
+          } else if (data?.choices?.[0]?.text) {
+            generatedText = data.choices[0].text.trim();
+          } else if (data?.output?.[0]?.content?.[0]?.text) {
+            // Alternative format
+            generatedText = data.output[0].content[0].text.trim();
+          }
 
-      const data = await response.json();
-      
-      // Handle Hugging Face response format
-      let generatedText = '';
-      if (Array.isArray(data) && data.length > 0) {
-        generatedText = data[0].generated_text || data[0].text || '';
-      } else if (data.generated_text) {
-        generatedText = data.generated_text;
-      } else if (data.text) {
-        generatedText = data.text;
-      } else if (typeof data === 'string') {
-        generatedText = data;
-      }
-
-      // Clean up the response (remove prompt if included)
-      generatedText = generatedText.replace(prompt, '').trim();
-
-      if (stream) {
-        return {
-          textStream: (async function* () {
-            // Simulate streaming by yielding chunks
-            const words = generatedText.split(' ');
-            for (const word of words) {
-              yield word + ' ';
-              // Small delay to simulate streaming
-              await new Promise(resolve => setTimeout(resolve, 10));
+          if (generatedText) {
+            console.log(`✅ Success with Hugging Face model: ${model}`);
+            
+            if (stream) {
+              return {
+                textStream: (async function* () {
+                  // Simulate streaming by yielding chunks
+                  const words = generatedText.split(' ');
+                  for (const word of words) {
+                    yield word + ' ';
+                    // Small delay to simulate streaming
+                    await new Promise(resolve => setTimeout(resolve, 10));
+                  }
+                })(),
+              };
+            } else {
+              return { text: generatedText };
             }
-          })(),
-        };
-      } else {
-        return { text: generatedText };
+          }
+        }
+
+        // If this model failed, try next one
+        failedModels.push(`${model} (${response.status})`);
+        console.warn(`${model} failed (${response.status}), trying next model...`);
+        
+      } catch (error: unknown) {
+        failedModels.push(model);
+        console.warn(`${model} error:`, error);
+        continue;
       }
-    } catch (error) {
-      console.error('Hugging Face failed, trying OpenAI...', error);
     }
+
+    // If all models failed
+    console.error(`All Hugging Face models failed: ${failedModels.join(', ')}`);
+    // Don't throw error here, continue to next fallback (OpenAI)
   }
 
   // Fallback 4: OpenAI Direct (if API key is available)
@@ -324,7 +422,7 @@ export async function getAIResponse(
       const aiMessages = prepareAIMessages();
 
       if (stream) {
-        return await streamText({
+        return streamText({
           model: openaiClient('gpt-4o-mini'),
           messages: aiMessages,
           temperature: 0.7,
