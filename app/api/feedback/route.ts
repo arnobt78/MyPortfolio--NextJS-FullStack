@@ -36,6 +36,301 @@ function sanitizeInput(input: string): string {
     .trim();
 }
 
+// Helper function to escape HTML for safe display in email
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Sends an auto-reply email to the user who submitted feedback/issue
+ * Similar to send-auto-reply route but tailored for chatbot feedback
+ */
+async function sendAutoReply(
+  userEmail: string,
+  type: "feedback" | "issue",
+  referenceNumber: string,
+  rating?: number,
+  comment?: string
+): Promise<void> {
+  try {
+    // Sanitize inputs for email
+    const sanitizedEmail = sanitizeInput(userEmail);
+    const sanitizedComment = comment ? escapeHtml(comment) : "";
+
+    // Format current date/time
+    const currentDate = new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+    const currentTime = new Date().toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    // Create friendly auto-reply subject with timestamp
+    const subject = `Thank You for Your ${type === "feedback" ? "Feedback" : "Issue Report"} - Ref #${referenceNumber} | ${currentDate} ${currentTime}`;
+
+    // Create message preview
+    const messagePreview =
+      sanitizedComment && sanitizedComment.length > 200
+        ? sanitizedComment.substring(0, 200) + "..."
+        : sanitizedComment || "No additional comments provided";
+
+    // Create HTML email content
+    const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thank You - Chatbot Feedback</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+            
+            body {
+                font-family: 'JetBrains Mono', monospace;
+                background-color: #f5f5f5;
+                margin: 0;
+                padding: 20px;
+                line-height: 1.6;
+            }
+            
+            .email-container {
+                max-width: 600px;
+                margin: 0 auto;
+                background-color: #ffffff;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+            
+            .header {
+                background: linear-gradient(135deg, #1c1c22 0%, #00ff99 100%);
+                color: white;
+                padding: 30px;
+                text-align: center;
+            }
+            
+            .header h1 {
+                margin: 0;
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+            
+            .header p {
+                margin: 10px 0 0 0;
+                font-size: 16px;
+                opacity: 0.9;
+            }
+            
+            .content {
+                padding: 40px 30px;
+                color: #1c1c22;
+            }
+            
+            .greeting {
+                font-size: 18px;
+                margin-bottom: 20px;
+                color: #1c1c22;
+            }
+            
+            .message-box {
+                background-color: #f8f9fa;
+                border-left: 4px solid #00ff99;
+                padding: 20px;
+                margin: 25px 0;
+                border-radius: 8px;
+            }
+            
+            .message-box h3 {
+                color: #00ff99;
+                margin: 0 0 15px 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            
+            .reference-info {
+                background-color: #f0f8ff;
+                border: 1px solid #e0e7ff;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .reference-number {
+                font-size: 18px;
+                font-weight: 700;
+                color: #00ff99;
+                margin-bottom: 5px;
+            }
+            
+            .date-info {
+                font-size: 14px;
+                color: #666;
+            }
+            
+            .next-steps {
+                margin: 30px 0;
+            }
+            
+            .next-steps h3 {
+                color: #1c1c22;
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .next-steps ul {
+                margin: 0;
+                padding-left: 20px;
+            }
+            
+            .next-steps li {
+                margin-bottom: 8px;
+                color: #1c1c22;
+            }
+            
+            .closing {
+                margin-top: 30px;
+                font-style: italic;
+                color: #666;
+            }
+            
+            .signature {
+                margin-top: 20px;
+                font-weight: 600;
+                color: #1c1c22;
+            }
+            
+            .separator {
+                border-top: 1px solid #e0e0e0;
+                margin: 30px 0;
+            }
+            
+            .footer {
+                background-color: #f8f9fa;
+                padding: 30px;
+                text-align: center;
+                color: #666;
+            }
+            
+            .rating-display {
+                font-size: 20px;
+                color: #ffc107;
+                margin: 10px 0;
+            }
+            
+            .disclaimer {
+                font-size: 12px;
+                color: #999 !important;
+                margin: 20px 30px 30px 30px;
+                padding: 15px;
+                font-style: italic;
+                text-align: center;
+            }
+            
+            @media (max-width: 600px) {
+                .email-container {
+                    margin: 10px;
+                }
+                
+                .header, .content, .footer {
+                    padding: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <div class="header">
+                <h1>Thank You for Your ${type === "feedback" ? "Feedback" : "Issue Report"}!</h1>
+                <p>Your input helps us improve</p>
+            </div>
+            
+            <div class="content">
+                <div class="greeting">
+                    Dear Valued User,
+                </div>
+                
+                <p>Thank you for taking the time to ${type === "feedback" ? "share your feedback" : "report this issue"}. I've successfully received your ${type === "feedback" ? "feedback" : "report"} and truly appreciate your input.</p>
+                
+                <div class="message-box">
+                    <h3>📧 Your ${type === "feedback" ? "Feedback" : "Issue Report"} Details:</h3>
+                    ${rating ? `<p><strong>Rating:</strong> <span class="rating-display">${"★".repeat(rating)}${"☆".repeat(5 - rating)} (${rating}/5)</span></p>` : ""}
+                    ${sanitizedComment ? `<p><strong>${type === "feedback" ? "Comment" : "Description"}:</strong> ${messagePreview}</p>` : ""}
+                </div>
+                
+                <div class="reference-info">
+                    <div class="reference-number">Reference #${referenceNumber}</div>
+                    <div class="date-info">Received on ${currentDate} at ${currentTime}</div>
+                </div>
+                
+                <div class="next-steps">
+                    <h3>🚀 What happens next?</h3>
+                    <ul>
+                        <li>I'll review your ${type === "feedback" ? "feedback" : "issue report"} as soon as possible</li>
+                        <li>You'll receive a personalized response via email within 24-48 hours</li>
+                        <li>If needed, I'll reach out to discuss your ${type === "feedback" ? "suggestions" : "concerns"} in more detail</li>
+                        <li>Your input helps me improve the chatbot experience for everyone</li>
+                    </ul>
+                </div>
+                
+                <div class="closing">
+                    <p>I appreciate your patience and look forward to addressing your ${type === "feedback" ? "feedback" : "concerns"} soon.</p>
+                </div>
+                
+                <div class="signature">
+                    Best regards,<br>
+                    Arnob Mahmud<br>
+                    <em>Full-Stack Developer & Automation Engineer</em>
+                </div>
+            </div>
+            
+            <div class="separator"></div>
+            
+            <div class="disclaimer">
+                This is an automated message. Please do not reply to this email. For assistance, please contact us at arnobt78@gmail.com or call +49 157 34664351
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+
+    // Create Gmail SMTP transporter
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // use STARTTLS
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: `Arnob Mahmud Portfolio <${process.env.EMAIL_USER}>`,
+      to: sanitizedEmail,
+      subject: subject,
+      html: htmlContent,
+      replyTo: process.env.EMAIL_USER, // keep thread centralized
+    } as const;
+
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    // Log error but don't throw - auto-reply failure shouldn't break the main flow
+    console.error("Auto-reply error:", error);
+  }
+}
+
 /**
  * POST /api/feedback
  * Handles feedback and issue reports from chatbot widget
@@ -275,6 +570,17 @@ Submitted: ${currentDate} at ${currentTime}
     } as const;
 
     await transporter.sendMail(mailOptions);
+
+    // Send auto-reply to user if email is provided
+    if (sanitizedEmail && isValidEmail(sanitizedEmail)) {
+      await sendAutoReply(
+        sanitizedEmail,
+        type,
+        referenceNumber,
+        rating,
+        comment
+      );
+    }
 
     // Track via Google Analytics (client-side, so this won't work server-side)
     // This would need to be handled on the client side
