@@ -73,7 +73,7 @@ export function WidgetMenu() {
       }
       const win = window as WindowWithChatbotConfig;
       setChatbotTitle(win.CHATBOT_TITLE || t("chatbot.title"));
-      
+
       // Clear any existing localStorage flag for rating submission
       // This ensures the menu item always shows (we removed the conditional check)
       localStorage.removeItem("chatbot-rating-submitted");
@@ -285,17 +285,16 @@ export function WidgetMenu() {
               e.stopPropagation();
               e.preventDefault();
             }}
-            style={{ 
+            style={{
               pointerEvents: "auto",
               // On mobile: make dropdown scrollable if it exceeds available space
-              // Reduced max-height since widget is now max-h-[450px]
-              maxHeight: '350px',
-              overflowY: 'auto',
-              WebkitOverflowScrolling: 'touch',
+              // Reduced max-height since widget is now max-h-[450px] sm:min-h-[600px]
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
               // Allow vertical panning (scrolling) within menu only
-              touchAction: 'pan-y',
+              touchAction: "pan-y",
               // Prevent scroll chaining to background/widget
-              overscrollBehavior: 'contain'
+              overscrollBehavior: "contain",
             }}
           >
             {/* Theme Toggle */}
@@ -308,7 +307,11 @@ export function WidgetMenu() {
               ) : (
                 <Moon className="w-4 h-4" />
               )}
-              <span>{isDark ? t("chatbot.menu.lightMode") : t("chatbot.menu.darkMode")}</span>
+              <span>
+                {isDark
+                  ? t("chatbot.menu.lightMode")
+                  : t("chatbot.menu.darkMode")}
+              </span>
             </button>
 
             {/* Export Chat History */}
@@ -420,7 +423,9 @@ export function WidgetMenu() {
                           : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
                       }`}
                     >
-                      {pos === "bottom-right" ? t("chatbot.menu.positionRight") : t("chatbot.menu.positionLeft")}
+                      {pos === "bottom-right"
+                        ? t("chatbot.menu.positionRight")
+                        : t("chatbot.menu.positionLeft")}
                     </button>
                   ),
                 )}
@@ -439,7 +444,9 @@ export function WidgetMenu() {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>{t("chatbot.about.title", { title: chatbotTitle })}</DialogTitle>
+                  <DialogTitle>
+                    {t("chatbot.about.title", { title: chatbotTitle })}
+                  </DialogTitle>
                   <DialogDescription>
                     {t("chatbot.about.description")}
                   </DialogDescription>
@@ -451,9 +458,7 @@ export function WidgetMenu() {
                     </h3>
                     <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
                       <li>{t("chatbot.about.howToUse.1")}</li>
-                      <li>
-                        {t("chatbot.about.howToUse.2")}
-                      </li>
+                      <li>{t("chatbot.about.howToUse.2")}</li>
                       <li>{t("chatbot.about.howToUse.3")}</li>
                     </ul>
                   </div>
@@ -532,12 +537,14 @@ export function WidgetMenu() {
                   >
                     {t("chatbot.feedback.cancel")}
                   </Button>
-                  <Button 
-                    variant="chatbotDefault" 
+                  <Button
+                    variant="chatbotDefault"
                     onClick={handleReportIssue}
                     disabled={isSubmittingFeedback}
                   >
-                    {isSubmittingFeedback ? t("chatbot.feedback.sending") : t("chatbot.feedback.submit")}
+                    {isSubmittingFeedback
+                      ? t("chatbot.feedback.sending")
+                      : t("chatbot.feedback.submit")}
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -545,66 +552,68 @@ export function WidgetMenu() {
 
             {/* Rate This Chatbot */}
             <Dialog open={ratingOpen} onOpenChange={setRatingOpen}>
-                  <DialogTrigger asChild>
-                    <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
-                      <Star className="w-4 h-4" />
-                      <span>{t("chatbot.menu.rate")}</span>
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>{t("chatbot.rating.title")}</DialogTitle>
-                      <DialogDescription>
-                        {t("chatbot.rating.description")}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4 py-4">
-                      <div className="flex justify-center gap-2">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <button
-                            key={star}
-                            onClick={() => setFeedbackRating(star)}
-                            className={`text-3xl ${
-                              star <= feedbackRating
-                                ? "text-yellow-400"
-                                : "text-gray-300 dark:text-gray-600"
-                            }`}
-                          >
-                            ★
-                          </button>
-                        ))}
-                      </div>
-                      <div>
-                        <label className="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2 block">
-                          {t("chatbot.rating.comment")}
-                        </label>
-                        <textarea
-                          value={feedbackComment}
-                          onChange={(e) => setFeedbackComment(e.target.value)}
-                          rows={3}
-                          className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
-                          placeholder={t("chatbot.rating.commentPlaceholder")}
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button
-                        variant="chatbotOutline"
-                        onClick={() => setRatingOpen(false)}
-                        disabled={isSubmittingRating}
+              <DialogTrigger asChild>
+                <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
+                  <Star className="w-4 h-4" />
+                  <span>{t("chatbot.menu.rate")}</span>
+                </button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{t("chatbot.rating.title")}</DialogTitle>
+                  <DialogDescription>
+                    {t("chatbot.rating.description")}
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-4 py-4">
+                  <div className="flex justify-center gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        onClick={() => setFeedbackRating(star)}
+                        className={`text-3xl ${
+                          star <= feedbackRating
+                            ? "text-yellow-400"
+                            : "text-gray-300 dark:text-gray-600"
+                        }`}
                       >
-                        {t("chatbot.feedback.cancel")}
-                      </Button>
-                      <Button
-                        variant="chatbotDefault"
-                        onClick={handleSubmitRating}
-                        disabled={feedbackRating === 0 || isSubmittingRating}
-                      >
-                        {isSubmittingRating ? t("chatbot.rating.sending") : t("chatbot.rating.submit")}
-                      </Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                        ★
+                      </button>
+                    ))}
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2 block">
+                      {t("chatbot.rating.comment")}
+                    </label>
+                    <textarea
+                      value={feedbackComment}
+                      onChange={(e) => setFeedbackComment(e.target.value)}
+                      rows={3}
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
+                      placeholder={t("chatbot.rating.commentPlaceholder")}
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button
+                    variant="chatbotOutline"
+                    onClick={() => setRatingOpen(false)}
+                    disabled={isSubmittingRating}
+                  >
+                    {t("chatbot.feedback.cancel")}
+                  </Button>
+                  <Button
+                    variant="chatbotDefault"
+                    onClick={handleSubmitRating}
+                    disabled={feedbackRating === 0 || isSubmittingRating}
+                  >
+                    {isSubmittingRating
+                      ? t("chatbot.rating.sending")
+                      : t("chatbot.rating.submit")}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         )}
       </div>
@@ -646,7 +655,7 @@ export function WidgetMenu() {
               e.stopPropagation();
             }
           }}
-          style={{ backgroundColor: 'transparent', touchAction: 'none' }}
+          style={{ backgroundColor: "transparent", touchAction: "none" }}
         />
       )}
     </>
