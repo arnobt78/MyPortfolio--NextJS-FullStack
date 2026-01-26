@@ -485,12 +485,12 @@ export function WidgetMenu() {
                 </div>
                 <DialogFooter>
                   <Button
-                    variant="outline"
+                    variant="chatbotOutline"
                     onClick={() => setFeedbackOpen(false)}
                   >
                     Cancel
                   </Button>
-                  <Button onClick={handleReportIssue}>Submit</Button>
+                  <Button variant="chatbotDefault" onClick={handleReportIssue}>Submit</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -543,12 +543,13 @@ export function WidgetMenu() {
                     </div>
                     <DialogFooter>
                       <Button
-                        variant="outline"
+                        variant="chatbotOutline"
                         onClick={() => setRatingOpen(false)}
                       >
                         Cancel
                       </Button>
                       <Button
+                        variant="chatbotDefault"
                         onClick={handleSubmitRating}
                         disabled={feedbackRating === 0}
                       >

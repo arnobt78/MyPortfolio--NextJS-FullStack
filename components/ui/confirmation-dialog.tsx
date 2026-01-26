@@ -53,10 +53,11 @@ export function ConfirmationDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={handleCancel}>
+          <Button variant="chatbotOutline" onClick={handleCancel}>
             {cancelText}
           </Button>
           <Button
+            variant="chatbotDefault"
             onClick={handleConfirm}
             className={
               variant === "destructive"
