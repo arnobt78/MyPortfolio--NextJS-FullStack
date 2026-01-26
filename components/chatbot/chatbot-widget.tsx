@@ -157,7 +157,7 @@ export function ChatbotWidget() {
           // Mobile: use fixed max-height to ensure header and bottom are always visible
           // Widget is positioned bottom-20 (80px from bottom)
           // Fixed max-h-[450px] ensures consistent widget size and menu dropdown visibility
-          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[450px] sm:max-h-[600px]",
+          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[450px] sm:min-h-[600px]",
           position === "bottom-right" ? "right-4" : "left-4",
           // Desktop: fixed positioning and size from bottom
           "sm:bottom-24 sm:top-auto sm:h-[600px] sm:w-[400px] sm:max-w-[400px]",
