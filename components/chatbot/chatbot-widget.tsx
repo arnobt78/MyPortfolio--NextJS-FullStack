@@ -18,10 +18,11 @@ import { ChatHistorySkeleton } from "./message-skeleton";
  */
 export function ChatbotWidget() {
   const { messages, sendMessage, isSending, streamingMessage, isLoading, error } = useChat();
-  const { fontSize, position } = useWidgetSettings();
+  const { fontSize, position, theme } = useWidgetSettings();
   const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [inputFocused, setInputFocused] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const [config, setConfig] = useState({
@@ -29,6 +30,18 @@ export function ChatbotWidget() {
     greeting: t("chatbot.greeting"),
     placeholder: t("chatbot.placeholder"),
   });
+
+  // Theme-aware colors for smooth transitions
+  const isDark = theme === "dark";
+  const widgetBg = isDark ? "rgb(17, 24, 39)" : "rgb(255, 255, 255)"; // gray-900 : white
+  const widgetBorder = isDark ? "rgb(55, 65, 81)" : "rgb(229, 231, 235)"; // gray-700 : gray-200
+  const headerBorder = isDark ? "rgb(31, 41, 55)" : "rgb(243, 244, 246)"; // gray-800 : gray-100
+  const messagesBg = isDark ? "rgb(3, 7, 18)" : "rgb(249, 250, 251)"; // gray-950 : gray-50
+  const inputBg = isDark ? "rgb(31, 41, 55)" : "rgb(249, 250, 251)"; // gray-800 : gray-50
+  const inputBorder = isDark ? "rgb(55, 65, 81)" : "rgb(229, 231, 235)"; // gray-700 : gray-200
+  const inputFocusRing = isDark ? "rgb(75, 85, 99)" : "rgb(229, 231, 235)"; // gray-600 : gray-200
+  const inputTextColor = isDark ? "rgb(255, 255, 255)" : "rgb(17, 24, 39)"; // white : gray-900
+  const buttonHoverBg = isDark ? "rgb(31, 41, 55)" : "rgb(243, 244, 246)"; // gray-800 : gray-100
 
   // Load config from window after mount to avoid hydration mismatch
   // Also update when language changes
@@ -133,7 +146,7 @@ export function ChatbotWidget() {
       <div
         id="cb-react"
         className={cn(
-          "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[99999] transition-all origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700",
+          "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[99999] origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 outline-none focus:outline-none focus-visible:outline-none",
           // Mobile: fixed size, positioned like desktop but fits screen
           "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] h-[calc(100vh-6rem)] max-h-[600px]",
           position === "bottom-right" ? "right-4" : "left-4",
@@ -152,11 +165,26 @@ export function ChatbotWidget() {
           isolation: 'isolate',
           display: 'flex',
           flexDirection: 'column',
-          height: isOpen ? undefined : 0
+          height: isOpen ? undefined : 0,
+          outline: 'none',
+          // Explicit background and border colors synchronized with theme
+          backgroundColor: widgetBg,
+          borderColor: widgetBorder,
+          // Smooth transitions only for background and border
+          transition: 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
+          willChange: 'background-color, border-color'
         }}
+        tabIndex={-1}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 shrink-0 relative z-[100000]">
+        <div 
+          className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b shrink-0 relative z-[100000]"
+          style={{
+            backgroundColor: widgetBg,
+            borderColor: headerBorder,
+            transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out'
+          }}
+        >
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center shrink-0">
               <Bot className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
@@ -180,7 +208,9 @@ export function ChatbotWidget() {
           style={{ 
             minHeight: 0,
             maxHeight: '100%',
-            WebkitOverflowScrolling: 'touch'
+            WebkitOverflowScrolling: 'touch',
+            backgroundColor: messagesBg,
+            transition: 'background-color 0.2s ease-in-out'
           }}
         >
           {/* Loading skeleton - shows exact message dimensions */}
@@ -290,7 +320,12 @@ export function ChatbotWidget() {
         {/* Input Form */}
         <form
           onSubmit={handleSubmit}
-          className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-4 border-t bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 shrink-0"
+          className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-4 border-t shrink-0"
+          style={{
+            backgroundColor: widgetBg,
+            borderColor: headerBorder,
+            transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out'
+          }}
         >
           <input
             id="chatbot-input"
@@ -300,15 +335,38 @@ export function ChatbotWidget() {
             placeholder={config.placeholder}
             disabled={isSending}
             className={cn(
-              "flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600",
+              "flex-1 min-w-0 px-3 sm:px-4 py-2 sm:py-3 rounded-full text-sm placeholder-gray-400 focus:outline-none",
               fontSizeClasses.base
             )}
+            style={{
+              backgroundColor: inputBg,
+              borderColor: inputBorder,
+              color: inputTextColor,
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              boxShadow: inputFocused ? `0 0 0 2px ${inputFocusRing}` : 'none',
+              transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out',
+            }}
+            onFocus={() => setInputFocused(true)}
+            onBlur={() => setInputFocused(false)}
             autoComplete="off"
           />
           <button
             type="submit"
             disabled={isSending || !inputValue.trim()}
-            className="p-2 sm:p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full disabled:opacity-50 transition-colors shrink-0"
+            className="p-2 sm:p-3 rounded-full disabled:opacity-50 shrink-0"
+            style={{
+              backgroundColor: 'transparent',
+              transition: 'background-color 0.2s ease-in-out, opacity 0.2s ease-in-out',
+            }}
+            onMouseEnter={(e) => {
+              if (!e.currentTarget.disabled) {
+                e.currentTarget.style.backgroundColor = buttonHoverBg;
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
           >
             <Send className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300" />
           </button>

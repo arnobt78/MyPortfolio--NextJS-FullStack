@@ -777,6 +777,35 @@
     isolation: isolate !important;
     contain: layout style paint !important;
     background-clip: padding-box !important;
+    /* Remove all default focus outlines */
+    outline: none !important;
+    /* Ensure smooth border color transitions - synchronized with child elements */
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
+  }
+
+  /* Synchronize all child element transitions with parent */
+  #cb-react > *,
+  [id="cb-react"] > * {
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out !important;
+  }
+
+  /* Remove focus outline from widget body - prevent flash on mode change */
+  #cb-react:focus,
+  #cb-react:focus-visible,
+  #cb-react:focus-within,
+  [id="cb-react"]:focus,
+  [id="cb-react"]:focus-visible,
+  [id="cb-react"]:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Prevent any white background from bleeding through during theme transitions */
+  #cb-react::before,
+  #cb-react::after,
+  [id="cb-react"]::before,
+  [id="cb-react"]::after {
+    display: none !important;
   }
 
   /* Ensure no parent elements clip the widget's rounded corners */
