@@ -69,46 +69,53 @@ export async function getAIResponse(
     ...normalizedMessages,
   ];
 
-  // Helper function to prepare AI SDK messages
+  // Helper function to prepare AI SDK messages (for OpenAI-compatible APIs)
+  // This ensures all content is normalized to strings, handling array formats from chat history
   const prepareAIMessages = () => {
-    const systemMessage = fullMessages.find(msg => msg.role === 'system');
-    const conversationMessages = fullMessages.filter(msg => msg.role !== 'system');
-    
     const aiMessages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [];
     
-    // Add system message if present
-    if (systemMessage && typeof systemMessage.content === 'string') {
-      aiMessages.push({
-        role: 'system',
-        content: systemMessage.content,
-      });
-    }
-    
-    // Add conversation messages, ensuring content is always a string
-    for (const msg of conversationMessages) {
+    // Process all messages, ensuring content is always a string
+    for (const msg of fullMessages) {
       let contentStr: string;
+      
       if (typeof msg.content === 'string') {
         contentStr = msg.content;
       } else if (Array.isArray(msg.content)) {
-        // Extract text from array format
+        // Handle array format: [{ type: 'output_text', text: '...' }] or [{ type: 'input_text', text: '...' }]
         contentStr = (msg.content as unknown[])
           .map((item: unknown) => {
             if (typeof item === 'string') return item;
             if (item && typeof item === 'object') {
-              const itemObj = item as { text?: string; content?: string; message?: string };
+              const itemObj = item as { 
+                text?: string; 
+                content?: string; 
+                message?: string;
+                type?: string;
+              };
+              // Handle different array item formats
               return itemObj.text || itemObj.content || itemObj.message || '';
             }
             return String(item || '');
           })
           .filter((text: string) => text.length > 0)
           .join(' ');
+      } else if (msg.content && typeof msg.content === 'object') {
+        // Handle object format: { text: '...' } or { content: '...' }
+        const contentObj = msg.content as { text?: string; content?: string; message?: string };
+        contentStr = contentObj.text || contentObj.content || contentObj.message || '';
       } else {
         contentStr = String(msg.content || '');
       }
       
+      // Only add non-empty messages
       if (contentStr && contentStr.trim().length > 0) {
+        // Ensure role is valid (OpenRouter doesn't accept 'system' in messages array, only in separate field)
+        const role = msg.role === 'system' ? 'system' : 
+                     msg.role === 'assistant' ? 'assistant' : 
+                     'user';
+        
         aiMessages.push({
-          role: msg.role as 'user' | 'assistant',
+          role: role as 'system' | 'user' | 'assistant',
           content: contentStr.trim(),
         });
       }
