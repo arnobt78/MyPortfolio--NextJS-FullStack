@@ -147,10 +147,10 @@ export function ChatbotWidget() {
         id="cb-react"
         className={cn(
           "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[99999] origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 outline-none focus:outline-none focus-visible:outline-none",
-          // Mobile: ensure header is always visible - adjust height to account for bottom positioning
+          // Mobile: ensure header is always visible - use fixed height so dropdown menu isn't clipped
           // Widget is positioned bottom-20 (80px from bottom), so height should be calc(100vh - 80px - safe area)
-          // Use max-h to ensure it doesn't exceed viewport, and ensure header is always visible
-          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)]",
+          // Use fixed height (not max-h) so widget always displays at full height, allowing menu dropdown to show properly
+          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] h-[calc(100vh-5rem)]",
           position === "bottom-right" ? "right-4" : "left-4",
           // Desktop: fixed positioning and size from bottom
           "sm:bottom-24 sm:top-auto sm:h-[600px] sm:w-[400px] sm:max-w-[400px]",
@@ -167,8 +167,10 @@ export function ChatbotWidget() {
           isolation: 'isolate',
           display: 'flex',
           flexDirection: 'column',
+          // On mobile: use fixed height from className (h-[calc(100vh-5rem)])
+          // On desktop: height is set via className (sm:h-[600px])
+          // Only set to 0 when closed
           height: isOpen ? undefined : 0,
-          maxHeight: isOpen ? 'calc(100vh - 5rem)' : 0,
           outline: 'none',
           // Explicit background and border colors synchronized with theme
           backgroundColor: widgetBg,
