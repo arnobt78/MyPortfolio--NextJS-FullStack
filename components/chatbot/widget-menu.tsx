@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useChat } from "@/hooks/use-chat";
 import { useWidgetSettings } from "@/hooks/use-widget-settings";
+import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -47,6 +48,7 @@ export function WidgetMenu() {
   const { messages, clearChat } = useChat();
   const { theme, fontSize, position, setTheme, setFontSize, setPosition } =
     useWidgetSettings();
+  const { t, language } = useLanguage();
   const [menuOpen, setMenuOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [feedbackOpen, setFeedbackOpen] = useState(false);
@@ -57,18 +59,19 @@ export function WidgetMenu() {
   const [feedbackComment, setFeedbackComment] = useState("");
   const [feedbackEmail, setFeedbackEmail] = useState("");
 
-  const [chatbotTitle, setChatbotTitle] = useState("Chat Assistant");
+  const [chatbotTitle, setChatbotTitle] = useState(t("chatbot.title"));
 
   // Load chatbot title after mount to avoid hydration mismatch
+  // Also update when language changes
   useEffect(() => {
     if (typeof window !== "undefined") {
       interface WindowWithChatbotConfig extends Window {
         CHATBOT_TITLE?: string;
       }
       const win = window as WindowWithChatbotConfig;
-      setChatbotTitle(win.CHATBOT_TITLE || "Chat Assistant");
+      setChatbotTitle(win.CHATBOT_TITLE || t("chatbot.title"));
     }
-  }, []);
+  }, [t, language]);
 
   // Calculate if dark mode is active for UI display
   // Simple: dark = true, light = false
@@ -87,7 +90,7 @@ export function WidgetMenu() {
   const handleClearChat = () => {
     clearChat();
     setMenuOpen(false);
-    toast.success("Chat cleared");
+    toast.success(t("chatbot.toast.chatCleared"));
   };
 
   const handleExportText = () => {
@@ -99,30 +102,30 @@ export function WidgetMenu() {
     a.download = `chat-history-${Date.now()}.txt`;
     a.click();
     URL.revokeObjectURL(url);
-    toast.success("Chat exported as text");
+    toast.success(t("chatbot.toast.exportedText"));
     setMenuOpen(false);
   };
 
   const handleExportPDF = () => {
     exportChatAsPDF(messages);
-    toast.success("Opening PDF preview");
+    toast.success(t("chatbot.toast.openingPdf"));
     setMenuOpen(false);
   };
 
   const handleCopyChat = async () => {
     try {
       await copyChatToClipboard(messages);
-      toast.success("Chat copied to clipboard");
+      toast.success(t("chatbot.toast.copied"));
       setMenuOpen(false);
     } catch {
-      toast.error("Failed to copy chat");
+      toast.error(t("chatbot.toast.copyFailed"));
     }
   };
 
   const handleNewChat = () => {
     clearChat();
     setMenuOpen(false);
-    toast.success("Started new chat");
+    toast.success(t("chatbot.toast.newChat"));
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -145,17 +148,17 @@ export function WidgetMenu() {
       });
 
       if (response.ok) {
-        toast.success("Thank you for your feedback!");
+        toast.success(t("chatbot.toast.feedbackSuccess"));
         setFeedbackOpen(false);
         setFeedbackRating(0);
         setFeedbackComment("");
         setFeedbackEmail("");
         setMenuOpen(false);
       } else {
-        toast.error("Failed to submit feedback");
+        toast.error(t("chatbot.toast.feedbackFailed"));
       }
     } catch {
-      toast.error("Failed to submit feedback");
+      toast.error(t("chatbot.toast.feedbackFailed"));
     }
   };
 
@@ -180,16 +183,16 @@ export function WidgetMenu() {
         if (typeof window !== "undefined") {
           localStorage.setItem("chatbot-rating-submitted", "true");
         }
-        toast.success("Thank you for rating!");
+        toast.success(t("chatbot.toast.ratingSuccess"));
         setRatingOpen(false);
         setFeedbackRating(0);
         setFeedbackComment("");
         setMenuOpen(false);
       } else {
-        toast.error("Failed to submit rating");
+        toast.error(t("chatbot.toast.ratingFailed"));
       }
     } catch {
-      toast.error("Failed to submit rating");
+      toast.error(t("chatbot.toast.ratingFailed"));
     }
   };
 
@@ -211,16 +214,16 @@ export function WidgetMenu() {
       });
 
       if (response.ok) {
-        toast.success("Issue reported. Thank you!");
+        toast.success(t("chatbot.toast.issueReported"));
         setFeedbackOpen(false);
         setFeedbackComment("");
         setFeedbackEmail("");
         setMenuOpen(false);
       } else {
-        toast.error("Failed to report issue");
+        toast.error(t("chatbot.toast.issueFailed"));
       }
     } catch {
-      toast.error("Failed to report issue");
+      toast.error(t("chatbot.toast.issueFailed"));
     }
   };
 
@@ -264,7 +267,7 @@ export function WidgetMenu() {
               ) : (
                 <Moon className="w-4 h-4" />
               )}
-              <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
+              <span>{isDark ? t("chatbot.menu.lightMode") : t("chatbot.menu.darkMode")}</span>
             </button>
 
             {/* Export Chat History */}
@@ -273,7 +276,7 @@ export function WidgetMenu() {
               className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
             >
               <FileDown className="w-4 h-4" />
-              <span>Export as TXT</span>
+              <span>{t("chatbot.menu.exportTxt")}</span>
             </button>
 
             <button
@@ -281,7 +284,7 @@ export function WidgetMenu() {
               className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
             >
               <FileText className="w-4 h-4" />
-              <span>Export as PDF</span>
+              <span>{t("chatbot.menu.exportPdf")}</span>
             </button>
 
             {/* Copy Chat */}
@@ -290,7 +293,7 @@ export function WidgetMenu() {
               className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
             >
               <Copy className="w-4 h-4" />
-              <span>Copy Chat</span>
+              <span>{t("chatbot.menu.copyChat")}</span>
             </button>
 
             {/* New Chat */}
@@ -299,14 +302,14 @@ export function WidgetMenu() {
               className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
             >
               <RotateCcw className="w-4 h-4" />
-              <span>New Chat</span>
+              <span>{t("chatbot.menu.newChat")}</span>
             </button>
             <ConfirmationDialog
               open={newChatOpen}
               onOpenChange={setNewChatOpen}
-              title="Start New Chat?"
-              description="This will clear your current conversation. Are you sure?"
-              confirmText="Start New Chat"
+              title={t("chatbot.confirm.newChat.title")}
+              description={t("chatbot.confirm.newChat.description")}
+              confirmText={t("chatbot.confirm.newChat.confirm")}
               onConfirm={handleNewChat}
             />
 
@@ -316,14 +319,14 @@ export function WidgetMenu() {
               className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
             >
               <Trash2 className="w-4 h-4" />
-              <span>Clear Chat</span>
+              <span>{t("chatbot.menu.clearChat")}</span>
             </button>
             <ConfirmationDialog
               open={clearChatOpen}
               onOpenChange={setClearChatOpen}
-              title="Clear Chat?"
-              description="This will clear your current conversation. Are you sure?"
-              confirmText="Clear Chat"
+              title={t("chatbot.confirm.clearChat.title")}
+              description={t("chatbot.confirm.clearChat.description")}
+              confirmText={t("chatbot.confirm.clearChat.confirm")}
               onConfirm={handleClearChat}
             />
 
@@ -333,7 +336,7 @@ export function WidgetMenu() {
             <div className="px-4 py-2">
               <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                 <Type className="w-3 h-3" />
-                Font Size
+                {t("chatbot.menu.fontSize")}
               </div>
               <div className="flex gap-2">
                 {(["small", "medium", "large"] as FontSize[]).map((size) => (
@@ -359,7 +362,7 @@ export function WidgetMenu() {
             <div className="px-4 py-2">
               <div className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2 flex items-center gap-2">
                 <Settings className="w-3 h-3" />
-                Position
+                {t("chatbot.menu.position")}
               </div>
               <div className="flex gap-2">
                 {(["bottom-right", "bottom-left"] as WidgetPosition[]).map(
@@ -376,7 +379,7 @@ export function WidgetMenu() {
                           : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
                       }`}
                     >
-                      {pos === "bottom-right" ? "Right" : "Left"}
+                      {pos === "bottom-right" ? t("chatbot.menu.positionRight") : t("chatbot.menu.positionLeft")}
                     </button>
                   ),
                 )}
@@ -390,41 +393,39 @@ export function WidgetMenu() {
               <DialogTrigger asChild>
                 <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
                   <HelpCircle className="w-4 h-4" />
-                  <span>About / Help</span>
+                  <span>{t("chatbot.menu.about")}</span>
                 </button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>About {chatbotTitle}</DialogTitle>
+                  <DialogTitle>{t("chatbot.about.title", { title: chatbotTitle })}</DialogTitle>
                   <DialogDescription>
-                    A RAG-powered chatbot that provides accurate, context-aware
-                    answers.
+                    {t("chatbot.about.description")}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div>
                     <h3 className="text-gray-700 dark:text-gray-300 font-semibold mb-2">
-                      How to use:
+                      {t("chatbot.about.howToUse")}
                     </h3>
                     <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
-                      <li>Ask questions to get helpful information</li>
+                      <li>{t("chatbot.about.howToUse.1")}</li>
                       <li>
-                        The chatbot uses AI to provide accurate, context-aware
-                        answers
+                        {t("chatbot.about.howToUse.2")}
                       </li>
-                      <li>Your conversation history is saved automatically</li>
+                      <li>{t("chatbot.about.howToUse.3")}</li>
                     </ul>
                   </div>
                   <div>
                     <h3 className="text-gray-700 dark:text-gray-300 font-semibold mb-2">
-                      Features:
+                      {t("chatbot.about.features")}
                     </h3>
                     <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 list-disc list-inside">
-                      <li>Export chat history as TXT or PDF</li>
-                      <li>Copy conversations to clipboard</li>
-                      <li>Dark/Light mode support</li>
-                      <li>Adjustable font size</li>
-                      <li>Customizable widget position</li>
+                      <li>{t("chatbot.about.features.1")}</li>
+                      <li>{t("chatbot.about.features.2")}</li>
+                      <li>{t("chatbot.about.features.3")}</li>
+                      <li>{t("chatbot.about.features.4")}</li>
+                      <li>{t("chatbot.about.features.5")}</li>
                     </ul>
                   </div>
                   <div>
@@ -434,7 +435,7 @@ export function WidgetMenu() {
                       rel="noopener noreferrer"
                       className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                     >
-                      Visit Portfolio →
+                      {t("chatbot.about.visitPortfolio")}
                     </a>
                   </div>
                 </div>
@@ -446,21 +447,20 @@ export function WidgetMenu() {
               <DialogTrigger asChild>
                 <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
                   <MessageSquare className="w-4 h-4" />
-                  <span>Feedback / Report Issue</span>
+                  <span>{t("chatbot.menu.feedback")}</span>
                 </button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Feedback / Report Issue</DialogTitle>
+                  <DialogTitle>{t("chatbot.feedback.title")}</DialogTitle>
                   <DialogDescription>
-                    Help us improve by sharing your feedback or reporting
-                    issues.
+                    {t("chatbot.feedback.description")}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
                   <div>
                     <label className="text-sm text-gray-700 dark:text-gray-300  font-medium mb-2 block">
-                      Email (optional)
+                      {t("chatbot.feedback.email")}
                     </label>
                     <input
                       type="email"
@@ -472,14 +472,14 @@ export function WidgetMenu() {
                   </div>
                   <div>
                     <label className="text-sm text-gray-700 dark:text-gray-300  font-medium mb-2 block">
-                      Comment
+                      {t("chatbot.feedback.comment")}
                     </label>
                     <textarea
                       value={feedbackComment}
                       onChange={(e) => setFeedbackComment(e.target.value)}
                       rows={4}
                       className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
-                      placeholder="Your feedback or issue description..."
+                      placeholder={t("chatbot.feedback.commentPlaceholder")}
                     />
                   </div>
                 </div>
@@ -488,9 +488,9 @@ export function WidgetMenu() {
                     variant="chatbotOutline"
                     onClick={() => setFeedbackOpen(false)}
                   >
-                    Cancel
+                    {t("chatbot.feedback.cancel")}
                   </Button>
-                  <Button variant="chatbotDefault" onClick={handleReportIssue}>Submit</Button>
+                  <Button variant="chatbotDefault" onClick={handleReportIssue}>{t("chatbot.feedback.submit")}</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -502,14 +502,14 @@ export function WidgetMenu() {
                   <DialogTrigger asChild>
                     <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
                       <Star className="w-4 h-4" />
-                      <span>Rate This Chatbot</span>
+                      <span>{t("chatbot.menu.rate")}</span>
                     </button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Rate This Chatbot</DialogTitle>
+                      <DialogTitle>{t("chatbot.rating.title")}</DialogTitle>
                       <DialogDescription>
-                        How would you rate your experience?
+                        {t("chatbot.rating.description")}
                       </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
@@ -530,14 +530,14 @@ export function WidgetMenu() {
                       </div>
                       <div>
                         <label className="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2 block">
-                          Comment (optional)
+                          {t("chatbot.rating.comment")}
                         </label>
                         <textarea
                           value={feedbackComment}
                           onChange={(e) => setFeedbackComment(e.target.value)}
                           rows={3}
                           className="w-full px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
-                          placeholder="Share your thoughts..."
+                          placeholder={t("chatbot.rating.commentPlaceholder")}
                         />
                       </div>
                     </div>
@@ -546,14 +546,14 @@ export function WidgetMenu() {
                         variant="chatbotOutline"
                         onClick={() => setRatingOpen(false)}
                       >
-                        Cancel
+                        {t("chatbot.feedback.cancel")}
                       </Button>
                       <Button
                         variant="chatbotDefault"
                         onClick={handleSubmitRating}
                         disabled={feedbackRating === 0}
                       >
-                        Submit Rating
+                        {t("chatbot.rating.submit")}
                       </Button>
                     </DialogFooter>
                   </DialogContent>

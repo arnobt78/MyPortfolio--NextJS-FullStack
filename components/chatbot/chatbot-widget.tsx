@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useChat } from "@/hooks/use-chat";
 import { useWidgetSettings } from "@/hooks/use-widget-settings";
+import { useLanguage } from "@/context/LanguageContext";
 import { WidgetMenu } from "./widget-menu";
 // Button component not used in this file
 import { cn } from "@/lib/utils";
@@ -18,17 +19,19 @@ import { ChatHistorySkeleton } from "./message-skeleton";
 export function ChatbotWidget() {
   const { messages, sendMessage, isSending, streamingMessage, isLoading, error } = useChat();
   const { fontSize, position } = useWidgetSettings();
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const [config, setConfig] = useState({
-    title: "Arnob's Assistant",
-    greeting: "👋 How can I help you today?",
-    placeholder: "Ask about Arnob...",
+    title: t("chatbot.title"),
+    greeting: t("chatbot.greeting"),
+    placeholder: t("chatbot.placeholder"),
   });
 
   // Load config from window after mount to avoid hydration mismatch
+  // Also update when language changes
   useEffect(() => {
     if (typeof window !== "undefined") {
       interface WindowWithChatbotConfig extends Window {
@@ -38,12 +41,12 @@ export function ChatbotWidget() {
       }
       const win = window as WindowWithChatbotConfig;
       setConfig({
-        title: win.CHATBOT_TITLE || "Arnob's Assistant",
-        greeting: win.CHATBOT_GREETING || "👋 How can I help you today?",
-        placeholder: win.CHATBOT_PLACEHOLDER || "Ask about Arnob...",
+        title: win.CHATBOT_TITLE || t("chatbot.title"),
+        greeting: win.CHATBOT_GREETING || t("chatbot.greeting"),
+        placeholder: win.CHATBOT_PLACEHOLDER || t("chatbot.placeholder"),
       });
     }
-  }, []);
+  }, [t, language]);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -109,7 +112,7 @@ export function ChatbotWidget() {
           width: "3.5rem",
           height: "3.5rem",
         }}
-        aria-label="Toggle chatbot"
+        aria-label={t("chatbot.aria.toggle")}
       >
         {!isOpen ? (
           <svg
@@ -190,10 +193,10 @@ export function ChatbotWidget() {
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <p className="text-red-500 dark:text-red-400 mb-2">
-                  Failed to load chat history
+                  {t("chatbot.error.loadHistory")}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Please try refreshing the page
+                  {t("chatbot.error.refresh")}
                 </p>
               </div>
             </div>
@@ -275,7 +278,7 @@ export function ChatbotWidget() {
                       style={{ animationDelay: "0.3s" }}
                     />
                   </div>
-                  <span>Thinking...</span>
+                  <span>{t("chatbot.typing")}</span>
                 </div>
               </div>
             </div>

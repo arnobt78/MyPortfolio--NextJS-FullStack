@@ -136,6 +136,100 @@ export default async function RootLayout({
             __html: `window.__INITIAL_LANGUAGE__="${initialLanguage}";`,
           }}
         />
+        {/* CRITICAL: Prevent Radix UI dialog from adding padding that causes layout shift */}
+        {/* This script runs immediately and aggressively removes any padding/margin */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Wait for DOM to be ready
+                function init() {
+                  // Check if elements exist before accessing
+                  const html = document.documentElement;
+                  const body = document.body;
+                  
+                  if (!html || !body) {
+                    // If not ready, try again
+                    if (document.readyState === 'loading') {
+                      document.addEventListener('DOMContentLoaded', init);
+                      return;
+                    }
+                    // Fallback: try again after a short delay
+                    setTimeout(init, 10);
+                    return;
+                  }
+                  
+                  // Set scrollbar width to 0 immediately to prevent Radix calculations
+                  const style = document.createElement('style');
+                  style.textContent = \`
+                    html, body {
+                      scrollbar-width: none !important;
+                      -ms-overflow-style: none !important;
+                      padding-right: 0 !important;
+                      margin-right: 0 !important;
+                    }
+                    html::-webkit-scrollbar, body::-webkit-scrollbar {
+                      display: none !important;
+                      width: 0 !important;
+                      height: 0 !important;
+                    }
+                  \`;
+                  document.head.appendChild(style);
+                  
+                  // Function to remove padding/margin aggressively
+                  function removePadding() {
+                    const htmlEl = document.documentElement;
+                    const bodyEl = document.body;
+                    
+                    // Safety check
+                    if (!htmlEl || !bodyEl) return;
+                    
+                    if (htmlEl.style && htmlEl.style.paddingRight) htmlEl.style.paddingRight = '0px';
+                    if (htmlEl.style && htmlEl.style.marginRight) htmlEl.style.marginRight = '0px';
+                    if (bodyEl.style && bodyEl.style.paddingRight) bodyEl.style.paddingRight = '0px';
+                    if (bodyEl.style && bodyEl.style.marginRight) bodyEl.style.marginRight = '0px';
+                  }
+                  
+                  // Remove padding immediately
+                  removePadding();
+                  
+                  // Watch for any style changes on html and body
+                  const observer = new MutationObserver(function(mutations) {
+                    removePadding();
+                  });
+                  
+                  // Observe both html and body for style attribute changes
+                  if (html) {
+                    observer.observe(html, {
+                      attributes: true,
+                      attributeFilter: ['style', 'class', 'data-scroll-locked']
+                    });
+                  }
+                  if (body) {
+                    observer.observe(body, {
+                      attributes: true,
+                      attributeFilter: ['style', 'class', 'data-scroll-locked']
+                    });
+                  }
+                  
+                  // Also use requestAnimationFrame for continuous monitoring
+                  function monitorPadding() {
+                    removePadding();
+                    requestAnimationFrame(monitorPadding);
+                  }
+                  requestAnimationFrame(monitorPadding);
+                }
+                
+                // Start initialization
+                if (document.readyState === 'loading') {
+                  document.addEventListener('DOMContentLoaded', init);
+                } else {
+                  init();
+                }
+              })();
+            `,
+          }}
+        />
         {/* Bing Webmaster Tools: set NEXT_PUBLIC_BING_SITE_VERIFICATION in .env.local and Vercel to the meta-tag content value from Bing. */}
         {process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION && (
           <meta

@@ -4,6 +4,10 @@
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18.3.1-blue)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7.2-blue)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4.17-blue)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.24-blue)](https://www.framer.com/motion/)
+[![Shadcn UI](https://img.shields.io/badge/Shadcn_UI-1.2.12-blue)](https://www.shadcn.com/)
+[![i18next](https://img.shields.io/badge/i18next-25.8.0-blue)](https://www.i18next.com/)
 
 A cutting-edge, production-ready portfolio website built with **Next.js 15**, **React 18**, **TypeScript**, **TailwindCSS**, and **Framer Motion**. This project showcases modern web development practices, including server-side rendering, API routes, email functionality, analytics integration, internationalization (i18n), and stunning animations.
 
@@ -537,7 +541,7 @@ export const translations = {
 };
 ```
 
-2. **Update language types:**
+1. **Update language types:**
 
 ```typescript
 // In context/LanguageContext.tsx
@@ -547,7 +551,7 @@ export type Language = "en" | "de" | "fr"; // Add new language
 const supportedLanguages = ["en", "de", "fr"]; // Add new language
 ```
 
-3. **Update i18n configuration:**
+1. **Update i18n configuration:**
 
 ```typescript
 // In lib/i18n.ts
@@ -565,7 +569,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 function MyComponent() {
   const { t } = useLanguage();
-  
+
   return (
     <div>
       <h1>{t("home.hello")}</h1>
@@ -582,7 +586,7 @@ The `LanguageSelector` component provides a dropdown to switch languages:
 ```tsx
 import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
 
-<LanguageSelector />
+<LanguageSelector />;
 ```
 
 ---
@@ -667,10 +671,7 @@ const services: Service[] = [
     num: "01",
     titleKey: "services.01.title",
     descriptionKey: "services.01.description",
-    stack: [
-      { name: "React" },
-      { name: "Next.js" },
-    ],
+    stack: [{ name: "React" }, { name: "Next.js" }],
     href: "/contact",
   },
   // Add more services here
@@ -737,7 +738,7 @@ const experience: ExperienceData = {
 };
 ```
 
-2. **Add Skills:**
+1. **Add Skills:**
 
 ```tsx
 import { FaReact } from "react-icons/fa";
@@ -795,10 +796,7 @@ const projects: Project[] = [
     category: "Fullstack",
     title: "work.project.01.title", // Translation key
     description: "work.project.01.description", // Translation key
-    stack: [
-      { name: "Next.js" },
-      { name: "TypeScript" },
-    ],
+    stack: [{ name: "Next.js" }, { name: "TypeScript" }],
     image: "/assets/work/project-image.png",
     live: "https://your-live-demo.com",
     github: "https://github.com/yourusername/repo",
@@ -968,7 +966,7 @@ import { Input } from "@/components/ui/input";
   placeholder="Enter your email"
   value={email}
   onChange={(e) => setEmail(e.target.value)}
-/>
+/>;
 ```
 
 ---
@@ -982,10 +980,7 @@ Multi-line text input for longer content.
 ```tsx
 import { Textarea } from "@/components/ui/textarea";
 
-<Textarea 
-  placeholder="Your message" 
-  className="h-[200px]" 
-/>
+<Textarea placeholder="Your message" className="h-[200px]" />;
 ```
 
 ---
@@ -1008,7 +1003,7 @@ import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 <Alert variant="success">
   <AlertTitle>Success!</AlertTitle>
   <AlertDescription>Your message has been sent.</AlertDescription>
-</Alert>
+</Alert>;
 ```
 
 ---
@@ -1030,7 +1025,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
   <TabsContent value="tab1">Content for Tab 1</TabsContent>
   <TabsContent value="tab2">Content for Tab 2</TabsContent>
-</Tabs>
+</Tabs>;
 ```
 
 ---
@@ -1054,7 +1049,7 @@ import {
     <AccordionTrigger>Question?</AccordionTrigger>
     <AccordionContent>Answer here.</AccordionContent>
   </AccordionItem>
-</Accordion>
+</Accordion>;
 ```
 
 ---
@@ -1080,7 +1075,7 @@ import {
       <p>Tooltip content here</p>
     </TooltipContent>
   </Tooltip>
-</TooltipProvider>
+</TooltipProvider>;
 ```
 
 ---
@@ -1326,7 +1321,7 @@ Language switcher dropdown component.
 ```tsx
 import { LanguageSelector } from "@/components/LanguageSelector/LanguageSelector";
 
-<LanguageSelector />
+<LanguageSelector />;
 ```
 
 ---
@@ -1398,7 +1393,7 @@ const transporter = nodemailer.createTransport({
 ```tsx
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
-  
+
   try {
     const response = await axios.post("/api/send-email", formData);
     if (response.status === 200) {
@@ -1476,17 +1471,17 @@ console.log("Reference:", autoReply.data.referenceNumber);
 
 Next.js 15 uses the **App Router** with file-based routing.
 
-| Route       | File                    | Component      | Description            |
-| ----------- | ----------------------- | -------------- | ---------------------- |
-| `/`         | `app/page.tsx`          | `HomePage`     | Landing page with hero |
-| `/about`    | `app/about/page.tsx`   | `AboutPage`    | About information      |
-| `/services` | `app/services/page.tsx` | `ServicesPage` | Services offered       |
-| `/resume`   | `app/resume/page.tsx`   | `ResumePage`   | Resume/Skills          |
-| `/work`     | `app/work/page.tsx`     | `WorkPage`     | Portfolio projects     |
+| Route       | File                    | Component      | Description                |
+| ----------- | ----------------------- | -------------- | -------------------------- |
+| `/`         | `app/page.tsx`          | `HomePage`     | Landing page with hero     |
+| `/about`    | `app/about/page.tsx`    | `AboutPage`    | About information          |
+| `/services` | `app/services/page.tsx` | `ServicesPage` | Services offered           |
+| `/resume`   | `app/resume/page.tsx`   | `ResumePage`   | Resume/Skills              |
+| `/work`     | `app/work/page.tsx`     | `WorkPage`     | Portfolio projects         |
 | `/faq`      | `app/faq/page.tsx`      | `FAQPage`      | Frequently asked questions |
-| `/contact`  | `app/contact/page.tsx`  | `ContactPage`  | Contact form           |
-| `/privacy`  | `app/privacy/page.tsx`  | `PrivacyPage`  | Privacy policy         |
-| `/terms`    | `app/terms/page.tsx`    | `TermsPage`    | Terms of service       |
+| `/contact`  | `app/contact/page.tsx`  | `ContactPage`  | Contact form               |
+| `/privacy`  | `app/privacy/page.tsx`  | `PrivacyPage`  | Privacy policy             |
+| `/terms`    | `app/terms/page.tsx`    | `TermsPage`    | Terms of service           |
 
 ### Creating New Pages
 
@@ -1499,7 +1494,7 @@ mkdir app/blog
 touch app/blog/page.tsx
 ```
 
-2. Create page component:
+1. Create page component:
 
 ```tsx
 // app/blog/page.tsx
@@ -1513,7 +1508,7 @@ export default function BlogPage() {
 }
 ```
 
-3. Add to navigation:
+1. Add to navigation:
 
 ```tsx
 // components/Nav.tsx
@@ -1553,9 +1548,9 @@ The project includes automatic sitemap generation via `app/sitemap.ts`:
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://www.arnobmahmud.com',
+      url: "https://www.arnobmahmud.com",
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 1,
     },
     // ... more routes
@@ -1700,8 +1695,14 @@ keyframes: {
 }
 
 @keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
 }
 ```
 
@@ -1740,10 +1741,7 @@ keyframes: {
 **Hover Effects:**
 
 ```tsx
-<motion.div 
-  whileHover={{ scale: 1.05 }} 
-  whileTap={{ scale: 0.95 }}
->
+<motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
   Click me
 </motion.div>
 ```
@@ -2017,15 +2015,13 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
-2. **Connect to Vercel:**
-
+1. **Connect to Vercel:**
    - Go to [Vercel](https://vercel.com)
    - Click "Add New" > "Project"
    - Import your GitHub repository
    - Vercel auto-detects Next.js
 
-3. **Configure Environment Variables:**
-
+2. **Configure Environment Variables:**
    - Click "Environment Variables"
    - Add all variables from `.env.local`:
      - `EMAIL_USER`
@@ -2036,8 +2032,7 @@ git push origin main
      - `NEXT_PUBLIC_BING_SITE_VERIFICATION` (optional)
    - Click "Deploy"
 
-4. **Auto-Deployment:**
-
+3. **Auto-Deployment:**
    - Every push to `main` branch triggers new deployment
    - Pull requests create preview deployments
 
@@ -2062,7 +2057,6 @@ vercel --prod
 ### Deploy to Netlify
 
 1. **Build Settings:**
-
    - Build command: `npm run build`
    - Publish directory: `.next`
 
@@ -2112,7 +2106,7 @@ vercel --prod
 npm run build
 ```
 
-2. **Start with PM2:**
+1. **Start with PM2:**
 
 ```bash
 # Install PM2
@@ -2128,7 +2122,7 @@ pm2 save
 pm2 startup
 ```
 
-3. **Configure Nginx:**
+1. **Configure Nginx:**
 
 ```nginx
 server {
@@ -2146,7 +2140,7 @@ server {
 }
 ```
 
-4. **Enable SSL with Certbot:**
+1. **Enable SSL with Certbot:**
 
 ```bash
 sudo certbot --nginx -d yourdomain.com
@@ -2599,7 +2593,7 @@ npm run dev:clean
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-2. **Verify in Browser Console:**
+1. **Verify in Browser Console:**
 
 ```javascript
 // Check if gtag is loaded
@@ -2607,12 +2601,12 @@ console.log(window.gtag);
 console.log(window.dataLayer);
 ```
 
-3. **Disable Ad Blocker:**
+1. **Disable Ad Blocker:**
 
 - Ad blockers prevent GA from loading
 - Test in incognito mode without extensions
 
-4. **Wait 24-48 hours:**
+1. **Wait 24-48 hours:**
 
 - GA4 data processing takes time
 - Real-time reports update faster

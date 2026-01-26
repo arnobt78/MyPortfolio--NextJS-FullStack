@@ -7,6 +7,16 @@
     /* Prevent horizontal scrollbar and layout shift */
     overflow-x: hidden;
     max-width: 100vw;
+    /* Hide scrollbar but allow scrolling - set on html too to prevent Radix calculations */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  /* Hide scrollbar on html for WebKit browsers */
+  html::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
   
   body {
@@ -16,6 +26,32 @@
     /* Prevent horizontal scrollbar and layout shift */
     overflow-x: hidden;
     max-width: 100vw;
+    /* Hide scrollbar but allow scrolling (like widget) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    /* CRITICAL: Prevent any padding/margin from being added by Radix UI react-remove-scroll */
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Hide scrollbar on body for WebKit browsers */
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  
+  /* AGGRESSIVE: Override Radix UI react-remove-scroll padding/margin in ALL cases */
+  body[style*="padding-right"],
+  body[style*="margin-right"],
+  body.remove-scroll-bar,
+  body[data-scroll-locked],
+  html[style*="padding-right"],
+  html[style*="margin-right"],
+  html.remove-scroll-bar,
+  html[data-scroll-locked] {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
   }
   
   /* Prevent any child elements from causing horizontal overflow */
@@ -308,6 +344,23 @@
 }
 
 @layer utilities {
+  /* AGGRESSIVE: Override Radix UI react-remove-scroll padding/margin to prevent layout shift */
+  /* This ensures no padding is added when dialogs open, since we hide the scrollbar */
+  body[style*="padding-right"],
+  body[style*="margin-right"],
+  body.remove-scroll-bar,
+  body[data-scroll-locked],
+  html[style*="padding-right"],
+  html[style*="margin-right"],
+  html.remove-scroll-bar,
+  html[data-scroll-locked],
+  /* Target any element with Radix scroll lock classes */
+  [data-radix-scroll-lock-body],
+  [data-radix-scroll-lock-body] body {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+  }
+
   @keyframes countUp {
     0% {
       transform: scale(0.8);
