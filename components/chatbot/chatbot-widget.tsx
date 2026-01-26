@@ -147,10 +147,10 @@ export function ChatbotWidget() {
         id="cb-react"
         className={cn(
           "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[99999] origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 outline-none focus:outline-none focus-visible:outline-none",
-          // Mobile: ensure header is always visible - use fixed height so dropdown menu isn't clipped
-          // Widget is positioned bottom-20 (80px from bottom), so height should be calc(100vh - 80px - safe area)
-          // Use fixed height (not max-h) so widget always displays at full height, allowing menu dropdown to show properly
-          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] h-[calc(100vh-5rem)]",
+          // Mobile: allow widget to shrink to content but ensure header is always visible
+          // Widget is positioned bottom-20 (80px from bottom)
+          // Use max-h with min-h to allow shrinking but ensure header visibility and menu dropdown space
+          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] min-h-[300px]",
           position === "bottom-right" ? "right-4" : "left-4",
           // Desktop: fixed positioning and size from bottom
           "sm:bottom-24 sm:top-auto sm:h-[600px] sm:w-[400px] sm:max-w-[400px]",

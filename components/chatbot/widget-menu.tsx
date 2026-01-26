@@ -264,10 +264,16 @@ export function WidgetMenu() {
         {menuOpen && (
           <div
             id="cb-d-react"
-            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto"
+            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto max-h-[calc(100vh-12rem)] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
-            style={{ pointerEvents: "auto" }}
+            style={{ 
+              pointerEvents: "auto",
+              // On mobile: make dropdown scrollable if it exceeds available space
+              maxHeight: 'calc(100vh - 12rem)',
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch'
+            }}
           >
             {/* Theme Toggle */}
             <button
