@@ -849,6 +849,10 @@
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: thin !important;
     scrollbar-color: rgba(156, 163, 175, 0.5) transparent !important;
+    /* Prevent touch events from propagating to background */
+    touch-action: pan-y !important;
+    /* Ensure menu captures all touch events */
+    overscroll-behavior: contain !important;
   }
 
   /* Custom scrollbar for dropdown menu on mobile */

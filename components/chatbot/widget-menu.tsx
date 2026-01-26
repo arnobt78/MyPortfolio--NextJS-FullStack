@@ -267,12 +267,27 @@ export function WidgetMenu() {
             className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto max-h-[calc(100vh-12rem)] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              // Prevent background scrolling when touching menu
+              e.stopPropagation();
+            }}
+            onTouchMove={(e) => {
+              // Always prevent background scroll when moving within menu
+              e.stopPropagation();
+              // Allow native scrolling within the menu container
+            }}
+            onTouchEnd={(e) => {
+              // Prevent background scroll on touch end
+              e.stopPropagation();
+            }}
             style={{ 
               pointerEvents: "auto",
               // On mobile: make dropdown scrollable if it exceeds available space
               maxHeight: 'calc(100vh - 12rem)',
               overflowY: 'auto',
-              WebkitOverflowScrolling: 'touch'
+              WebkitOverflowScrolling: 'touch',
+              // Prevent touch events from propagating to background
+              touchAction: 'pan-y'
             }}
           >
             {/* Theme Toggle */}
@@ -609,7 +624,21 @@ export function WidgetMenu() {
               e.stopPropagation();
             }
           }}
-          style={{ backgroundColor: 'transparent' }}
+          onTouchStart={(e) => {
+            // Prevent overlay from capturing touch events when touching menu
+            const target = e.target as HTMLElement;
+            if (target.closest("#cb-d-react")) {
+              e.stopPropagation();
+            }
+          }}
+          onTouchMove={(e) => {
+            // Prevent overlay from interfering with menu scrolling
+            const target = e.target as HTMLElement;
+            if (target.closest("#cb-d-react")) {
+              e.stopPropagation();
+            }
+          }}
+          style={{ backgroundColor: 'transparent', touchAction: 'none' }}
         />
       )}
     </>
