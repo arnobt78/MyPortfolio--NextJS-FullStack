@@ -17,7 +17,14 @@ import { ChatHistorySkeleton } from "./message-skeleton";
  * Provides the complete chat interface with all features
  */
 export function ChatbotWidget() {
-  const { messages, sendMessage, isSending, streamingMessage, isLoading, error } = useChat();
+  const {
+    messages,
+    sendMessage,
+    isSending,
+    streamingMessage,
+    isLoading,
+    error,
+  } = useChat();
   const { fontSize, position, theme } = useWidgetSettings();
   const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
@@ -150,55 +157,64 @@ export function ChatbotWidget() {
           // Mobile: allow widget to shrink to content but ensure header is always visible
           // Widget is positioned bottom-20 (80px from bottom)
           // Use max-h with min-h to allow shrinking but ensure header visibility and menu dropdown space
-          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] min-h-[300px]",
+          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] min-h-[400px]",
           position === "bottom-right" ? "right-4" : "left-4",
           // Desktop: fixed positioning and size from bottom
           "sm:bottom-24 sm:top-auto sm:h-[600px] sm:w-[400px] sm:max-w-[400px]",
-          position === "bottom-right" ? "sm:right-6 sm:left-auto" : "sm:left-6 sm:right-auto",
+          position === "bottom-right"
+            ? "sm:right-6 sm:left-auto"
+            : "sm:left-6 sm:right-auto",
           isOpen
             ? "opacity-100 scale-100 pointer-events-auto"
             : "opacity-0 scale-95 pointer-events-none w-0 h-0 sm:w-0 sm:h-0",
-          fontSizeClasses.base
+          fontSizeClasses.base,
         )}
-        style={{ 
-          pointerEvents: isOpen ? 'auto' : 'none',
-          borderRadius: '1rem',
-          overflow: 'hidden',
-          isolation: 'isolate',
-          display: 'flex',
-          flexDirection: 'column',
+        style={{
+          pointerEvents: isOpen ? "auto" : "none",
+          borderRadius: "1rem",
+          overflow: "hidden",
+          isolation: "isolate",
+          display: "flex",
+          flexDirection: "column",
           // On mobile: use fixed height from className (h-[calc(100vh-5rem)])
           // On desktop: height is set via className (sm:h-[600px])
           // Only set to 0 when closed
           height: isOpen ? undefined : 0,
-          outline: 'none',
+          outline: "none",
           // Explicit background and border colors synchronized with theme
           backgroundColor: widgetBg,
           borderColor: widgetBorder,
           // Smooth transitions only for background and border
-          transition: 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
-          willChange: 'background-color, border-color'
+          transition:
+            "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
+          willChange: "background-color, border-color",
         }}
         tabIndex={-1}
       >
         {/* Header - Always visible, sticky at top */}
-        <div 
+        <div
           className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b shrink-0 relative z-[100000]"
           style={{
             backgroundColor: widgetBg,
             borderColor: headerBorder,
-            transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
+            transition:
+              "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
             // Ensure header is always visible and not clipped
-            position: 'relative',
+            position: "relative",
             flexShrink: 0,
-            minHeight: 'auto'
+            minHeight: "auto",
           }}
         >
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center shrink-0">
               <Bot className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
             </div>
-            <h3 className={cn("font-semibold text-gray-900 dark:text-white truncate min-w-0", fontSizeClasses.base)}>
+            <h3
+              className={cn(
+                "font-semibold text-gray-900 dark:text-white truncate min-w-0",
+                fontSizeClasses.base,
+              )}
+            >
               {config.title}
             </h3>
           </div>
@@ -212,18 +228,18 @@ export function ChatbotWidget() {
           ref={messagesContainerRef}
           className={cn(
             "flex-1 overflow-y-auto overflow-x-hidden px-3 sm:px-5 py-3 sm:py-4 space-y-3 sm:space-y-4 bg-gray-50 dark:bg-gray-950 chatbot-messages-scrollbar min-h-0",
-            fontSizeClasses.message
+            fontSizeClasses.message,
           )}
-          style={{ 
+          style={{
             minHeight: 0,
-            maxHeight: '100%',
-            WebkitOverflowScrolling: 'touch',
+            maxHeight: "100%",
+            WebkitOverflowScrolling: "touch",
             backgroundColor: messagesBg,
-            transition: 'background-color 0.2s ease-in-out',
+            transition: "background-color 0.2s ease-in-out",
             // Ensure messages container doesn't push header out of view
-            flex: '1 1 auto',
-            overflowY: 'auto',
-            overflowX: 'hidden'
+            flex: "1 1 auto",
+            overflowY: "auto",
+            overflowX: "hidden",
           }}
         >
           {/* Loading skeleton - shows exact message dimensions */}
@@ -257,15 +273,19 @@ export function ChatbotWidget() {
           {/* Messages - use timestamp for stable keys */}
           {messages.map((msg) => (
             <div
-              key={msg.timestamp || `msg-${msg.role}-${msg.content.slice(0, 20)}`}
+              key={
+                msg.timestamp || `msg-${msg.role}-${msg.content.slice(0, 20)}`
+              }
               className={cn(
                 "flex",
-                msg.role === "user" ? "justify-end" : "justify-start"
+                msg.role === "user" ? "justify-end" : "justify-start",
               )}
             >
               {msg.role === "user" ? (
                 <div className="bg-black text-white rounded-2xl rounded-br-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-600">
-                  <div className="whitespace-pre-wrap break-words">{msg.content}</div>
+                  <div className="whitespace-pre-wrap break-words">
+                    {msg.content}
+                  </div>
                 </div>
               ) : (
                 <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-700 shadow-sm">
@@ -337,7 +357,8 @@ export function ChatbotWidget() {
           style={{
             backgroundColor: widgetBg,
             borderColor: headerBorder,
-            transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out'
+            transition:
+              "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
           }}
         >
           <input
@@ -361,10 +382,11 @@ export function ChatbotWidget() {
               backgroundColor: inputBg,
               borderColor: inputBorder,
               color: inputTextColor,
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              boxShadow: inputFocused ? `0 0 0 2px ${inputFocusRing}` : 'none',
-              transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out',
+              borderWidth: "1px",
+              borderStyle: "solid",
+              boxShadow: inputFocused ? `0 0 0 2px ${inputFocusRing}` : "none",
+              transition:
+                "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out",
             }}
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
@@ -375,8 +397,9 @@ export function ChatbotWidget() {
             disabled={isSending || !inputValue.trim()}
             className="p-2 sm:p-3 rounded-full disabled:opacity-50 shrink-0"
             style={{
-              backgroundColor: 'transparent',
-              transition: 'background-color 0.2s ease-in-out, opacity 0.2s ease-in-out',
+              backgroundColor: "transparent",
+              transition:
+                "background-color 0.2s ease-in-out, opacity 0.2s ease-in-out",
             }}
             onMouseEnter={(e) => {
               if (!e.currentTarget.disabled) {
@@ -384,7 +407,7 @@ export function ChatbotWidget() {
               }
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.backgroundColor = "transparent";
             }}
           >
             <Send className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300" />
