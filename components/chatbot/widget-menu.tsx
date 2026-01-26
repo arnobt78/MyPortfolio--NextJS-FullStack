@@ -38,7 +38,7 @@ import {
 } from "@/lib/export-utils";
 import type { FontSize, WidgetPosition } from "@/lib/types";
 // FONT_SIZES and WIDGET_POSITIONS not used in this file
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /**
  * Widget menu component with all Phase 2 features
@@ -62,6 +62,9 @@ export function WidgetMenu() {
   const [isSubmittingRating, setIsSubmittingRating] = useState(false);
 
   const [chatbotTitle, setChatbotTitle] = useState(t("chatbot.title"));
+  const menuRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef<number>(0);
+  const touchStartScrollTop = useRef<number>(0);
 
   // Load chatbot title after mount to avoid hydration mismatch
   // Also update when language changes
@@ -263,6 +266,7 @@ export function WidgetMenu() {
 
         {menuOpen && (
           <div
+            ref={menuRef}
             id="cb-d-react"
             className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto max-h-[calc(100vh-12rem)] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
@@ -270,11 +274,43 @@ export function WidgetMenu() {
             onTouchStart={(e) => {
               // Prevent background scrolling when touching menu
               e.stopPropagation();
+              if (menuRef.current) {
+                touchStartY.current = e.touches[0].clientY;
+                touchStartScrollTop.current = menuRef.current.scrollTop;
+              }
             }}
             onTouchMove={(e) => {
-              // Always prevent background scroll when moving within menu
+              // Prevent background scroll when moving within menu
               e.stopPropagation();
-              // Allow native scrolling within the menu container
+              
+              if (!menuRef.current) return;
+              
+              const currentY = e.touches[0].clientY;
+              const deltaY = currentY - touchStartY.current;
+              const scrollTop = menuRef.current.scrollTop;
+              const scrollHeight = menuRef.current.scrollHeight;
+              const clientHeight = menuRef.current.clientHeight;
+              
+              // Check if menu is scrollable
+              const isScrollable = scrollHeight > clientHeight;
+              
+              // Check if we're at the top or bottom of scroll (with small threshold)
+              const threshold = 2;
+              const isAtTop = scrollTop <= threshold;
+              const isAtBottom = scrollTop + clientHeight >= scrollHeight - threshold;
+              
+              // Only prevent default when at scroll boundaries to stop background scroll
+              // This allows native smooth scrolling within the menu
+              if (isScrollable) {
+                // If trying to scroll beyond boundaries, prevent default to stop background scroll
+                if ((isAtTop && deltaY > 0) || (isAtBottom && deltaY < 0)) {
+                  e.preventDefault();
+                }
+                // Otherwise, let native scrolling work (touch-action: pan-y handles it)
+              } else {
+                // If menu is not scrollable, prevent default to stop background scroll
+                e.preventDefault();
+              }
             }}
             onTouchEnd={(e) => {
               // Prevent background scroll on touch end
@@ -286,8 +322,10 @@ export function WidgetMenu() {
               maxHeight: 'calc(100vh - 12rem)',
               overflowY: 'auto',
               WebkitOverflowScrolling: 'touch',
-              // Prevent touch events from propagating to background
-              touchAction: 'pan-y'
+              // Allow vertical panning (scrolling) within menu, prevent horizontal and other gestures
+              touchAction: 'pan-y',
+              // Prevent scroll chaining to background
+              overscrollBehavior: 'contain'
             }}
           >
             {/* Theme Toggle */}
