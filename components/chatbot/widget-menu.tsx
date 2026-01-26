@@ -58,6 +58,8 @@ export function WidgetMenu() {
   const [feedbackRating, setFeedbackRating] = useState(0);
   const [feedbackComment, setFeedbackComment] = useState("");
   const [feedbackEmail, setFeedbackEmail] = useState("");
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+  const [isSubmittingRating, setIsSubmittingRating] = useState(false);
 
   const [chatbotTitle, setChatbotTitle] = useState(t("chatbot.title"));
 
@@ -70,6 +72,10 @@ export function WidgetMenu() {
       }
       const win = window as WindowWithChatbotConfig;
       setChatbotTitle(win.CHATBOT_TITLE || t("chatbot.title"));
+      
+      // Clear any existing localStorage flag for rating submission
+      // This ensures the menu item always shows (we removed the conditional check)
+      localStorage.removeItem("chatbot-rating-submitted");
     }
   }, [t, language]);
 
@@ -130,6 +136,7 @@ export function WidgetMenu() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmitFeedback = async () => {
+    setIsSubmittingFeedback(true);
     try {
       const CHATBOT_BASE_URL =
         typeof window !== "undefined"
@@ -159,10 +166,13 @@ export function WidgetMenu() {
       }
     } catch {
       toast.error(t("chatbot.toast.feedbackFailed"));
+    } finally {
+      setIsSubmittingFeedback(false);
     }
   };
 
   const handleSubmitRating = async () => {
+    setIsSubmittingRating(true);
     try {
       const CHATBOT_BASE_URL =
         typeof window !== "undefined"
@@ -180,9 +190,6 @@ export function WidgetMenu() {
       });
 
       if (response.ok) {
-        if (typeof window !== "undefined") {
-          localStorage.setItem("chatbot-rating-submitted", "true");
-        }
         toast.success(t("chatbot.toast.ratingSuccess"));
         setRatingOpen(false);
         setFeedbackRating(0);
@@ -193,10 +200,13 @@ export function WidgetMenu() {
       }
     } catch {
       toast.error(t("chatbot.toast.ratingFailed"));
+    } finally {
+      setIsSubmittingRating(false);
     }
   };
 
   const handleReportIssue = async () => {
+    setIsSubmittingFeedback(true);
     try {
       const CHATBOT_BASE_URL =
         typeof window !== "undefined"
@@ -224,6 +234,8 @@ export function WidgetMenu() {
       }
     } catch {
       toast.error(t("chatbot.toast.issueFailed"));
+    } finally {
+      setIsSubmittingFeedback(false);
     }
   };
 
@@ -487,18 +499,23 @@ export function WidgetMenu() {
                   <Button
                     variant="chatbotOutline"
                     onClick={() => setFeedbackOpen(false)}
+                    disabled={isSubmittingFeedback}
                   >
                     {t("chatbot.feedback.cancel")}
                   </Button>
-                  <Button variant="chatbotDefault" onClick={handleReportIssue}>{t("chatbot.feedback.submit")}</Button>
+                  <Button 
+                    variant="chatbotDefault" 
+                    onClick={handleReportIssue}
+                    disabled={isSubmittingFeedback}
+                  >
+                    {isSubmittingFeedback ? t("chatbot.feedback.sending") : t("chatbot.feedback.submit")}
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
 
             {/* Rate This Chatbot */}
-            {typeof window !== "undefined" &&
-              !localStorage.getItem("chatbot-rating-submitted") && (
-                <Dialog open={ratingOpen} onOpenChange={setRatingOpen}>
+            <Dialog open={ratingOpen} onOpenChange={setRatingOpen}>
                   <DialogTrigger asChild>
                     <button className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2">
                       <Star className="w-4 h-4" />
@@ -545,20 +562,20 @@ export function WidgetMenu() {
                       <Button
                         variant="chatbotOutline"
                         onClick={() => setRatingOpen(false)}
+                        disabled={isSubmittingRating}
                       >
                         {t("chatbot.feedback.cancel")}
                       </Button>
                       <Button
                         variant="chatbotDefault"
                         onClick={handleSubmitRating}
-                        disabled={feedbackRating === 0}
+                        disabled={feedbackRating === 0 || isSubmittingRating}
                       >
-                        {t("chatbot.rating.submit")}
+                        {isSubmittingRating ? t("chatbot.rating.sending") : t("chatbot.rating.submit")}
                       </Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
-              )}
           </div>
         )}
       </div>
