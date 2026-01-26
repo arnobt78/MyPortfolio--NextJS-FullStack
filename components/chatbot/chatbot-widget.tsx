@@ -157,7 +157,7 @@ export function ChatbotWidget() {
           // Mobile: allow widget to shrink to content but ensure header is always visible
           // Widget is positioned bottom-20 (80px from bottom)
           // Use max-h with min-h to allow shrinking but ensure header visibility and menu dropdown space
-          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] min-h-[400px]",
+          "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-5rem)] min-h-[450px]",
           position === "bottom-right" ? "right-4" : "left-4",
           // Desktop: fixed positioning and size from bottom
           "sm:bottom-24 sm:top-auto sm:h-[600px] sm:w-[400px] sm:max-w-[400px]",
