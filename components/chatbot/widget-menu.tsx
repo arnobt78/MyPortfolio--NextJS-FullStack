@@ -226,7 +226,7 @@ export function WidgetMenu() {
 
   return (
     <>
-      <div className="relative z-[100]">
+      <div className="relative z-[100000]">
         <button
           id="cb-m-react"
           onClick={(e) => {
@@ -238,7 +238,7 @@ export function WidgetMenu() {
             e.stopPropagation();
             e.preventDefault();
           }}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors relative z-[101] pointer-events-auto cursor-pointer"
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors relative z-[100001] pointer-events-auto cursor-pointer"
           aria-label="Menu"
           type="button"
           style={{ pointerEvents: "auto", cursor: "pointer" }}
@@ -249,7 +249,7 @@ export function WidgetMenu() {
         {menuOpen && (
           <div
             id="cb-d-react"
-            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[101] pointer-events-auto"
+            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto"
             onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
             style={{ pointerEvents: "auto" }}
@@ -566,7 +566,7 @@ export function WidgetMenu() {
       {/* Close menu when clicking outside */}
       {menuOpen && (
         <div
-          className="fixed inset-0 z-[99] pointer-events-auto"
+          className="fixed inset-0 z-[99999] pointer-events-auto"
           onClick={(e) => {
             // Only close if clicking the overlay itself, not menu elements
             const target = e.target as HTMLElement;
@@ -586,6 +586,7 @@ export function WidgetMenu() {
               e.stopPropagation();
             }
           }}
+          style={{ backgroundColor: 'transparent' }}
         />
       )}
     </>

@@ -665,6 +665,7 @@
   /* Custom scrollbar styling for chatbot messages container */
   .chatbot-messages-scrollbar::-webkit-scrollbar {
     width: 6px; /* Thin scrollbar */
+    display: block !important; /* Always show scrollbar when content overflows */
   }
 
   .chatbot-messages-scrollbar::-webkit-scrollbar-track {
@@ -704,5 +705,30 @@
 
   .dark .chatbot-messages-scrollbar {
     scrollbar-color: rgb(17, 24, 39) transparent; /* Dark mode: gray-900 thumb, transparent track */
+  }
+
+  /* Ensure messages container has proper scrolling */
+  #cb-react .chatbot-messages-scrollbar {
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Ensure chatbot widget rounded corners are properly displayed */
+  /* Prevent any overlay or background from covering the rounded corners */
+  #cb-react,
+  [id="cb-react"] {
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    contain: layout style paint !important;
+    background-clip: padding-box !important;
+  }
+
+  /* Ensure no parent elements clip the widget's rounded corners */
+  body > div:has(#cb-react),
+  body > div:has([id="cb-react"]) {
+    overflow: visible !important;
   }
 }

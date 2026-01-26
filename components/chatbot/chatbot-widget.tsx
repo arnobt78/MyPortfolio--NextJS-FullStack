@@ -130,7 +130,7 @@ export function ChatbotWidget() {
       <div
         id="cb-react"
         className={cn(
-          "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-99999 transition-all origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700",
+          "fixed rounded-2xl shadow-2xl flex flex-col overflow-hidden z-[99999] transition-all origin-bottom-right bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700",
           // Mobile: fixed size, positioned like desktop but fits screen
           "bottom-20 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] h-[calc(100vh-6rem)] max-h-[600px]",
           position === "bottom-right" ? "right-4" : "left-4",
@@ -142,10 +142,18 @@ export function ChatbotWidget() {
             : "opacity-0 scale-95 pointer-events-none w-0 h-0 sm:w-0 sm:h-0",
           fontSizeClasses.base
         )}
-        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        style={{ 
+          pointerEvents: isOpen ? 'auto' : 'none',
+          borderRadius: '1rem',
+          overflow: 'hidden',
+          isolation: 'isolate',
+          display: 'flex',
+          flexDirection: 'column',
+          height: isOpen ? undefined : 0
+        }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 shrink-0 relative overflow-visible z-[100]">
+        <div className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 shrink-0 relative z-[100000]">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full flex items-center justify-center shrink-0">
               <Bot className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
@@ -154,7 +162,7 @@ export function ChatbotWidget() {
               {config.title}
             </h3>
           </div>
-          <div className="relative shrink-0 z-[101]">
+          <div className="relative shrink-0 z-[100001]">
             <WidgetMenu />
           </div>
         </div>
@@ -163,9 +171,14 @@ export function ChatbotWidget() {
         <div
           ref={messagesContainerRef}
           className={cn(
-            "flex-1 overflow-y-auto overflow-x-hidden px-3 sm:px-5 py-3 sm:py-4 space-y-3 sm:space-y-4 bg-gray-50 dark:bg-gray-950 chatbot-messages-scrollbar",
+            "flex-1 overflow-y-auto overflow-x-hidden px-3 sm:px-5 py-3 sm:py-4 space-y-3 sm:space-y-4 bg-gray-50 dark:bg-gray-950 chatbot-messages-scrollbar min-h-0",
             fontSizeClasses.message
           )}
+          style={{ 
+            minHeight: 0,
+            maxHeight: '100%',
+            WebkitOverflowScrolling: 'touch'
+          }}
         >
           {/* Loading skeleton - shows exact message dimensions */}
           {isLoading && messages.length === 0 && (
