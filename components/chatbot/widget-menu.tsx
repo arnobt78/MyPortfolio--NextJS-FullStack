@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { useChat } from "@/hooks/use-chat";
 import { useWidgetSettings } from "@/hooks/use-widget-settings";
 import { useLanguage } from "@/context/LanguageContext";
@@ -40,11 +41,16 @@ import type { FontSize, WidgetPosition } from "@/lib/types";
 // FONT_SIZES and WIDGET_POSITIONS not used in this file
 import { useState, useEffect, useRef } from "react";
 
+type WidgetMenuProps = {
+  /** When provided, the dropdown is rendered into this container (outside header) so it does not expand the header. */
+  menuPortalRef?: React.RefObject<HTMLDivElement | null>;
+};
+
 /**
  * Widget menu component with all Phase 2 features
  * Provides dropdown menu with all widget options
  */
-export function WidgetMenu() {
+export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
   const { messages, clearChat } = useChat();
   const { theme, fontSize, position, setTheme, setFontSize, setPosition } =
     useWidgetSettings();
@@ -240,43 +246,25 @@ export function WidgetMenu() {
     }
   };
 
-  return (
-    <>
-      <div className="relative z-[100000]">
-        <button
-          id="cb-m-react"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            setMenuOpen((prev) => !prev);
-          }}
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-          }}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors relative z-[100001] pointer-events-auto cursor-pointer"
-          aria-label="Menu"
-          type="button"
-          style={{ pointerEvents: "auto", cursor: "pointer" }}
-        >
-          <Settings className="w-5 h-5 text-gray-500 dark:text-gray-400 pointer-events-none" />
-        </button>
+  const usePortal = Boolean(menuOpen && menuPortalRef?.current);
+  const dropdownClasses = usePortal
+    ? "absolute right-2 top-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto"
+    : "absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto";
 
-        {menuOpen && (
-          <div
-            ref={menuRef}
-            id="cb-d-react"
-            className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-            onMouseDown={(e) => e.stopPropagation()}
-            style={{
-              // Responsive height: CSS handles overflow and scrolling, we only set max-height
-              maxHeight:
-                typeof window !== "undefined" && window.innerWidth < 640
-                  ? "300px"
-                  : "540px",
-            }}
-          >
+  const dropdownContent = (
+    <div
+      ref={menuRef}
+      id="cb-d-react"
+      className={dropdownClasses}
+      onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
+      style={{
+        maxHeight:
+          typeof window !== "undefined" && window.innerWidth < 640
+            ? "300px"
+            : "540px",
+      }}
+    >
             {/* Theme Toggle */}
             <button
               onClick={handleThemeToggle}
@@ -594,10 +582,35 @@ export function WidgetMenu() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-          </div>
-        )}
-      </div>
+    </div>
+  );
 
+  return (
+    <>
+      <div className="relative z-[100000]">
+        <button
+          id="cb-m-react"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            setMenuOpen((prev) => !prev);
+          }}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors relative z-[100001] pointer-events-auto cursor-pointer"
+          aria-label="Menu"
+          type="button"
+          style={{ pointerEvents: "auto", cursor: "pointer" }}
+        >
+          <Settings className="w-5 h-5 text-gray-500 dark:text-gray-400 pointer-events-none" />
+        </button>
+        {menuOpen && !usePortal && dropdownContent}
+      </div>
+      {usePortal &&
+        menuPortalRef?.current &&
+        createPortal(dropdownContent, menuPortalRef.current)}
       {/* Close menu when clicking outside */}
       {menuOpen && (
         <div

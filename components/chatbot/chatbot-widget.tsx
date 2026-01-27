@@ -32,6 +32,7 @@ export function ChatbotWidget() {
   const [inputFocused, setInputFocused] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const menuPortalRef = useRef<HTMLDivElement>(null);
   const [config, setConfig] = useState({
     title: t("chatbot.title"),
     greeting: t("chatbot.greeting"),
@@ -219,9 +220,16 @@ export function ChatbotWidget() {
             </h3>
           </div>
           <div className="relative shrink-0 z-[100001]">
-            <WidgetMenu />
+            <WidgetMenu menuPortalRef={menuPortalRef} />
           </div>
         </div>
+
+        {/* Portal target for menu dropdown — outside header layout so menu does not expand header */}
+        <div
+          ref={menuPortalRef}
+          className="absolute left-0 right-0 top-14 bottom-0 z-[99998] pointer-events-none sm:top-16"
+          aria-hidden
+        />
 
         {/* Messages Container */}
         <div
