@@ -270,19 +270,20 @@
   /* Target PageTransition wrapper */
   body > div[class*="framer-motion"] > div,
   /* Target any div with overflow-y-auto that's not explicitly needed */
-  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]) {
+  /* Exclude chatbot menu #cb-d-react so it keeps overflow-y: auto and scrolls inside 300px */
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react) {
     overflow-y: visible !important;
     overflow: visible !important;
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
   }
-  
+
   body > main::-webkit-scrollbar,
   body > div > section::-webkit-scrollbar,
   body > div > div[class*="container"]::-webkit-scrollbar,
   [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport])::-webkit-scrollbar,
   body > div[class*="framer-motion"] > div::-webkit-scrollbar,
-  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport])::-webkit-scrollbar {
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react)::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
