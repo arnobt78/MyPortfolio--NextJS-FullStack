@@ -270,31 +270,28 @@ export function WidgetMenu() {
             onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => {
-              // Prevent background/widget scrolling when touching menu
               e.stopPropagation();
               e.preventDefault();
             }}
             onTouchMove={(e) => {
-              // Always prevent background/widget scroll when moving within menu
-              // Allow menu to scroll natively via touch-action: pan-y
               e.stopPropagation();
               e.preventDefault();
             }}
             onTouchEnd={(e) => {
-              // Prevent background/widget scroll on touch end
               e.stopPropagation();
               e.preventDefault();
             }}
             style={{
               pointerEvents: "auto",
-              // On mobile: make dropdown scrollable if it exceeds available space
-              // Reduced max-height since widget is now max-h-[450px] sm:min-h-[600px]
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
-              // Allow vertical panning (scrolling) within menu only
               touchAction: "pan-y",
-              // Prevent scroll chaining to background/widget
               overscrollBehavior: "contain",
+              // Responsive maxHeight: 400px on mobile, 540px on desktop
+              maxHeight:
+                typeof window !== "undefined" && window.innerWidth < 640
+                  ? 400
+                  : 540,
             }}
           >
             {/* Theme Toggle */}
