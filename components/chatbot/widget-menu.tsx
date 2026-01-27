@@ -271,15 +271,12 @@ export function WidgetMenu() {
             onMouseDown={(e) => e.stopPropagation()}
             onTouchStart={(e) => {
               e.stopPropagation();
-              e.preventDefault();
             }}
             onTouchMove={(e) => {
               e.stopPropagation();
-              e.preventDefault();
             }}
             onTouchEnd={(e) => {
               e.stopPropagation();
-              e.preventDefault();
             }}
             style={{
               pointerEvents: "auto",
@@ -288,10 +285,10 @@ export function WidgetMenu() {
               touchAction: "pan-y",
               overscrollBehavior: "contain",
               // Responsive maxHeight: 400px on mobile, 540px on desktop
-              maxHeight:
-                typeof window !== "undefined" && window.innerWidth < 640
-                  ? 400
-                  : 540,
+              // maxHeight:
+              //   typeof window !== "undefined" && window.innerWidth < 640
+              //     ? 400
+              //     : 540,
             }}
           >
             {/* Theme Toggle */}
