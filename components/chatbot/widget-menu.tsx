@@ -282,13 +282,11 @@ export function WidgetMenu() {
               pointerEvents: "auto",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
-              touchAction: "pan-y",
-              overscrollBehavior: "contain",
               // Responsive maxHeight: 400px on mobile, 540px on desktop
-              // maxHeight:
-              //   typeof window !== "undefined" && window.innerWidth < 640
-              //     ? 400
-              //     : 540,
+              maxHeight:
+                typeof window !== "undefined" && window.innerWidth < 640
+                  ? 400
+                  : 540,
             }}
           >
             {/* Theme Toggle */}
