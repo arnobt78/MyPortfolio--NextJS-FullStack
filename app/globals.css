@@ -849,6 +849,12 @@
   /* =========================================================
      HARD ISOLATION FIX FOR CHATBOT DROPDOWN (MOBILE)
      ========================================================= */
+  /* Portaled menu: keep absolute so it stays right-aligned in the widget body */
+  #cb-d-react[data-portal-menu],
+  [id="cb-d-react"][data-portal-menu] {
+    position: absolute !important;
+  }
+
   #cb-d-react,
   [id="cb-d-react"] {
     position: relative !important;

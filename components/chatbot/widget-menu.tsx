@@ -255,6 +255,7 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
     <div
       ref={menuRef}
       id="cb-d-react"
+      {...(usePortal ? { "data-portal-menu": true } : {})}
       className={dropdownClasses}
       onClick={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
@@ -610,9 +611,57 @@ export function WidgetMenu({ menuPortalRef }: WidgetMenuProps) {
       </div>
       {usePortal &&
         menuPortalRef?.current &&
-        createPortal(dropdownContent, menuPortalRef.current)}
-      {/* Close menu when clicking outside */}
-      {menuOpen && (
+        createPortal(
+          <>
+            {/* Overlay inside portal so it sits BELOW dropdown (z-99998) — lets dropdown receive touch/scroll on phone */}
+            <div
+              className="fixed inset-0 z-[99998] pointer-events-auto"
+              onClick={(e) => {
+                const target = e.target as HTMLElement;
+                if (
+                  target === e.currentTarget ||
+                  (!target.closest("#cb-m-react") &&
+                    !target.closest("#cb-d-react"))
+                ) {
+                  setMenuOpen(false);
+                }
+              }}
+              onMouseDown={(e) => {
+                const target = e.target as HTMLElement;
+                if (
+                  target.closest("#cb-m-react") ||
+                  target.closest("#cb-d-react")
+                ) {
+                  e.stopPropagation();
+                }
+              }}
+              onTouchStart={(e) => {
+                const target = e.target as HTMLElement;
+                if (target.closest("#cb-d-react")) {
+                  e.stopPropagation();
+                }
+              }}
+              onTouchMove={(e) => {
+                const target = e.target as HTMLElement;
+                if (target.closest("#cb-d-react")) {
+                  e.stopPropagation();
+                }
+              }}
+              style={{
+                backgroundColor: "transparent",
+                touchAction: "manipulation",
+              }}
+              aria-hidden
+            />
+            {/* Wrapper pushes dropdown to widget right; z-[100000] keeps it above overlay so touches hit menu */}
+            <div className="absolute inset-0 flex justify-end items-start pt-2 pr-2 pointer-events-none z-[100000]">
+              {dropdownContent}
+            </div>
+          </>,
+          menuPortalRef.current
+        )}
+      {/* Close menu when clicking outside — only when NOT using portal (inline dropdown) */}
+      {menuOpen && !usePortal && (
         <div
           className="fixed inset-0 z-[99999] pointer-events-auto"
           onClick={(e) => {
