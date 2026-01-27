@@ -285,7 +285,7 @@ export function WidgetMenu() {
               // Responsive maxHeight: 400px on mobile, 540px on desktop
               maxHeight:
                 typeof window !== "undefined" && window.innerWidth < 640
-                  ? 400
+                  ? 300
                   : 540,
             }}
           >
