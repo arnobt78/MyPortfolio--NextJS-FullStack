@@ -3,11 +3,13 @@
 import * as React from "react";
 import { useChat } from "@/hooks/use-chat";
 import { useWidgetSettings } from "@/hooks/use-widget-settings";
+import { useChatbotTheme } from "@/hooks/use-chatbot-theme";
 import { useLanguage } from "@/context/LanguageContext";
 import { WidgetMenu } from "./widget-menu";
 // Button component not used in this file
 import { cn } from "@/lib/utils";
 import { FONT_SIZES } from "@/lib/constants";
+import { CHATBOT_CSS_VARS } from "@/lib/chatbot-theme";
 import { X, Send, Bot } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { ChatHistorySkeleton } from "./message-skeleton";
@@ -25,7 +27,8 @@ export function ChatbotWidget() {
     isLoading,
     error,
   } = useChat();
-  const { fontSize, position, theme } = useWidgetSettings();
+  const { fontSize, position } = useWidgetSettings();
+  const tokens = useChatbotTheme();
   const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -38,18 +41,6 @@ export function ChatbotWidget() {
     greeting: t("chatbot.greeting"),
     placeholder: t("chatbot.placeholder"),
   });
-
-  // Theme-aware colors for smooth transitions
-  const isDark = theme === "dark";
-  const widgetBg = isDark ? "rgb(17, 24, 39)" : "rgb(255, 255, 255)"; // gray-900 : white
-  const widgetBorder = isDark ? "rgb(55, 65, 81)" : "rgb(229, 231, 235)"; // gray-700 : gray-200
-  const headerBorder = isDark ? "rgb(31, 41, 55)" : "rgb(243, 244, 246)"; // gray-800 : gray-100
-  const messagesBg = isDark ? "rgb(3, 7, 18)" : "rgb(249, 250, 251)"; // gray-950 : gray-50
-  const inputBg = isDark ? "rgb(31, 41, 55)" : "rgb(249, 250, 251)"; // gray-800 : gray-50
-  const inputBorder = isDark ? "rgb(55, 65, 81)" : "rgb(229, 231, 235)"; // gray-700 : gray-200
-  const inputFocusRing = isDark ? "rgb(75, 85, 99)" : "rgb(229, 231, 235)"; // gray-600 : gray-200
-  const inputTextColor = isDark ? "rgb(255, 255, 255)" : "rgb(17, 24, 39)"; // white : gray-900
-  const buttonHoverBg = isDark ? "rgb(31, 41, 55)" : "rgb(243, 244, 246)"; // gray-800 : gray-100
 
   // Load config from window after mount to avoid hydration mismatch
   // Also update when language changes
@@ -170,36 +161,39 @@ export function ChatbotWidget() {
             : "opacity-0 scale-95 pointer-events-none w-0 h-0 sm:w-0 sm:h-0",
           fontSizeClasses.base,
         )}
-        style={{
-          pointerEvents: isOpen ? "auto" : "none",
-          borderRadius: "1rem",
-          overflow: "hidden",
-          isolation: "isolate",
-          display: "flex",
-          flexDirection: "column",
-          // On mobile: use fixed height from className (h-[calc(100vh-5rem)])
-          // On desktop: height is set via className (sm:h-[600px])
-          // Only set to 0 when closed
-          height: isOpen ? undefined : 0,
-          outline: "none",
-          // Explicit background and border colors synchronized with theme
-          backgroundColor: widgetBg,
-          borderColor: widgetBorder,
-          // Smooth transitions only for background and border
-          transition:
-            "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
-          willChange: "background-color, border-color",
-        }}
+        style={
+          {
+            pointerEvents: isOpen ? "auto" : "none",
+            borderRadius: "1rem",
+            overflow: "hidden",
+            isolation: "isolate",
+            display: "flex",
+            flexDirection: "column",
+            // On mobile: use fixed height from className (h-[calc(100vh-5rem)])
+            // On desktop: height is set via className (sm:h-[600px])
+            // Only set to 0 when closed
+            height: isOpen ? undefined : 0,
+            outline: "none",
+            // Theme tokens + CSS vars for scrollbar (instant sync, same render)
+            backgroundColor: tokens.widgetBg,
+            borderColor: tokens.widgetBorder,
+            [CHATBOT_CSS_VARS.scrollbarThumb]: tokens.scrollbarThumb,
+            [CHATBOT_CSS_VARS.scrollbarThumbHover]: tokens.scrollbarThumbHover,
+            [CHATBOT_CSS_VARS.scrollbarTrack]: "transparent",
+            /* No transition on bg/border — theme change is instant so header/body/input/scrollbar sync at once */
+            transition:
+              "opacity 0.2s ease-in-out, transform 0.2s ease-in-out",
+            willChange: "background-color, border-color",
+          } as React.CSSProperties
+        }
         tabIndex={-1}
       >
         {/* Header - Always visible, sticky at top */}
         <div
           className="flex items-center justify-between px-3 sm:px-5 py-3 sm:py-4 border-b shrink-0 relative z-[100000]"
           style={{
-            backgroundColor: widgetBg,
-            borderColor: headerBorder,
-            transition:
-              "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
+            backgroundColor: tokens.widgetBg,
+            borderColor: tokens.headerBorder,
             // Ensure header is always visible and not clipped
             position: "relative",
             flexShrink: 0,
@@ -211,10 +205,8 @@ export function ChatbotWidget() {
               <Bot className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
             </div>
             <h3
-              className={cn(
-                "font-semibold text-gray-900 dark:text-white truncate min-w-0",
-                fontSizeClasses.base,
-              )}
+              className={cn("font-semibold truncate min-w-0", fontSizeClasses.base)}
+              style={{ color: tokens.headerTitle }}
             >
               {config.title}
             </h3>
@@ -242,8 +234,7 @@ export function ChatbotWidget() {
             minHeight: 0,
             maxHeight: "100%",
             WebkitOverflowScrolling: "touch",
-            backgroundColor: messagesBg,
-            transition: "background-color 0.2s ease-in-out",
+            backgroundColor: tokens.messagesBg,
             // Ensure messages container doesn't push header out of view
             flex: "1 1 auto",
             overflowY: "auto",
@@ -262,7 +253,7 @@ export function ChatbotWidget() {
                 <p className="text-red-500 dark:text-red-400 mb-2">
                   {t("chatbot.error.loadHistory")}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm" style={{ color: tokens.mutedText }}>
                   {t("chatbot.error.refresh")}
                 </p>
               </div>
@@ -272,7 +263,7 @@ export function ChatbotWidget() {
           {/* Empty state - greeting */}
           {messages.length === 0 && !isLoading && !error && (
             <div className="flex items-center justify-center h-full">
-              <p className="text-gray-500 dark:text-gray-400 text-center">
+              <p className="text-center" style={{ color: tokens.mutedText }}>
                 {config.greeting}
               </p>
             </div>
@@ -290,18 +281,31 @@ export function ChatbotWidget() {
               )}
             >
               {msg.role === "user" ? (
-                <div className="bg-black text-white rounded-2xl rounded-br-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-600">
+                <div
+                  className="bg-black text-white rounded-2xl rounded-br-md px-4 py-3 max-w-[85%] border"
+                  style={{ borderColor: tokens.messageUserBorder }}
+                >
                   <div className="whitespace-pre-wrap break-words">
                     {msg.content}
                   </div>
                 </div>
               ) : (
-                <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-700 shadow-sm">
+                <div
+                  className="rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border shadow-sm"
+                  style={{
+                    backgroundColor: tokens.messageBotBg,
+                    color: tokens.messageBotText,
+                    borderColor: tokens.messageBotBorder,
+                  }}
+                >
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
                       <Bot className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <span
+                      className="text-sm font-medium"
+                      style={{ color: tokens.messageBotLabel }}
+                    >
                       {config.title}
                     </span>
                   </div>
@@ -316,12 +320,22 @@ export function ChatbotWidget() {
           {/* Streaming message */}
           {isSending && streamingMessage && (
             <div className="flex justify-start">
-              <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-700 shadow-sm">
+              <div
+                className="rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border shadow-sm"
+                style={{
+                  backgroundColor: tokens.messageBotBg,
+                  color: tokens.messageBotText,
+                  borderColor: tokens.messageBotBorder,
+                }}
+              >
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
                     <Bot className="w-4 h-4 text-white" />
                   </div>
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: tokens.messageBotLabel }}
+                  >
                     {config.title}
                   </span>
                 </div>
@@ -336,8 +350,18 @@ export function ChatbotWidget() {
           {/* Typing indicator */}
           {isSending && !streamingMessage && (
             <div className="flex justify-start">
-              <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border border-gray-200 dark:border-gray-700 shadow-sm">
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <div
+                className="rounded-2xl rounded-bl-md px-4 py-3 max-w-[85%] border shadow-sm"
+                style={{
+                  backgroundColor: tokens.messageBotBg,
+                  color: tokens.messageBotText,
+                  borderColor: tokens.messageBotBorder,
+                }}
+              >
+                <div
+                  className="flex items-center gap-2 text-sm"
+                  style={{ color: tokens.typingText }}
+                >
                   <div className="flex gap-1">
                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
                     <span
@@ -363,10 +387,8 @@ export function ChatbotWidget() {
           onSubmit={handleSubmit}
           className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-3 sm:py-4 border-t shrink-0"
           style={{
-            backgroundColor: widgetBg,
-            borderColor: headerBorder,
-            transition:
-              "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out",
+            backgroundColor: tokens.widgetBg,
+            borderColor: tokens.headerBorder,
           }}
         >
           <input
@@ -387,14 +409,15 @@ export function ChatbotWidget() {
               fontSizeClasses.base === "text-base" && "sm:text-base",
             )}
             style={{
-              backgroundColor: inputBg,
-              borderColor: inputBorder,
-              color: inputTextColor,
+              backgroundColor: tokens.inputBg,
+              borderColor: tokens.inputBorder,
+              color: tokens.inputTextColor,
               borderWidth: "1px",
               borderStyle: "solid",
-              boxShadow: inputFocused ? `0 0 0 2px ${inputFocusRing}` : "none",
-              transition:
-                "background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out",
+              boxShadow: inputFocused
+                ? `0 0 0 2px ${tokens.inputFocusRing}`
+                : "none",
+              transition: "box-shadow 0.2s ease-in-out",
             }}
             onFocus={() => setInputFocused(true)}
             onBlur={() => setInputFocused(false)}
@@ -406,19 +429,20 @@ export function ChatbotWidget() {
             className="p-2 sm:p-3 rounded-full disabled:opacity-50 shrink-0"
             style={{
               backgroundColor: "transparent",
+              color: tokens.sendIcon,
               transition:
                 "background-color 0.2s ease-in-out, opacity 0.2s ease-in-out",
             }}
             onMouseEnter={(e) => {
               if (!e.currentTarget.disabled) {
-                e.currentTarget.style.backgroundColor = buttonHoverBg;
+                e.currentTarget.style.backgroundColor = tokens.buttonHoverBg;
               }
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "transparent";
             }}
           >
-            <Send className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300" />
+            <Send className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: "inherit" }} />
           </button>
         </form>
       </div>

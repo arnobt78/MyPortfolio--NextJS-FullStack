@@ -803,6 +803,32 @@
     scrollbar-color: rgb(17, 24, 39) transparent; /* Dark mode: gray-900 thumb, transparent track */
   }
 
+  /* Chatbot scrollbar uses CSS vars from theme tokens (set on #cb-react) — instant sync with theme */
+  /* Track: always transparent so only the thumb changes color with mode — no flash in scrollbar area */
+  #cb-react .chatbot-messages-scrollbar::-webkit-scrollbar-track,
+  [id="cb-react"] .chatbot-messages-scrollbar::-webkit-scrollbar-track {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Thumb: no transition — direct mode change, no middle flash */
+  #cb-react .chatbot-messages-scrollbar::-webkit-scrollbar-thumb,
+  [id="cb-react"] .chatbot-messages-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--chat-scrollbar-thumb, rgb(229, 231, 235)) !important;
+    border-radius: 3px;
+  }
+
+  #cb-react .chatbot-messages-scrollbar::-webkit-scrollbar-thumb:hover,
+  [id="cb-react"] .chatbot-messages-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--chat-scrollbar-thumb-hover, rgb(209, 213, 219)) !important;
+  }
+
+  #cb-react .chatbot-messages-scrollbar,
+  [id="cb-react"] .chatbot-messages-scrollbar {
+    scrollbar-color: var(--chat-scrollbar-thumb, rgb(229, 231, 235))
+      transparent !important;
+  }
+
   /* Ensure messages container has proper scrolling */
   #cb-react .chatbot-messages-scrollbar {
     min-height: 0 !important;
@@ -822,10 +848,10 @@
     background-clip: padding-box !important;
     /* Remove all default focus outlines */
     outline: none !important;
-    /* Ensure smooth border color transitions - synchronized with child elements */
+    /* Only opacity/transform for open/close — no bg/border transition so theme change is instant and header/body/input/scrollbar sync at once */
     transition:
-      border-color 0.2s ease-in-out,
-      background-color 0.2s ease-in-out !important;
+      opacity 0.2s ease-in-out,
+      transform 0.2s ease-in-out !important;
     /* Ensure flex layout works correctly - header and input stay visible */
     display: flex !important;
     flex-direction: column !important;
@@ -859,12 +885,10 @@
     position: relative !important;
   }
 
-  /* Synchronize all child element transitions with parent */
+  /* No bg/border transition on children — theme change is instant so header/body/input sync at once */
   #cb-react > *,
   [id="cb-react"] > * {
-    transition:
-      background-color 0.2s ease-in-out,
-      border-color 0.2s ease-in-out !important;
+    transition: none !important;
   }
 
   /* Remove focus outline from widget body - prevent flash on mode change */
