@@ -282,11 +282,11 @@ export function WidgetMenu() {
               pointerEvents: "auto",
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
-              // Responsive maxHeight: 400px on mobile, 540px on desktop
+              // Strict height on phone so content is wrapped inside and scrolls natively
               maxHeight:
                 typeof window !== "undefined" && window.innerWidth < 640
-                  ? 300
-                  : 540,
+                  ? "300px"
+                  : "540px",
             }}
           >
             {/* Theme Toggle */}

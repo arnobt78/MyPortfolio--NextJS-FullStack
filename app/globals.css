@@ -841,40 +841,4 @@
   body > div:has([id="cb-react"]) {
     overflow: visible !important;
   }
-
-  /* Make widget menu dropdown scrollable on mobile */
-  #cb-d-react,
-  [id="cb-d-react"] {
-    /* Enable smooth scrolling on mobile */
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: thin !important;
-    scrollbar-color: rgba(156, 163, 175, 0.5) transparent !important;
-    /* Prevent touch events from propagating to background */
-    touch-action: pan-y !important;
-    /* Ensure menu captures all touch events */
-    overscroll-behavior: contain !important;
-  }
-
-  /* Custom scrollbar for dropdown menu on mobile */
-  #cb-d-react::-webkit-scrollbar,
-  [id="cb-d-react"]::-webkit-scrollbar {
-    width: 4px !important;
-    display: block !important;
-  }
-
-  #cb-d-react::-webkit-scrollbar-track,
-  [id="cb-d-react"]::-webkit-scrollbar-track {
-    background: transparent !important;
-  }
-
-  #cb-d-react::-webkit-scrollbar-thumb,
-  [id="cb-d-react"]::-webkit-scrollbar-thumb {
-    background: rgba(156, 163, 175, 0.5) !important;
-    border-radius: 2px !important;
-  }
-
-  #cb-d-react::-webkit-scrollbar-thumb:hover,
-  [id="cb-d-react"]::-webkit-scrollbar-thumb:hover {
-    background: rgba(156, 163, 175, 0.7) !important;
-  }
 }
