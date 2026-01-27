@@ -270,8 +270,8 @@
   /* Target PageTransition wrapper */
   body > div[class*="framer-motion"] > div,
   /* Target any div with overflow-y-auto that's not explicitly needed */
-  /* Exclude chatbot menu #cb-d-react so it keeps overflow-y: auto and scrolls inside 300px */
-  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react) {
+  /* Exclude chatbot menu #cb-d-react and messages container so they keep overflow-y: auto and scroll */
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react):not(.chatbot-messages-scrollbar) {
     overflow-y: visible !important;
     overflow: visible !important;
     scrollbar-width: none !important;
@@ -283,7 +283,7 @@
   body > div > div[class*="container"]::-webkit-scrollbar,
   [class*="animate-ease-in-out"]:not([data-radix-scroll-area-root]):not([data-radix-scroll-area-viewport])::-webkit-scrollbar,
   body > div[class*="framer-motion"] > div::-webkit-scrollbar,
-  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react)::-webkit-scrollbar {
+  div[class*="overflow-y-auto"]:not(.custom-scrollbar):not([data-radix-scroll-area-viewport]):not(#cb-d-react):not(.chatbot-messages-scrollbar)::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -782,6 +782,9 @@
     outline: none !important;
     /* Ensure smooth border color transitions - synchronized with child elements */
     transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
+    /* Ensure flex layout works correctly - header and input stay visible */
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   /* CRITICAL: Ensure header is always visible on mobile - prevent clipping */
@@ -841,5 +844,39 @@
   body > div:has(#cb-react),
   body > div:has([id="cb-react"]) {
     overflow: visible !important;
+  }
+
+  /* =========================================================
+     HARD ISOLATION FIX FOR CHATBOT DROPDOWN (MOBILE)
+     ========================================================= */
+  #cb-d-react,
+  [id="cb-d-react"] {
+    position: relative !important;
+
+    /* Enforce the 300px boundary on mobile */
+    max-height: 300px !important;
+    height: auto !important;
+
+    /* THIS enables scrolling */
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    /* Break out of parent overflow: visible */
+    contain: layout paint !important;
+    isolation: isolate !important;
+
+    /* iOS momentum scrolling */
+    -webkit-overflow-scrolling: touch !important;
+
+    /* Ensure it receives touch events */
+    touch-action: pan-y !important;
+  }
+
+  /* Desktop: allow larger menu height */
+  @media (min-width: 640px) {
+    #cb-d-react,
+    [id="cb-d-react"] {
+      max-height: 540px !important;
+    }
   }
 }

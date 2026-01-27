@@ -269,20 +269,8 @@ export function WidgetMenu() {
             className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 py-2 z-[100000] pointer-events-auto overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
             onMouseDown={(e) => e.stopPropagation()}
-            onTouchStart={(e) => {
-              e.stopPropagation();
-            }}
-            onTouchMove={(e) => {
-              e.stopPropagation();
-            }}
-            onTouchEnd={(e) => {
-              e.stopPropagation();
-            }}
             style={{
-              pointerEvents: "auto",
-              overflowY: "auto",
-              WebkitOverflowScrolling: "touch",
-              // Strict height on phone so content is wrapped inside and scrolls natively
+              // Responsive height: CSS handles overflow and scrolling, we only set max-height
               maxHeight:
                 typeof window !== "undefined" && window.innerWidth < 640
                   ? "300px"
@@ -647,7 +635,7 @@ export function WidgetMenu() {
               e.stopPropagation();
             }
           }}
-          style={{ backgroundColor: "transparent", touchAction: "none" }}
+          style={{ backgroundColor: "transparent", touchAction: "manipulation" }}
         />
       )}
     </>
